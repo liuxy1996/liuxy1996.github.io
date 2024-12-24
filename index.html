@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Christmas Tree</title>
+    <style>
+        body {
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .tree {
+            position: relative;
+            width: 0;
+            border-left: 125px solid transparent;
+            border-right: 125px solid transparent;
+            border-bottom: 250px solid #4caf50;
+        }
+        .tree:before {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: -85px;
+            border-left: 85px solid transparent;
+            border-right: 85px solid transparent;
+            border-bottom: 170px solid #66bb6a;
+        }
+        .tree:after {
+            content: '';
+            position: absolute;
+            top: 180px;
+            left: -45px;
+            border-left: 45px solid transparent;
+            border-right: 45px solid transparent;
+            border-bottom: 90px solid #81c784;
+        }
+        .trunk {
+            width: 40px;
+            height: 60px;
+            background: #795548;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -60px;
+        }
+        .star {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 40px;
+            height: 40px;
+            background: #ffd700;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+    </style>
+</head>
+<body>
+    <div class="tree">
+        <div class="star"></div>
+        <div class="trunk"></div>
+    </div>
+</body>
+</html>
