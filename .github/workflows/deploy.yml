@@ -30,6 +30,30 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Try to switch Pages to Actions source
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Give the legacy Pages build triggered by this push time to finish.
+          sleep 50
+          get_code=$(curl -sS -o /tmp/pages-before.json -w '%{http_code}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")
+          before=$(tr '\n' ' ' < /tmp/pages-before.json | head -c 600)
+          echo "Pages GET HTTP ${get_code}: ${before}"
+          put_code=$(curl -sS -o /tmp/pages-after.json -w '%{http_code}' -X PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" \
+            -d '{"build_type":"workflow"}')
+          after=$(tr '\n' ' ' < /tmp/pages-after.json | head -c 600)
+          echo "Pages PUT HTTP ${put_code}: ${after}"
+          echo "::warning title=Pages source update::GET ${get_code}; PUT ${put_code}; ${after}"
+
       - name: Install dependencies
         run: npm ci
 
