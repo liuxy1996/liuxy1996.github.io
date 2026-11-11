@@ -54,7 +54,7 @@ npm run preview
 3. 上传 `out/` 到 Pages artifact
 4. 通过 GitHub Pages 部署
 
-工作流会先用 `GITHUB_TOKEN` 尝试把 Pages 的构建类型切换为 `workflow`。如果仓库策略阻止这一步，需要在 **Settings → Pages → Build and deployment → Source** 手动选择 **GitHub Actions**。
+建议在 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。当前部署由 Actions 成功完成；如果仓库仍保留早期的分支发布 Source，GitHub 可能在推送时额外执行一次 legacy Pages 构建，建议手动切换以保持部署路径唯一。
 
 站点部署在 `<username>.github.io` 根路径，因此 `next.config.ts` 中不需要 `basePath`。如果以后迁移到项目页（`<username>.github.io/repo/`），要同时配置 `basePath` 并调整静态资源路径。
 
@@ -96,3 +96,4 @@ python scripts/import_guide.py path/to/source.html
 - 学习内容参考 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 第 1–16 章，经过精简、重排和补充示例。它不是官方教程的替代品。
 - 站点没有后端。Python 在浏览器中执行，因此不支持 `input()`、系统命令以及所有依赖原生扩展的第三方包。
 - 生成环境会从 `node_modules/pyodide` 复制运行时资源到 `public/pyodide/`；该目录不提交到 Git，构建时自动生成。
+- 课程内容是对 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 的独立精简与重排；原教程版权归 Python Software Foundation 所有（PSF License 2.0）。站点代码与版式由 liuxy1996 维护。
