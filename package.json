@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "npm run sync:pyodide && next dev",
     "build": "npm run sync:pyodide && next build && node scripts/fix-static-rsc.mjs",
+    "build:pages": "npm run build && node scripts/export-static-to-root.mjs",
     "preview": "python -m http.server 4173 --directory out",
     "sync:pyodide": "node scripts/sync-pyodide.mjs",
     "typecheck": "tsc --noEmit",

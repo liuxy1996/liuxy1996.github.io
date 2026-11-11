@@ -23,7 +23,7 @@ Python 自习室是一个零后端的 Python 学习站：16 章精简课程、�
 | UI | React 19 + TypeScript + 手写 CSS |
 | 代码编辑器 | CodeMirror 6 |
 | Python | Pyodide（CPython → WebAssembly） |
-| 部署 | GitHub Actions → GitHub Pages |
+| 部署 | GitHub Pages（`main` 分支根目录） |
 
 ## 本地运行
 
@@ -47,14 +47,23 @@ npm run preview
 
 ## 部署
 
-推送到 `main` 后，[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) 会：
+这个仓库的 GitHub Pages 目前从 **`main` 分支根目录**发布。因为 GitHub Pages 的发布 Source 是分支而不是 workflow，仓库根目录同时保存：
 
-1. 安装依赖
-2. 执行 `npm run build`
-3. 上传 `out/` 到 Pages artifact
-4. 通过 GitHub Pages 部署
+- Next.js 源码：`app/`、`components/`、`content/` 等
+- 编译后的静态站点：`index.html`、`_next/`、`book/`、`pyodide/` 等
 
-建议在 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。当前部署由 Actions 成功完成；如果仓库仍保留早期的分支发布 Source，GitHub 可能在推送时额外执行一次 legacy Pages 构建，建议手动切换以保持部署路径唯一。
+发布新版本时运行：
+
+```bash
+npm run build:pages
+git add -A
+git commit -m "Publish site update"
+git push origin main
+```
+
+`build:pages` 会先构建，再把 `out/` 中的文件同步到仓库根目录。生成的根目录文件不要直接手改；要改内容请改源码后重新发布。`.static-export-manifest.json` 记录上一版生成文件，发布脚本会用它清理旧产物。
+
+仓库中的 GitHub Actions 只做构建检查，不会与分支 Pages 发布竞争。
 
 站点部署在 `<username>.github.io` 根路径，因此 `next.config.ts` 中不需要 `basePath`。如果以后迁移到项目页（`<username>.github.io/repo/`），要同时配置 `basePath` 并调整静态资源路径。
 
