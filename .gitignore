@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Generated Pyodide runtime (copied during dev/build)
+public/pyodide/
+
+# Local artifacts
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
