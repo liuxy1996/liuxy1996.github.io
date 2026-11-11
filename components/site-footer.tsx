@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="footer-brand-block">
           <div className="footer-brand">
             <span className="brand-mark" aria-hidden="true">
-              <span>py</span>
+              <span>sr</span>
               <i />
             </span>
             <div>
@@ -18,16 +18,17 @@ export function SiteFooter() {
             </div>
           </div>
           <p>
-            一本可以运行的书，一档陪你理解编程的播客。
+            一个关于代码、智能与长期成长的个人学习博客。
             <br />
-            在浏览器里读、写、运行，不需要安装环境。
+            读、写、运行，然后回到真实的问题里。
           </p>
         </div>
 
         <div className="footer-links">
           <div>
             <span className="footer-label">EXPLORE</span>
-            <Link href="/book/">课程</Link>
+            <Link href="/notes/">笔记</Link>
+            <Link href="/blog/">博客</Link>
             <Link href="/podcast/">播客</Link>
             <Link href="/playground/">练习场</Link>
             <Link href="/about/">关于</Link>

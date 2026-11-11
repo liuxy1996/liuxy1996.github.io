@@ -6,18 +6,20 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Menu, Search, X } from "@/components/icons";
 import { SearchDialog } from "@/components/search-dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { chapters, stats, totalReadingTime } from "@/lib/chapters";
+import { chapters, site, stats, totalReadingTime } from "@/lib/chapters";
 
 const navigation = [
-  { href: "/book", label: "课程" },
-  { href: "/podcast", label: "播客" },
-  { href: "/playground", label: "练习场" },
-  { href: "/about", label: "关于" },
+  { href: "/notes", label: "笔记", matches: ["/notes", "/book"] },
+  { href: "/blog", label: "博客", matches: ["/blog"] },
+  { href: "/podcast", label: "播客", matches: ["/podcast"] },
+  { href: "/playground", label: "练习场", matches: ["/playground"] },
+  { href: "/about", label: "关于", matches: ["/about"] },
 ];
 
-function isActive(pathname: string, href: string): boolean {
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
+function isActive(pathname: string, matches: string[]): boolean {
+  return matches.some(
+    (href) => pathname === href || pathname.startsWith(`${href}/`),
+  );
 }
 
 export function SiteHeader() {
@@ -60,14 +62,14 @@ export function SiteHeader() {
     <>
       <header className="site-header">
         <div className="container header-inner">
-          <Link href="/" className="brand" aria-label="Python 自习室首页">
+          <Link href="/" className="brand" aria-label={`${site.name}首页`}>
             <span className="brand-mark" aria-hidden="true">
-              <span>py</span>
+              <span>sr</span>
               <i />
             </span>
             <span className="brand-wordmark">
-              <strong>Python 自习室</strong>
-              <small>PYTHON STUDY ROOM</small>
+              <strong>{site.name}</strong>
+              <small>THE STUDY ROOM</small>
             </span>
           </Link>
 
@@ -76,7 +78,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={isActive(pathname, item.href) ? "is-active" : ""}
+                className={isActive(pathname, item.matches) ? "is-active" : ""}
               >
                 {item.label}
               </Link>
@@ -91,7 +93,7 @@ export function SiteHeader() {
                 setMenuOpen(false);
                 setSearchOpen(true);
               }}
-              aria-label="搜索课程"
+              aria-label="搜索笔记与文章"
             >
               <Search />
               <span>搜索</span>
@@ -122,7 +124,7 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={isActive(pathname, item.href) ? "is-active" : ""}
+                  className={isActive(pathname, item.matches) ? "is-active" : ""}
                 >
                   <span>0{index + 1}</span>
                   {item.label}
@@ -132,9 +134,9 @@ export function SiteHeader() {
             </nav>
             <div className="mobile-navigation-foot">
               <div>
-                <span>完整课程</span>
+                <span>学习与写作</span>
                 <strong>
-                  {stats.chapters} 章 · {totalReadingTime(stats.minutes)}
+                  {stats.chapters} 章笔记 · {totalReadingTime(stats.minutes)}
                 </strong>
               </div>
               <Link

@@ -1,18 +1,18 @@
-# Python 自习室
+# 自习室
 
-> 一本可以运行的书，一档陪你理解编程的播客。
+> 技术、思想与长期成长。
 
-Python 自习室是一个零后端的 Python 学习站：16 章精简课程、浏览器内代码执行、阅读进度保存和播客栏目框架。站点通过 Next.js 静态导出，部署在 GitHub Pages。
+自习室是一个零后端的个人学习博客：可以运行的 Python 手册、正在生长的 AI Agent 与 Rust 笔记、工程项目与在线简历，以及一档关于技术、选择与长期成长的声音杂志。站点使用 Next.js 静态导出，部署在 GitHub Pages。
 
 线上地址：<https://liuxy1996.github.io/>
 
-## 功能
+## 内容
 
-- **16 章、59 个知识点**：从解释器、数字、字符串和列表，一直覆盖到模块、异常、类、标准库与虚拟环境。
-- **浏览器内 Python**：基于 Pyodide 0.28.3 + Web Worker，不请求后端即可运行代码。首次加载运行时约 10 MB，之后会从浏览器缓存读取。
-- **阅读理解体验**：章节目录、当前小节高亮、上一章/下一章、完成标记、阅读进度、深浅色主题。
-- **全文搜索**：完全在浏览器中检索 59 个知识点。
-- **Podcast 框架**：节目列表、发刊词、单集元数据和音频播放器都已准备好；音频上线后即可使用。
+- **笔记**：16 章 Python 学习手册，59 个知识点，50 段可运行代码；AI Agent、Rust、工程案例与在线简历正在整理。
+- **博客**：关于 AI、编程基本功、语言选择与学习方法的文章。
+- **播客**：自习室电台，第一季正在策划；发刊词文字稿已经上线。
+- **练习场**：基于 Pyodide + Web Worker，在浏览器本地运行 Python。
+- **阅读体验**：章节目录、进度标记、全文搜索、深浅色主题和移动端适配。
 - **无账号、无追踪**：学习进度只保存在 `localStorage`。
 
 ## 技术栈
@@ -43,14 +43,14 @@ npm run build
 npm run preview
 ```
 
-`preview` 会在 <http://localhost:4173> 启动一个静态文件服务器，用来检查真正部署的 `out/` 产物。
+`preview` 会在 <http://localhost:4173> 启动静态文件服务器，用来检查真正的 `out/` 产物。
 
 ## 部署
 
-这个仓库的 GitHub Pages 目前从 **`main` 分支根目录**发布。因为 GitHub Pages 的发布 Source 是分支而不是 workflow，仓库根目录同时保存：
+这个仓库的 GitHub Pages 从 **`main` 分支根目录**发布。因此仓库根目录同时保存：
 
 - Next.js 源码：`app/`、`components/`、`content/` 等
-- 编译后的静态站点：`index.html`、`_next/`、`book/`、`pyodide/` 等
+- 编译后的静态站点：`index.html`、`_next/`、`book/`、`blog/`、`pyodide/` 等
 
 发布新版本时运行：
 
@@ -61,11 +61,9 @@ git commit -m "Publish site update"
 git push origin main
 ```
 
-`build:pages` 会先构建，再把 `out/` 中的文件同步到仓库根目录。生成的根目录文件不要直接手改；要改内容请改源码后重新发布。`.static-export-manifest.json` 记录上一版生成文件，发布脚本会用它清理旧产物。
+`build:pages` 会先构建，再把 `out/` 里的文件同步到仓库根目录。生成文件不要直接手改；修改内容请改源码后重新发布。`.static-export-manifest.json` 记录上一版生成文件，发布脚本会用它清理旧产物。
 
-仓库中的 GitHub Actions 只做构建检查，不会与分支 Pages 发布竞争。
-
-站点部署在 `<username>.github.io` 根路径，因此 `next.config.ts` 中不需要 `basePath`。如果以后迁移到项目页（`<username>.github.io/repo/`），要同时配置 `basePath` 并调整静态资源路径。
+仓库中的 GitHub Actions 只做构建检查，不执行部署，避免与分支发布竞争。
 
 ### 静态导出的 RSC 路径
 
@@ -73,36 +71,53 @@ Next 16 某些版本会把预取的 RSC 数据写到 `__next.book/__PAGE__.txt`�
 
 ## 内容结构
 
-- `content/chapters.json`：16 章的结构化内容。每个 topic 包含 HTML 段落和代码块。
-- `content/search-index.json`：由章节内容生成的本地搜索索引。
-- `content/podcast.ts`：播客节目信息与发刊词。
+- `content/chapters.json`：Python 手册的 16 章结构化内容。
+- `content/search-index.json`：章节搜索索引。
+- `content/posts.json`：博客文章。
+- `content/podcast.ts`：播客节目与发刊词。
+- `app/notes/page.tsx`：学习笔记入口。
+- `app/blog/`：博客文章列表和详情页。
 - `app/book/[slug]/page.tsx`：章节阅读页。
-- `components/code-block.tsx`：可复制 / 可运行的代码块。
 - `components/python-workbench.tsx`：CodeMirror + Pyodide 执行工作台。
-- `public/pyodide-worker.js`：加载 Pyodide 并执行 Python 的 Web Worker。
-- `scripts/import_guide.py`：从早期单页 HTML 指南重新导入章节数据。
+- `public/pyodide-worker.js`：加载 Pyodide、执行 Python 的 Web Worker。
+- `scripts/import_guide.py`：从早期单页 HTML 指南重新导入 Python 章节。
 
-### 修改章节内容
+### 添加博客文章
 
-通常情况下，直接编辑 `content/chapters.json` 即可。也可以准备一份同样结构的源 HTML，然后运行：
+编辑 `content/posts.json`，添加新的文章对象：
 
-```bash
-python scripts/import_guide.py path/to/source.html
+```json
+{
+  "slug": "post-slug",
+  "title": "标题",
+  "subtitle": "摘要标题",
+  "category": "分类",
+  "date": "2026-11-11",
+  "readMinutes": 5,
+  "excerpt": "首页与列表中的摘要",
+  "sections": [
+    {
+      "heading": "小标题",
+      "paragraphs": ["段落一", "段落二"],
+      "quote": "可选的引用"
+    }
+  ],
+  "takeaways": ["要点一", "要点二"]
+}
 ```
 
-注意：源指南文件不在本仓库内，生成结果已经提交到仓库。
+然后运行 `npm run build:pages` 并提交。
 
 ### 添加一期播客
 
 1. 把音频放到 `public/audio/`，例如 `public/audio/ep-01.mp3`。
 2. 编辑 `content/podcast.ts`，为对应条目设置 `audioSrc: "/audio/ep-01.mp3"`。
-3. 将 `status` 改为 `录制中` 或 `已上线`。
+3. 把 `status` 改为 `录制中` 或 `即将上线`。
 
 页面会自动显示原生音频播放器。当前 RSS 订阅入口保持关闭，等第一期音频准备好后再接入播客 RSS（每期需要一个可公开访问的 MP3 enclosure URL）。如果把音频放到对象存储或播客平台，把对应的公开 URL 填到 `audioSrc` 即可。
 
 ## 说明
 
-- 学习内容参考 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 第 1–16 章，经过精简、重排和补充示例。它不是官方教程的替代品。
+- Python 内容参考 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 第 1–16 章，经过精简、重排和补充示例。原教程版权归 Python Software Foundation 所有（PSF License 2.0）。
 - 站点没有后端。Python 在浏览器中执行，因此不支持 `input()`、系统命令以及所有依赖原生扩展的第三方包。
 - 生成环境会从 `node_modules/pyodide` 复制运行时资源到 `public/pyodide/`；该目录不提交到 Git，构建时自动生成。
-- 课程内容是对 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 的独立精简与重排；原教程版权归 Python Software Foundation 所有（PSF License 2.0）。站点代码与版式由 liuxy1996 维护。

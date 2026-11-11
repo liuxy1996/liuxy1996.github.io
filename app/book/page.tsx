@@ -19,12 +19,12 @@ import {
 } from "@/lib/chapters";
 
 export const metadata: Metadata = {
-  title: "课程目录",
+  title: "Python 手册",
   description:
-    "Python 自习室的完整课程目录：16 章，从解释器、数字和字符串，到模块、异常、类、标准库与虚拟环境。",
+    "自习室的 Python 手册：16 章，从解释器、数字和字符串，到模块、异常、类、标准库与虚拟环境。",
   alternates: { canonical: "/book/" },
   openGraph: {
-    title: "课程目录｜Python 自习室",
+    title: "Python 手册｜自习室",
     description:
       "16 章、59 个知识点，一本可以运行代码的 Python 书。",
     url: "/book/",
@@ -37,7 +37,7 @@ export default function BookIndexPage() {
       <header className="book-index-hero">
         <div className="container book-index-hero-grid">
           <div>
-            <span className="eyebrow">THE CURRICULUM / 01—16</span>
+            <span className="eyebrow">PYTHON / THE FIRST BOOK</span>
             <h1>
               不追进度，
               <br />
@@ -46,6 +46,7 @@ export default function BookIndexPage() {
             <p className="book-index-lede">
               这不是官方文档的搬家，而是一条重新排过序的学习路线。
               每一章保留真正重要的概念，每一段代码都可以打开、修改、运行。
+              它也是整间自习室里的第一本手册。
             </p>
             <div className="book-index-meta">
               <span>

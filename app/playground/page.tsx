@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     "在浏览器里直接写 Python：无需安装，代码只在本机执行。适合配合课程做实验、验证语法和练习小项目。",
   alternates: { canonical: "/playground/" },
   openGraph: {
-    title: "Python 练习场｜Python 自习室",
+    title: "Python 练习场｜自习室",
     description: "在浏览器里写 Python，改一行，跑一下。",
     url: "/playground/",
   },
 };
 
-const starterCode = `# 欢迎来到 Python 自习室练习场
+const starterCode = `# 欢迎来到自习室练习场
 from collections import Counter
 
 sentence = "the quick brown fox jumps over the lazy dog"

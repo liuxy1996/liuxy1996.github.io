@@ -14,11 +14,11 @@ import { site, stats, totalReadingTime } from "@/lib/chapters";
 export const metadata: Metadata = {
   title: "关于这个项目",
   description:
-    "Python 自习室是一个静态的 Python 学习站点：Next.js 静态导出、浏览器内 Pyodide 执行、无账号、无追踪，进度只保存在本机。",
+    "自习室是一个关于代码、智能与长期成长的个人学习博客：Python 手册、AI Agent 与 Rust 笔记、工程案例和播客。静态、无账号、无追踪。",
   alternates: { canonical: "/about/" },
   openGraph: {
-    title: "关于这个项目｜Python 自习室",
-    description: "一个很小的项目，想认真陪你学完。",
+    title: "关于这个项目｜自习室",
+    description: "一个长期生长的项目，想认真陪你学下去。",
     url: "/about/",
   },
 };
@@ -29,13 +29,13 @@ export default function AboutPage() {
       <header className="container about-hero">
         <span className="eyebrow">ABOUT / A SMALL PROJECT</span>
         <h1>
-          一个很小的项目，
+          一个长期生长的项目，
           <br />
-          想认真陪你<em>学完。</em>
+          想认真陪你<em>学下去。</em>
         </h1>
         <p>
-          这里不是一所学校，也不是一个考试产品。它只是一份被重新编排过的 Python
-          学习材料，加上一点让代码真的跑起来的工具。
+          这里没有课程表，也不是一个考试产品。它是一间持续生长的自习室：
+          有可以运行的教程，有写下来的思考，也会慢慢出现 AI、Rust、项目案例与一档播客。
         </p>
       </header>
 
@@ -50,14 +50,14 @@ export default function AboutPage() {
             的人，往往不知道该怎样把那些章节串起来。读完了，却不知道自己到底会了什么。
           </p>
           <p>
-            于是有了这间「自习室」：把第 1 到 16
+            于是有了这间「自习室」：先把第 1 到 16
             章重新组织成一条路线，把概念压缩到可以读完的长度，把代码保留成可以运行的样子。
-            你不需要先配置环境，也不需要先决定要成为工程师。
+            但这不是终点。AI Agent、Rust、工程案例和在线简历会陆续加入，
+            让这里从一本 Python 手册，长成一个真正属于自己的学习档案。
           </p>
           <p>
-            学习播客是另一条线索。不是把书念一遍，而是把某一章里最难解释的部分，
-            换成适合散步、通勤和做家务时听的语言。音频会在准备好之后上线，
-            目前先留下一篇发刊词。
+            博客用来记录判断，播客用来把判断讲给自己听。它们不追热点，也不制造「学完就能改变人生」的幻觉。
+            更想留下的是：一个问题怎样被理解，一个选择为什么成立，以及我们怎样把普通的日子积累成能力。
           </p>
           <blockquote>
             先成为一个能读懂代码的人，再让工具替你加速。
@@ -74,10 +74,11 @@ export default function AboutPage() {
         <div className="principle-grid">
           <article>
             <span>01</span>
-            <h3>内容优先</h3>
+            <h3>理解优先</h3>
             <p>
               {stats.chapters} 章、{stats.topics} 个知识点，约{" "}
-              {totalReadingTime(stats.minutes)}。每一段示例都为解释概念服务。
+              {totalReadingTime(stats.minutes)}。每一段示例都为解释概念服务，
+              而不是为了把页面填满。
             </p>
           </article>
           <article>
@@ -90,10 +91,10 @@ export default function AboutPage() {
           </article>
           <article>
             <span>03</span>
-            <h3>保持可维护</h3>
+            <h3>持续生长</h3>
             <p>
-              不依赖数据库，不依赖运行时服务器。静态站点可以长期存在，
-              也方便你 fork 后改成自己的学习笔记。
+              从 Python 出发，下一站是 AI Agent、Rust 和真实案例。
+              先有正在做的问题，再有新的笔记。
             </p>
           </article>
         </div>
@@ -162,12 +163,12 @@ export default function AboutPage() {
         <p>如果这一切听起来还不坏，</p>
         <h2>那就从一页开始。</h2>
         <div>
-          <Link className="button button-accent" href="/book/">
-            翻开课程
+          <Link className="button button-accent" href="/notes/">
+            走进笔记库
             <ArrowRight />
           </Link>
-          <Link className="button button-ghost" href="/playground/">
-            直接运行代码
+          <Link className="button button-ghost" href="/blog/">
+            读读最近的文章
           </Link>
         </div>
       </section>

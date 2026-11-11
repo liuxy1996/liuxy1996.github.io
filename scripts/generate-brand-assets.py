@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DATA = json.loads((ROOT / "content" / "chapters.json").read_text(encoding="utf-8"))
+POSTS = json.loads((ROOT / "content" / "posts.json").read_text(encoding="utf-8"))
 
 DARK = "#0b221a"
 FOREST = "#123a2e"
@@ -33,8 +34,8 @@ def draw_brand_mark(draw: ImageDraw.ImageDraw, x: int, y: int, size: int) -> Non
     draw.rounded_rectangle(
         (x, y, x + size, y + size), radius=int(size * 0.23), fill=FOREST
     )
-    logo_font = font(FONT_MONO, int(size * 0.43))
-    draw.text((x + size * 0.18, y + size * 0.23), "py", font=logo_font, fill=LIME)
+    logo_font = font(FONT_MONO, int(size * 0.4))
+    draw.text((x + size * 0.19, y + size * 0.24), "sr", font=logo_font, fill=LIME)
     draw.ellipse(
         (
             x + size * 0.63,
@@ -63,41 +64,41 @@ def make_og() -> None:
     draw_brand_mark(draw, 76, 68, 58)
     draw.text(
         (150, 77),
-        "PYTHON 自习室",
-        font=font(FONT_BOLD, 27),
+        "自习室",
+        font=font(FONT_BOLD, 28),
         fill=CREAM,
     )
     draw.text(
-        (150, 111),
-        "PYTHON STUDY ROOM",
+        (150, 113),
+        "THE STUDY ROOM",
         font=font(FONT_MONO, 13),
         fill=MUTED,
     )
 
     draw.text(
         (76, 218),
-        "把 Python",
-        font=font(FONT_BOLD, 100),
+        "为复杂的世界，",
+        font=font(FONT_BOLD, 92),
         fill=CREAM,
     )
     draw.text(
         (76, 330),
-        "学成一门手艺。",
-        font=font(FONT_BOLD, 100),
+        "留一间自习室。",
+        font=font(FONT_BOLD, 92),
         fill=LIME,
     )
 
     draw.line((78, 502, 1122, 502), fill="#315043", width=1)
     draw.text(
         (78, 535),
-        "一本可以运行的书  ·  16 CHAPTERS  ·  50 PYTHON SNIPPETS",
+        "技术 · 思想 · 长期成长  /  NOTES · ESSAYS · PODCAST",
         font=font(FONT_REGULAR, 20),
         fill=MUTED,
     )
     draw.text(
-        (986, 532),
-        "RUN IT.",
-        font=font(FONT_MONO, 24),
+        (980, 532),
+        "STAY CURIOUS.",
+        font=font(FONT_MONO, 22),
         fill=LIME,
     )
 
@@ -128,9 +129,19 @@ def make_icon(size: int, filename: str) -> None:
 def make_sitemap() -> None:
     base = "https://liuxy1996.github.io"
     today = date.today().isoformat()
-    urls = ["/", "/book/", "/podcast/", "/playground/", "/about/"]
+    urls = [
+        "/",
+        "/notes/",
+        "/blog/",
+        "/book/",
+        "/podcast/",
+        "/playground/",
+        "/about/",
+    ]
     for chapter in DATA["chapters"]:
         urls.append(f"/book/{chapter['slug']}/")
+    for post in POSTS:
+        urls.append(f"/blog/{post['slug']}/")
     entries = "\n".join(
         f"  <url><loc>{base}{url}</loc><lastmod>{today}</lastmod></url>"
         for url in urls

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://liuxy1996.github.io/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://liuxy1996.github.io/notes/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://liuxy1996.github.io/blog/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://liuxy1996.github.io/book/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://liuxy1996.github.io/podcast/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://liuxy1996.github.io/playground/</loc><lastmod>2026-11-11</lastmod></url>
@@ -21,4 +23,7 @@
   <url><loc>https://liuxy1996.github.io/book/interactive-editing/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://liuxy1996.github.io/book/floating-point/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://liuxy1996.github.io/book/appendix/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://liuxy1996.github.io/blog/ai-makes-fundamentals-more-valuable/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://liuxy1996.github.io/blog/from-python-to-rust/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://liuxy1996.github.io/blog/learning-as-compounding/</loc><lastmod>2026-11-11</lastmod></url>
 </urlset>

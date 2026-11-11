@@ -16,9 +16,9 @@ export function BookSidebar({
   return (
     <aside className="book-sidebar" aria-label="课程目录">
       <div className="book-sidebar-top">
-        <Link href="/book/" className="sidebar-back">
+        <Link href="/notes/" className="sidebar-back">
           <ChevronLeft />
-          课程总览
+          笔记库
         </Link>
 
         <div className="sidebar-progress-card">

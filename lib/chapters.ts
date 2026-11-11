@@ -73,11 +73,11 @@ type Catalog = {
 const catalog = catalogData as Catalog;
 
 export const site = {
-  name: "Python 自习室",
-  englishName: "Python Study Room",
+  name: "自习室",
+  englishName: "The Study Room",
   shortName: "自习室",
   description:
-    "一本可以运行代码的 Python 书，配一档陪你理解编程的学习播客。从解释器到项目实践，按自己的节奏读完 16 章。",
+    "一个关于代码、智能与长期成长的个人学习博客：可以运行的 Python 手册，正在生长的 AI Agent 与 Rust 笔记，真实案例，以及一档认真聊天的播客。",
   url: "https://liuxy1996.github.io",
   author: "liuxy1996",
   github: "https://github.com/liuxy1996/liuxy1996.github.io",

@@ -11,9 +11,10 @@ import {
 } from "react";
 import searchIndex from "@/content/search-index.json";
 import { chapters } from "@/lib/chapters";
+import { posts, postToPlainText } from "@/lib/posts";
 import { ArrowRight, Search, X } from "@/components/icons";
 
-type SearchRecord = {
+type ChapterRecord = {
   chapterId: string;
   chapterNumber: string;
   chapterTitle: string;
@@ -23,13 +24,76 @@ type SearchRecord = {
   text: string;
 };
 
-type SearchResult = SearchRecord & {
+type SearchEntry = {
+  id: string;
+  kind: "note" | "post" | "page";
   href: string;
+  title: string;
+  context: string;
+  text: string;
+};
+
+type SearchResult = SearchEntry & {
   score: number;
   excerpt: string;
 };
 
-const records = searchIndex as SearchRecord[];
+const chapterEntries: SearchEntry[] = (searchIndex as ChapterRecord[]).map(
+  (record) => ({
+    id: `${record.chapterId}-${record.topicId}`,
+    kind: "note",
+    href: `/book/${record.chapterSlug}/#${record.topicId}`,
+    title: record.topicTitle,
+    context: `第 ${record.chapterNumber} 章 · ${record.chapterTitle}`,
+    text: record.text,
+  }),
+);
+
+const postEntries: SearchEntry[] = posts.map((post) => ({
+  id: `post-${post.slug}`,
+  kind: "post",
+  href: `/blog/${post.slug}/`,
+  title: post.title,
+  context: `文章 · ${post.category}`,
+  text: postToPlainText(post),
+}));
+
+const pageEntries: SearchEntry[] = [
+  {
+    id: "page-agent",
+    kind: "page",
+    href: "/notes/",
+    title: "AI Agent 应用笔记",
+    context: "笔记专题 · 筹备中",
+    text: "AI Agent 应用笔记：上下文工程、工具调用、Agent 评测、记忆与状态、可靠性边界。从会调用模型，到做一个可靠的应用。",
+  },
+  {
+    id: "page-rust",
+    kind: "page",
+    href: "/notes/",
+    title: "Rust 系统编程笔记",
+    context: "笔记专题 · 筹备中",
+    text: "Rust 系统编程笔记：所有权、类型系统、错误处理、异步、命令行项目。从系统边界重新理解编程。",
+  },
+  {
+    id: "page-work",
+    kind: "page",
+    href: "/notes/",
+    title: "工程案例与在线简历",
+    context: "专题 · 筹备中",
+    text: "工程案例、项目复盘、架构取舍与在线简历。真实项目的设计过程与个人经历。",
+  },
+  {
+    id: "page-podcast",
+    kind: "page",
+    href: "/podcast/",
+    title: "自习室电台",
+    context: "播客 · 筹备中",
+    text: "关于技术、选择与长期成长的声音杂志。AI 与基本功、Python 到 Rust、Agent 与责任、工程师的审美、学习复利。",
+  },
+];
+
+const entries = [...chapterEntries, ...postEntries, ...pageEntries];
 
 function normalize(value: string): string {
   return value.toLocaleLowerCase("zh-CN").replace(/\s+/g, " ").trim();
@@ -43,6 +107,29 @@ function buildExcerpt(text: string, query: string): string {
   const end = Math.min(text.length, index + query.length + 94);
   return `${start > 0 ? "…" : ""}${text.slice(start, end)}${end < text.length ? "…" : ""}`;
 }
+
+const suggestions = [
+  {
+    href: "/notes/",
+    label: "学习笔记",
+    meta: "笔记",
+  },
+  {
+    href: `/book/${chapters[0].slug}/`,
+    label: chapters[0].title,
+    meta: "Python",
+  },
+  {
+    href: `/blog/${posts[0].slug}/`,
+    label: posts[0].title,
+    meta: "文章",
+  },
+  {
+    href: "/podcast/",
+    label: "自习室电台",
+    meta: "播客",
+  },
+];
 
 export function SearchDialog({
   open,
@@ -82,30 +169,30 @@ export function SearchDialog({
     const normalizedQuery = normalize(query);
     if (!normalizedQuery) return [];
 
-    return records
-      .map((record) => {
-        const title = normalize(
-          `${record.chapterTitle} ${record.topicTitle}`,
-        );
-        const text = normalize(record.text);
+    return entries
+      .map((entry) => {
+        const title = normalize(entry.title);
+        const context = normalize(entry.context);
+        const text = normalize(entry.text);
         let score = 0;
-        if (title.includes(normalizedQuery)) score += 6;
+        if (title.includes(normalizedQuery)) score += 7;
+        if (context.includes(normalizedQuery)) score += 3;
         if (text.includes(normalizedQuery)) score += 2;
-        if (normalize(record.topicTitle).startsWith(normalizedQuery)) score += 3;
+        if (title.startsWith(normalizedQuery)) score += 3;
         return {
-          ...record,
-          href: `/book/${record.chapterSlug}/#${record.topicId}`,
+          ...entry,
           score,
-          excerpt: buildExcerpt(record.text, normalizedQuery),
+          excerpt: buildExcerpt(entry.text, normalizedQuery),
         };
       })
-      .filter((record) => record.score > 0)
+      .filter((entry) => entry.score > 0)
       .sort(
         (a, b) =>
           b.score - a.score ||
-          Number(a.chapterNumber) - Number(b.chapterNumber),
+          (a.kind === "note" ? 0 : 1) - (b.kind === "note" ? 0 : 1) ||
+          a.title.localeCompare(b.title, "zh-CN"),
       )
-      .slice(0, 8);
+      .slice(0, 9);
   }, [query]);
 
   function close() {
@@ -141,7 +228,7 @@ export function SearchDialog({
         <div className="search-panel-head">
           <div>
             <span className="eyebrow">Command palette</span>
-            <h2 id="search-title">搜索课程</h2>
+            <h2 id="search-title">搜索笔记与文章</h2>
           </div>
           <button
             type="button"
@@ -159,8 +246,8 @@ export function SearchDialog({
             ref={inputRef}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="搜索章节、概念或代码…"
-            aria-label="搜索章节或概念"
+            placeholder="搜索概念、文章或代码…"
+            aria-label="搜索笔记、文章或概念"
             autoComplete="off"
             spellCheck={false}
           />
@@ -172,14 +259,10 @@ export function SearchDialog({
             <div className="search-start">
               <p className="search-hint">不知道从哪开始？试试这些。</p>
               <div className="search-suggestions">
-                {chapters.slice(0, 4).map((chapter) => (
-                  <Link
-                    href={`/book/${chapter.slug}/`}
-                    key={chapter.id}
-                    onClick={close}
-                  >
-                    <span>{chapter.number}</span>
-                    {chapter.title}
+                {suggestions.map((item) => (
+                  <Link href={item.href} key={item.href} onClick={close}>
+                    <span>{item.meta}</span>
+                    {item.label}
                     <ArrowRight />
                   </Link>
                 ))}
@@ -191,23 +274,25 @@ export function SearchDialog({
             <div className="search-empty">
               <span className="search-empty-mark">?</span>
               <p>没有找到「{query.trim()}」</p>
-              <span>试试更短的关键词，例如“函数”“列表”或“异常”。</span>
+              <span>
+                试试更短的关键词，例如“函数”“AI”或“学习”。
+              </span>
             </div>
           )}
 
           {results.length > 0 && (
             <>
               <p className="search-count">
-                找到 {results.length} 个相关知识点
+                找到 {results.length} 个相关内容
               </p>
               <ul className="search-result-list">
                 {results.map((result) => (
-                  <li key={`${result.chapterId}-${result.topicId}`}>
+                  <li key={result.id}>
                     <Link href={result.href} onClick={close}>
                       <span className="search-result-chapter">
-                        第 {result.chapterNumber} 章 · {result.chapterTitle}
+                        {result.context}
                       </span>
-                      <strong>{result.topicTitle}</strong>
+                      <strong>{result.title}</strong>
                       <span className="search-result-excerpt">
                         {result.excerpt}
                       </span>

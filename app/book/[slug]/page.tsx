@@ -69,7 +69,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
     inLanguage: "zh-CN",
     isPartOf: {
       "@type": "Course",
-      name: `${site.name} · Python 学习课程`,
+      name: `${site.name} · Python 学习手册`,
       url: `${site.url}/book/`,
     },
     author: {
@@ -98,7 +98,9 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
           <article className="reader" id="chapter-top">
             <header className="reader-head">
               <div className="reader-breadcrumb">
-                <Link href="/book/">课程</Link>
+                <Link href="/notes/">笔记</Link>
+                <span>/</span>
+                <Link href="/book/">Python 手册</Link>
                 <span>/</span>
                 <span>{chapter.partTitle}</span>
                 <span>/</span>
@@ -235,7 +237,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
                   <ArrowLeft />
                   <span>
                     <span>返回</span>
-                    <strong>课程总览</strong>
+                    <strong>Python 手册</strong>
                   </span>
                 </Link>
               )}
@@ -257,7 +259,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
                 <Link href="/book/" className="pagination-card pagination-next">
                   <span>
                     <span>读完了</span>
-                    <strong>回到课程总览</strong>
+                    <strong>回到 Python 手册</strong>
                   </span>
                   <ArrowRight />
                 </Link>
