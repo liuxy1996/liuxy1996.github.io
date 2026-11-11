@@ -54,7 +54,7 @@ npm run preview
 3. 上传 `out/` 到 Pages artifact
 4. 通过 GitHub Pages 部署
 
-仓库的 **Settings → Pages → Build and deployment → Source** 需要设为 **GitHub Actions**。
+工作流会先用 `GITHUB_TOKEN` 尝试把 Pages 的构建类型切换为 `workflow`。如果仓库策略阻止这一步，需要在 **Settings → Pages → Build and deployment → Source** 手动选择 **GitHub Actions**。
 
 站点部署在 `<username>.github.io` 根路径，因此 `next.config.ts` 中不需要 `basePath`。如果以后迁移到项目页（`<username>.github.io/repo/`），要同时配置 `basePath` 并调整静态资源路径。
 
