@@ -32,6 +32,7 @@ export function LanguageBookIndex({ book }: { book: LanguageBook }) {
               <span>{book.chapters.length} 章</span>
               <span>约 {totalReadingTime(totalMinutes)}</span>
               <span>{book.level}</span>
+              {book.author && <span>{book.author}</span>}
             </div>
             <div className="lang-book-actions">
               <Link

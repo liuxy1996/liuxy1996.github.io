@@ -38,6 +38,7 @@ export type LanguageBook = {
   description: string;
   language: string;
   level: string;
+  author?: string;
   sourceName: string;
   sourceUrl: string;
   sourceNote: string;

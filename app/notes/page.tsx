@@ -7,7 +7,7 @@ import { libraryBooks } from "@/lib/library";
 export const metadata: Metadata = {
   title: "书库",
   description:
-    "自习室的书库：Python、Rust 与 Java 8 手册已经上架，AI Agent 与工程手记正在整理。",
+    "自习室的书库：Python、Rust 与 On Java 8 导读已经上架，AI Agent 与工程手记正在整理。",
   alternates: { canonical: "/notes/" },
   openGraph: {
     title: "书库｜自习室",

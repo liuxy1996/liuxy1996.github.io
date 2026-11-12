@@ -2,143 +2,76 @@ import type { LanguageBook } from "@/lib/language-books";
 
 export const javaBook: LanguageBook = {
   id: "java",
-  title: "Java 8",
-  subtitle: "Lambda、Stream 与异步",
+  title: "On Java 8",
+  subtitle: "对象、泛型、函数式与并发",
   description:
-    "从 JDK、类与接口出发，理解 Lambda、Stream、Collector、Optional、Date/Time 和 CompletableFuture。Java 8 是语言演进中的关键版本，这册笔记专注于它留下的函数式基础。",
+    "Bruce Eckel 在《Java 编程思想》之后写下的 Java 8 版本。这册导读按原书目录重新组织：从对象、封装、复用和多态，一路走到集合、函数式、泛型、文件、注解与并发。",
   language: "Java",
   level: "入门到进阶",
-  sourceName: "Java Platform, Standard Edition 8 Documentation",
-  sourceUrl: "https://docs.oracle.com/javase/8/docs/",
+  author: "Bruce Eckel",
+  sourceName: "On Java 8 · 中文在线版",
+  sourceUrl: "https://usigned.github.io/OnJava8/#/",
   sourceNote:
-    "参考 Oracle JDK 8 文档、Java Tutorials 与公开 API 规范独立整理；不是商业书籍的逐章翻译。Java 8 已结束公开更新，新项目建议使用更新的 LTS 版本。",
+    "Bruce Eckel 著，事实上的《Java 编程思想》第五版，基于 Java 8。本册是按原书目录独立整理的中文导读、概念地图与代码示例，不是原书全文转载；完整内容请阅读原书。",
   parts: [
     {
-      id: "language",
-      title: "语言与类型",
-      eyebrow: "LANGUAGE",
-      description: "JDK、类、接口和泛型，先把 Java 的静态类型世界走一遍。",
+      id: "objects",
+      title: "对象与语言",
+      eyebrow: "OBJECTS & LANGUAGE",
+      description: "从对象模型、运算符、控制流一路走到封装、复用、多态、接口与内部类。",
     },
     {
       id: "functional",
-      title: "函数式 Java",
-      eyebrow: "FUNCTIONAL",
-      description: "Lambda、Stream、Collector 与 Optional 改变了表达式和数据的写法。",
+      title: "容器与函数式",
+      eyebrow: "COLLECTIONS & FUNCTIONS",
+      description: "集合、Lambda 与流：Java 8 如何把数据变换写得更可组合。",
     },
     {
-      id: "modern",
-      title: "时间与异步",
-      eyebrow: "MODERN",
-      description: "不可变时间模型，以及用 CompletableFuture 组合异步任务。",
+      id: "types",
+      title: "类型与工程",
+      eyebrow: "TYPES & CRAFT",
+      description: "异常、测试、文件、字符串、类型信息、泛型、数组、枚举与注解。",
+    },
+    {
+      id: "concurrency",
+      title: "并发",
+      eyebrow: "CONCURRENCY",
+      description: "任务、线程池、共享状态、CompletableFuture 与死锁。",
     },
   ],
   chapters: [
     {
-      slug: "getting-started",
+      slug: "objects",
       number: "01",
-      title: "JDK、类与第一个程序",
-      partId: "language",
-      minutes: 9,
-      lede: "安装 JDK，写一个能编译运行的类，理解包、入口方法和静态类型。",
-      sections: [
-        {
-          id: "jdk",
-          heading: "JDK、JRE 与 javac",
-          html: `
-            <p>Java 源码先由 <code>javac</code> 编译成字节码，再由 JVM 执行。学习 Java 8 需要 JDK，而不只是 JRE。生产项目现在通常使用更新的 LTS 版本，但这册代码保持 Java 8 语法。</p>
-          `,
-          code: [
-            {
-              lang: "shell",
-              label: "终端 · 编译并运行",
-              code: `javac -version
-javac HelloJava.java
-java HelloJava`,
-            },
-          ],
-        },
-        {
-          id: "first-program",
-          heading: "一个类就是程序的起点",
-          html: `
-            <p>Java 代码必须写在类里。<code>main</code> 是入口方法，签名固定为 <code>public static void main(String[] args)</code>。<code>public</code> 控制访问，<code>static</code> 表示不需要实例，<code>void</code> 表示没有返回值。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "HelloJava.java",
-              code: `public class HelloJava {
-    public static void main(String[] args) {
-        String name = "Java 8";
-        System.out.println("你好，" + name);
-    }
-}`,
-            },
-          ],
-        },
-        {
-          id: "packages",
-          heading: "包名与目录",
-          html: `
-            <p>包把类型组织成命名空间，也对应着源码目录。声明 <code>package com.example.app;</code> 后，文件应放在 <code>com/example/app/</code> 下。包名通常使用公司域名的倒序。</p>
-            <p>对于小练习，默认包可以省事；一旦代码超过一个文件，就应该开始使用包，避免类名冲突。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "com/example/app/Main.java",
-              code: `package com.example.app;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("package ready");
-    }
-}`,
-            },
-          ],
-        },
-      ],
-      takeaways: [
-        "JDK = 编译器 + 运行时 + 工具，源码先编译成字节码。",
-        "main 的签名固定；Java 代码必须位于类中。",
-        "从多文件开始就使用 package，并让目录与包名一致。",
-      ],
-    },
-    {
-      slug: "objects-and-generics",
-      number: "02",
-      title: "对象、接口与泛型",
-      partId: "language",
+      title: "对象的概念",
+      partId: "objects",
       minutes: 12,
-      lede: "用封装保护状态，用接口表达能力，用泛型让类型关系在编译期成立。",
+      lede: "先建立对象模型：状态、行为、接口、封装、复用、继承与多态，是后面所有语法的地基。",
       sections: [
         {
-          id: "encapsulation",
-          heading: "让字段私有，让行为公开",
+          id: "object-model",
+          heading: "对象、类与接口",
           html: `
-            <p>类的字段通常声明为 <code>private</code>，通过方法暴露必要的操作。这样做不是仪式，而是把“状态如何变化”集中在一个地方，方便校验、调试和以后修改。</p>
-            <p><code>final</code> 字段一旦赋值就不能再改；<code>final</code> 引用也不能指向另一个对象，但对象内部仍可能可变。这两件事要分清。</p>
+            <p>对象把状态和行为放在同一个边界里；类描述这类对象共同的字段和方法；接口描述外部真正依赖的能力。写类时最重要的问题不是“能不能复用”，而是“谁需要知道它”。</p>
+            <p>把这几个词分开看，后面的封装、继承和多态就不会变成记忆负担。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "封装一个阅读状态",
-              code: `public final class Reading {
+              label: "一个最小的对象",
+              code: `class Book {
     private final String title;
     private int chapter;
 
-    public Reading(String title) {
+    Book(String title) {
         this.title = title;
     }
 
-    public void setChapter(int chapter) {
-        if (chapter < 0) {
-            throw new IllegalArgumentException("chapter >= 0");
-        }
+    void readTo(int chapter) {
         this.chapter = chapter;
     }
 
-    public String summary() {
+    String summary() {
         return title + " · 第 " + chapter + " 章";
     }
 }`,
@@ -146,586 +79,1440 @@ public class Main {
           ],
         },
         {
-          id: "interfaces",
-          heading: "接口描述能力",
+          id: "reuse-polymorphism",
+          heading: "复用、继承与多态",
           html: `
-            <p>接口表达“能做什么”，类表达“是什么，以及怎样做”。一个类可以实现多个接口，因此接口是组织可组合能力的主要方式。</p>
-            <p>Java 8 之前接口只能有抽象方法；Java 8 引入了 <code>default</code> 和 <code>static</code> 方法，后面会单独讨论它们带来的影响。</p>
+            <p>组合表示“有一个”，继承表示“是一种”。组合通常更灵活；继承的价值在于让调用者只依赖父类型，而具体行为由子类决定，这就是多态。</p>
+            <p>不要为了共享几行代码就继承。先问：子类型是否真的可以被父类型替换？这个判断比“代码像不像”更重要。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "接口与实现",
-              code: `interface Describable {
-    String describe();
+              label: "父类型引用，子类型行为",
+              code: `class LibraryItem {
+    String label() {
+        return "馆藏";
+    }
 }
 
-class Book implements Describable {
-    private final String title;
-
-    Book(String title) {
-        this.title = title;
-    }
-
+class Book extends LibraryItem {
     @Override
-    public String describe() {
-        return "《" + title + "》";
-    }
-}`,
-            },
-          ],
-        },
-        {
-          id: "generics",
-          heading: "泛型：把类型推迟到调用处",
-          html: `
-            <p>泛型让容器和算法在编译期保留元素类型。<code>Box&lt;T&gt;</code> 里的 T 是类型参数，调用 <code>new Box&lt;&gt;("Rust")</code> 时再推断。使用泛型后，从容器取出的值不再需要强制转换，错误也会更早暴露。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "泛型类与通配符",
-              code: `public class Box<T> {
-    private final T value;
-
-    public Box(T value) {
-        this.value = value;
-    }
-
-    public T get() {
-        return value;
+    String label() {
+        return "书籍";
     }
 }
 
-Box<String> title = new Box<>("Java 8");
-String value = title.get();
-
-List<? extends Number> numbers = Arrays.asList(1, 2.5, 3);`,
+LibraryItem item = new Book();
+System.out.println(item.label()); // 书籍`,
             },
           ],
         },
       ],
       takeaways: [
-        "字段私有、行为公开，让状态变化有唯一入口。",
-        "接口描述能力，类可以组合多个接口。",
-        "泛型让类型在编译期被保留，减少强制转换。",
+        "类负责一个边界内的状态与行为，接口描述外部依赖的能力。",
+        "组合优先于继承；继承的前提是子类型真的可以替代父类型。",
+        "多态让调用者依赖抽象，让变化留在实现里。",
       ],
     },
     {
-      slug: "lambdas",
-      number: "03",
-      title: "Lambda 与函数式接口",
-      partId: "functional",
-      minutes: 12,
-      lede: "Lambda 不是匿名类的语法糖：它让函数成为可传递的值，也让 Java 的集合操作开始变得可组合。",
+      slug: "installing",
+      number: "02",
+      title: "安装 Java 与本书用例",
+      partId: "objects",
+      minutes: 7,
+      lede: "准备 JDK，理解 javac 与 java 的分工，跑起一个带包名的示例。",
       sections: [
         {
-          id: "functional-interface",
-          heading: "一个抽象方法就是一个函数类型",
+          id: "toolchain",
+          heading: "JDK、javac 与 java",
           html: `
-            <p>函数式接口是只有一个抽象方法的接口。Lambda 会根据目标类型推断参数和返回值。JDK 已经提供了常用的函数类型：<code>Function&lt;T,R&gt;</code>、<code>Predicate&lt;T&gt;</code>、<code>Consumer&lt;T&gt;</code>、<code>Supplier&lt;T&gt;</code>。</p>
+            <p>JDK 包含编译器、JVM 和标准库。源码由 <code>javac</code> 编译成 <code>.class</code> 字节码，再由 <code>java</code> 启动 JVM 执行。Java 8 已经结束公开更新；学习本书的示例时建议使用当前 LTS，遇到版本差异再切换。</p>
+          `,
+          code: [
+            {
+              lang: "shell",
+              label: "终端 · 检查与运行",
+              code: `javac -version
+java -version
+javac Hello.java
+java Hello`,
+            },
+          ],
+        },
+        {
+          id: "packages",
+          heading: "包、目录与示例代码",
+          html: `
+            <p>包名对应目录，也提供了命名空间。原书示例通常按章节组织包。自己练习时先保持一个清晰的目录结构，再考虑构建工具。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "自定义函数式接口",
-              code: `@FunctionalInterface
-interface Calculator {
-    int apply(int a, int b);
-}
+              label: "chapter01/Hello.java",
+              code: `package chapter01;
 
-public class LambdaDemo {
+public class Hello {
     public static void main(String[] args) {
-        Calculator add = (a, b) -> a + b;
-        Calculator multiply = (a, b) -> a * b;
-
-        System.out.println(add.apply(2, 3));
-        System.out.println(multiply.apply(2, 3));
+        System.out.println("On Java 8");
     }
 }`,
-            },
-            {
-              lang: "java",
-              label: "标准函数类型",
-              code: `Function<String, Integer> length = String::length;
-Predicate<String> empty = String::isEmpty;
-Consumer<String> printer = System.out::println;
-Supplier<String> greeting = () -> "hello";
-
-System.out.println(length.apply("study")); // 5
-System.out.println(empty.test(""));        // true
-printer.accept(greeting.get());`,
-            },
-          ],
-        },
-        {
-          id: "method-reference",
-          heading: "方法引用让意图更直接",
-          html: `
-            <p>当 Lambda 只是原样调用一个已有方法时，用方法引用更短、更容易读。四种常见形式是 <code>Type::staticMethod</code>、<code>instance::method</code>、<code>Type::instanceMethod</code> 和 <code>Type::new</code>。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "几种方法引用",
-              code: `List<String> names = Arrays.asList("rust", "java", "go");
-
-names.forEach(System.out::println);
-names.sort(String::compareToIgnoreCase);
-
-Function<String, Integer> parse = Integer::parseInt;
-Supplier<List<String>> factory = ArrayList::new;`,
-            },
-          ],
-        },
-        {
-          id: "capture",
-          heading: "捕获变量必须有效 final",
-          html: `
-            <p>Lambda 可以读取外部局部变量，但这些变量必须事实上不可变。Java 没有闭包修改局部变量的机制，需要修改状态时，用有一个元素的数组、可变对象或显式设计返回新值。</p>
-            <p>这看起来受限，但能让并发下的捕获关系更容易分析。优先让函数保持无副作用的纯变换。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "捕获不可变变量",
-              code: `String prefix = "book-";
-Function<Integer, String> label = number -> prefix + number;
-System.out.println(label.apply(8));
-
-// 下面这样会编译失败，因为 prefix 不是有效 final
-// prefix = "volume-";`,
             },
           ],
         },
       ],
       takeaways: [
-        "函数式接口 = 一个抽象方法；Lambda 是它的简洁实现。",
-        "方法引用适合直接转发给已有方法。",
-        "Lambda 捕获的局部变量必须有效 final。",
+        "javac 负责编译，java 负责启动 JVM 执行字节码。",
+        "包名应和目录一致，避免类名冲突。",
+        "Java 8 是学习基线，不代表生产中必须使用旧版本。",
+      ],
+    },
+    {
+      slug: "objects-everywhere",
+      number: "03",
+      title: "万物皆对象",
+      partId: "objects",
+      minutes: 10,
+      lede: "引用与对象是两件事。理解 new、字段、方法、作用域和垃圾回收，才能读懂 Java 的内存模型。",
+      sections: [
+        {
+          id: "references",
+          heading: "引用指向对象",
+          html: `
+            <p>基本类型直接保存值，引用类型保存对象的地址。声明一个引用并不会自动创建对象；<code>new</code> 才会分配对象。两个引用可以指向同一个对象，这一点在集合、参数传递和并发里都非常关键。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "引用与对象",
+              code: `Book first = new Book("On Java 8");
+Book second = first;          // 同一个对象
+second = new Book("Rust");    // second 指向新对象
+
+System.out.println(first.title());  // On Java 8
+System.out.println(second.title()); // Rust`,
+            },
+          ],
+        },
+        {
+          id: "members",
+          heading: "字段、方法与 static",
+          html: `
+            <p>字段属于对象实例，<code>static</code> 成员属于类。实例方法可以访问实例和静态成员；静态方法只能直接访问静态成员。对象离开所有可达引用后才会被垃圾回收器回收，程序员不负责手动释放。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "实例成员与静态成员",
+              code: `class Reading {
+    static int totalRead = 0;
+    String title;
+
+    Reading(String title) {
+        this.title = title;
+        totalRead++;
+    }
+
+    static int total() {
+        return totalRead;
+    }
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "引用不是对象；new 才创建对象。",
+        "static 属于类，实例字段属于每一个对象。",
+        "Java 用可达性分析管理对象生命周期，不手动 free。",
+      ],
+    },
+    {
+      slug: "operators",
+      number: "04",
+      title: "运算符",
+      partId: "objects",
+      minutes: 9,
+      lede: "运算符的优先级、整数除法、类型转换和引用赋值，比记住符号表更值得花时间。",
+      sections: [
+        {
+          id: "arithmetic",
+          heading: "算术、关系与逻辑",
+          html: `
+            <p>整数除法会截断小数；<code>++</code> 和 <code>--</code> 的前后位置会改变表达式结果。关系运算返回 <code>boolean</code>，逻辑运算支持短路：<code>&amp;&amp;</code> 左侧为 false 时不再计算右侧。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "几个容易混淆的表达式",
+              code: `int a = 7;
+int b = 2;
+System.out.println(a / b);   // 3
+System.out.println(a % b);   // 1
+
+int i = 1;
+System.out.println(i++);     // 1
+System.out.println(i);       // 2
+
+boolean ok = false && expensive(); // 短路，不会调用`,
+            },
+          ],
+        },
+        {
+          id: "casts",
+          heading: "引用赋值与类型转换",
+          html: `
+            <p>基本类型转换可能丢失精度，必须显式写窄化转换。引用赋值只是在复制地址；如果对象本身可变，两个引用会看到同一处状态变化。Java 没有 <code>sizeof</code>，对象布局由 JVM 决定。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "窄化与引用别名",
+              code: `double ratio = 3.9;
+int rounded = (int) ratio; // 3
+
+int[] first = {1, 2, 3};
+int[] second = first;      // 同一个数组对象
+second[0] = 99;
+
+System.out.println(first[0]); // 99`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "整数除法截断，取模与浮点除法不是一回事。",
+        "逻辑运算符短路；不要把有副作用的调用放在右侧。",
+        "引用赋值共享对象，需要副本时显式复制。",
+      ],
+    },
+    {
+      slug: "control-flow",
+      number: "05",
+      title: "控制流",
+      partId: "objects",
+      minutes: 8,
+      lede: "if、循环、for-in 与 switch 决定代码按什么顺序执行；顺序本身就是设计的一部分。",
+      sections: [
+        {
+          id: "loops",
+          heading: "条件与循环",
+          html: `
+            <p>循环适合重复，<code>break</code> 结束整个循环，<code>continue</code> 跳过本次。Java 的 <code>for-in</code> 只能读取，不能直接修改基本类型元素；需要索引时用普通 <code>for</code>。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "for 与 for-in",
+              code: `for (int n = 1; n <= 15; n++) {
+    if (n % 15 == 0) {
+        System.out.println("FizzBuzz");
+    } else if (n % 3 == 0) {
+        System.out.println("Fizz");
+    } else if (n % 5 == 0) {
+        System.out.println("Buzz");
+    } else {
+        System.out.println(n);
+    }
+}
+
+for (String name : new String[]{"Rust", "Java"}) {
+    System.out.println(name);
+}`,
+            },
+          ],
+        },
+        {
+          id: "switch",
+          heading: "switch 与没有 goto 的跳转",
+          html: `
+            <p>Java 的 <code>switch</code> 支持整数、字符、枚举和字符串（Java 7 起）。每个分支要小心忘记 <code>break</code>。Java 没有 C 的 <code>goto</code>，带标签的 <code>break</code>/<code>continue</code> 可以做受限的跳转。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "switch 字符串",
+              code: `String language = "java";
+
+switch (language) {
+    case "java":
+        System.out.println("JVM");
+        break;
+    case "rust":
+        System.out.println("LLVM");
+        break;
+    default:
+        System.out.println("unknown");
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "for-in 适合遍历，索引循环适合需要位置的操作。",
+        "break 结束循环，continue 跳到下一次迭代。",
+        "switch 的贯穿是特性也是陷阱，按意图显式 break。",
+      ],
+    },
+    {
+      slug: "initialization",
+      number: "06",
+      title: "初始化和清理",
+      partId: "objects",
+      minutes: 12,
+      lede: "构造器保证对象可用，初始化顺序决定你看到什么，垃圾回收让清理不再是显式 free。",
+      sections: [
+        {
+          id: "constructors",
+          heading: "构造器、重载与 this",
+          html: `
+            <p>构造器与类同名、没有返回类型。重载让同一个类拥有不同的初始化方式；<code>this</code> 既指向当前对象，也可以调用另一个构造器。不要在一个构造器里做过多 I/O 或启动线程。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "构造器重载",
+              code: `class Book {
+    private final String title;
+    private final int chapters;
+
+    Book(String title) {
+        this(title, 1);
+    }
+
+    Book(String title, int chapters) {
+        this.title = title;
+        this.chapters = chapters;
+    }
+}`,
+            },
+          ],
+        },
+        {
+          id: "order",
+          heading: "初始化顺序与数组",
+          html: `
+            <p>类加载时先执行静态初始化，再执行实例初始化，最后执行构造器。局部变量必须先赋值才能使用；数组元素会获得默认值。理解顺序，可以避免“为什么这里还是 0”。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "初始化顺序",
+              code: `class Demo {
+    static { System.out.println("static"); }
+    { System.out.println("instance"); }
+    Demo() { System.out.println("constructor"); }
+}
+
+new Demo();
+// static
+// instance
+// constructor`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "构造器保证对象进入可用状态；重载表达不同的初始化方式。",
+        "静态初始化先于实例初始化，再进入构造器。",
+        "数组元素默认初始化；对象仍由 GC 负责回收。",
+      ],
+    },
+    {
+      slug: "encapsulation",
+      number: "07",
+      title: "封装",
+      partId: "objects",
+      minutes: 8,
+      lede: "把可变状态关进类里，只暴露需要的操作，让包和访问修饰符成为真实的边界。",
+      sections: [
+        {
+          id: "access",
+          heading: "包与访问权限",
+          html: `
+            <p>Java 有四层访问：<code>private</code>、包级默认、<code>protected</code> 和 <code>public</code>。优先让字段私有，把校验放在 setter 或构造器里。包不是装饰，它是代码的组织边界。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "受控的读取进度",
+              code: `class Reading {
+    private int chapter;
+
+    public void readTo(int chapter) {
+        if (chapter < 0) {
+            throw new IllegalArgumentException("chapter >= 0");
+        }
+        this.chapter = chapter;
+    }
+
+    public int chapter() {
+        return chapter;
+    }
+}`,
+            },
+          ],
+        },
+        {
+          id: "boundary",
+          heading: "接口和实现分开",
+          html: `
+            <p>封装不只是 private。调用者依赖 public API，而不是内部集合、字段和临时实现。这样你才能替换数据结构、加入缓存或改变算法，而不破坏外部代码。</p>
+            <p>类级别的访问权限同样重要：只被同一包使用的辅助类，不需要变成 public。</p>
+          `,
+        },
+      ],
+      takeaways: [
+        "字段默认私有；公开的是经过设计的行为。",
+        "包级访问是隐藏实现细节的实用工具。",
+        "封装的目标是允许实现变化，而不是制造仪式。",
+      ],
+    },
+    {
+      slug: "reuse",
+      number: "08",
+      title: "复用",
+      partId: "objects",
+      minutes: 11,
+      lede: "组合、继承、委托和 final：复用的四种工具，各自适合不同的关系。",
+      sections: [
+        {
+          id: "composition",
+          heading: "组合与委托",
+          html: `
+            <p>组合把已有对象作为字段，委托是把请求转给它。Car 有一个 Engine，而不是 Car 是一种 Engine。组合不会把父类的所有接口暴露给外部，通常更容易替换和测试。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "组合一个引擎",
+              code: `class Engine {
+    void start() {
+        System.out.println("engine started");
+    }
+}
+
+class Car {
+    private final Engine engine = new Engine();
+
+    void start() {
+        engine.start();
+    }
+}`,
+            },
+          ],
+        },
+        {
+          id: "inheritance",
+          heading: "继承、protected 与 final",
+          html: `
+            <p>继承表达“是一种”，并允许向上转型。子类构造器会先调用父类构造器；<code>protected</code> 让子类可以访问，但不要把它当成随手可用的 public。<code>final</code> 可以固定字段、方法或类，用来表达设计意图。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "继承与 final",
+              code: `class Machine {
+    final void start() {
+        System.out.println("start");
+    }
+}
+
+class Printer extends Machine {
+    // 不能覆盖 final 的 start()
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "组合表达“有一个”，继承表达“是一种”。",
+        "委托适合把行为转发给内部对象，而不暴露它的全部接口。",
+        "final 是设计约束，不只是性能开关。",
+      ],
+    },
+    {
+      slug: "polymorphism",
+      number: "09",
+      title: "多态",
+      partId: "objects",
+      minutes: 11,
+      lede: "向上转型之后，调用的方法仍由对象的真实类型决定；这是 Java 动态绑定的核心。",
+      sections: [
+        {
+          id: "dynamic-dispatch",
+          heading: "向上转型与动态绑定",
+          html: `
+            <p>父类引用可以指向子类对象。调用被覆盖的方法时，JVM 会根据对象的实际类型找到实现，而不是看引用声明。调用者因此只依赖父类的接口。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "同一接口，不同实现",
+              code: `abstract class Shape {
+    abstract double area();
+}
+
+class Circle extends Shape {
+    double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    double area() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Square extends Shape {
+    double side;
+
+    Square(double side) {
+        this.side = side;
+    }
+
+    @Override
+    double area() {
+        return side * side;
+    }
+}
+
+Shape shape = new Circle(2);
+System.out.println(shape.area());`,
+            },
+          ],
+        },
+        {
+          id: "constructors",
+          heading: "构造器与多态",
+          html: `
+            <p>构造器不是多态方法。父类构造器执行时，子类字段还没有完成初始化；如果在父类构造器里调用会被覆盖的方法，可能看到默认值。把复杂初始化放到构造器之后，或者用工厂方法组织。</p>
+            <p>返回类型协变允许子类覆盖方法时返回更具体的类型；设计继承时，优先保证父类型的语义真的成立。</p>
+          `,
+        },
+      ],
+      takeaways: [
+        "父类型引用调用被覆盖的方法，会执行子类实现。",
+        "不要在父类构造器里调用可被覆盖的方法。",
+        "多态的价值是依赖接口而不是具体类型。",
+      ],
+    },
+    {
+      slug: "interfaces",
+      number: "10",
+      title: "接口",
+      partId: "objects",
+      minutes: 10,
+      lede: "接口把“能做什么”从“怎么实现”里分离出来；抽象类则适合共享部分实现和状态。",
+      sections: [
+        {
+          id: "abstract-and-interface",
+          heading: "抽象类与接口",
+          html: `
+            <p>抽象类可以带字段和已实现的方法，适合一组关系紧密的类型；接口定义能力，一个类可以实现多个。接口字段隐式 <code>public static final</code>，方法在 Java 8 中可以有 <code>default</code> 和 <code>static</code> 实现。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "接口与抽象类",
+              code: `abstract class Repository {
+    abstract List<String> all();
+
+    boolean isEmpty() {
+        return all().isEmpty();
+    }
+}
+
+interface Searchable {
+    List<String> search(String keyword);
+}
+
+class BookRepository extends Repository implements Searchable {
+    @Override
+    List<String> all() {
+        return Arrays.asList("On Java 8");
+    }
+
+    @Override
+    public List<String> search(String keyword) {
+        return all().stream()
+            .filter(title -> title.contains(keyword))
+            .collect(Collectors.toList());
+    }
+}`,
+            },
+          ],
+        },
+        {
+          id: "decoupling",
+          heading: "解耦、适配与工厂",
+          html: `
+            <p>接口让调用者不需要知道对象的构造过程。工厂方法把“创建哪种实现”的决定留在工厂内部，适配器则把一个已有接口包装成调用者需要的形状。这两者都在降低依赖，而不是增加层数。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "工厂方法",
+              code: `interface Reader {
+    String read();
+}
+
+class FileReader implements Reader {
+    public String read() {
+        return "from file";
+    }
+}
+
+class ReaderFactory {
+    static Reader create() {
+        return new FileReader();
+    }
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "抽象类适合共享实现，接口适合表达能力与解耦。",
+        "默认方法与静态方法让接口可以继续演化。",
+        "工厂把构造细节移出调用者，适配器连接不兼容的接口。",
+      ],
+    },
+    {
+      slug: "inner-classes",
+      number: "11",
+      title: "内部类",
+      partId: "objects",
+      minutes: 10,
+      lede: "内部类持有外部类引用，匿名类适合一次性实现，静态嵌套类则不依赖外部实例。",
+      sections: [
+        {
+          id: "inner",
+          heading: "内部类与外部类",
+          html: `
+            <p>非静态内部类实例必须依附外部类实例，可以通过 <code>Outer.this</code> 访问外部对象，通过 <code>outer.new Inner()</code> 创建。静态嵌套类没有外部实例引用，通常更容易理解和测试。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "内部类访问外部状态",
+              code: `class Library {
+    private final String name = "study-room";
+
+    class Shelf {
+        String label() {
+            return name + " / shelf";
+        }
+    }
+}
+
+Library library = new Library();
+Library.Shelf shelf = library.new Shelf();
+System.out.println(shelf.label());`,
+            },
+          ],
+        },
+        {
+          id: "anonymous",
+          heading: "匿名类与有效 final",
+          html: `
+            <p>匿名类适合实现一个马上使用的接口，Lambda 让这种写法进一步简化（但只能用于函数式接口）。局部类和匿名类捕获的局部变量必须有效 final；需要修改的状态应该放到对象字段或并发安全的结构里。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "匿名 Runnable",
+              code: `String label = "On Java 8";
+
+Runnable task = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println(label);
+    }
+};
+
+task.run();`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "内部类持有外部实例；静态嵌套类不持有。",
+        "匿名类适合一次性实现，函数式接口可以改用 Lambda。",
+        "捕获局部变量必须有效 final。",
+      ],
+    },
+    {
+      slug: "collections",
+      number: "12",
+      title: "集合",
+      partId: "functional",
+      minutes: 13,
+      lede: "List、Set、Map、Queue 与 Iterator 组成了 Java 的数据结构层；泛型让集合保持类型安全。",
+      sections: [
+        {
+          id: "collections",
+          heading: "List、Set 与 Map",
+          html: `
+            <p><code>ArrayList</code> 适合随机访问，<code>LinkedList</code> 适合频繁插入删除；<code>HashSet</code> 关心唯一性，<code>HashMap</code> 保存键值关系。选择容器时要看访问模式，而不是只看名字。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "常用集合",
+              code: `List<String> books = new ArrayList<>();
+books.add("On Java 8");
+books.add("Rust");
+
+Set<String> languages = new HashSet<>();
+languages.add("Java");
+languages.add("Java"); // 重复元素不会增加
+
+Map<String, Integer> pages = new HashMap<>();
+pages.put("On Java 8", 1200);
+pages.put("Rust", 600);
+
+for (Map.Entry<String, Integer> entry : pages.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}`,
+            },
+          ],
+        },
+        {
+          id: "iterators",
+          heading: "迭代器与 for-in",
+          html: `
+            <p><code>Iterator</code> 提供统一的遍历协议，<code>for-in</code> 只是它的语法糖。遍历时修改集合可能抛 <code>ConcurrentModificationException</code>，需要删除元素时用迭代器自己的 <code>remove()</code>，或先收集再修改。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "Iterator 安全删除",
+              code: `Iterator<String> iterator = books.iterator();
+
+while (iterator.hasNext()) {
+    if (iterator.next().startsWith("Rust")) {
+        iterator.remove();
+    }
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "按访问模式选择集合实现，而不是按名称记忆。",
+        "Set 去重，Map 建立键值索引，Queue 组织先后顺序。",
+        "遍历中修改集合要使用迭代器或先复制。",
+      ],
+    },
+    {
+      slug: "functional-programming",
+      number: "13",
+      title: "函数式编程",
+      partId: "functional",
+      minutes: 13,
+      lede: "Lambda 让函数成为值，函数式接口描述函数形状，纯函数与不可变数据让组合变得可靠。",
+      sections: [
+        {
+          id: "lambdas",
+          heading: "Lambda 与函数式接口",
+          html: `
+            <p>函数式接口只有一个抽象方法，Lambda 是它的简洁实现。<code>Function</code>、<code>Predicate</code>、<code>Consumer</code>、<code>Supplier</code> 是常用形状。Lambda 捕获的局部变量必须有效 final。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "函数是值",
+              code: `Function<String, Integer> length = String::length;
+Predicate<String> empty = String::isEmpty;
+Consumer<String> printer = System.out::println;
+Supplier<List<String>> factory = ArrayList::new;
+
+System.out.println(length.apply("On Java 8")); // 9
+System.out.println(empty.test(""));            // true
+printer.accept(factory.get().toString());`,
+            },
+          ],
+        },
+        {
+          id: "composition",
+          heading: "高阶函数、组合与纯函数",
+          html: `
+            <p>高阶函数接收或返回函数。<code>andThen</code>、<code>compose</code> 可以把小函数拼起来；柯里化把多参数函数拆成一串单参数函数。纯函数没有副作用，输出只依赖输入，这让测试和并行都更容易。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "函数组合",
+              code: `Function<Integer, Integer> doubleIt = n -> n * 2;
+Function<Integer, Integer> plusOne = n -> n + 1;
+
+Function<Integer, Integer> pipeline = doubleIt.andThen(plusOne);
+System.out.println(pipeline.apply(3)); // 7
+
+Function<String, String> normalize = String::trim;
+Function<String, String> upper = String::toUpperCase;
+System.out.println(normalize.andThen(upper).apply("  java  "));`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "Lambda 的目标类型必须是函数式接口。",
+        "方法引用适合直接转发，函数组合适合搭建小型管道。",
+        "优先写纯函数，副作用留在程序边界。",
       ],
     },
     {
       slug: "streams",
-      number: "04",
-      title: "Stream 管道",
+      number: "14",
+      title: "流式编程",
       partId: "functional",
       minutes: 14,
-      lede: "Stream 把“遍历并变换集合”拆成一条可组合的管道，同时保持惰性和不可变性。",
+      lede: "Stream 把集合变换拆成源、中间操作和终止操作，并用惰性求值把计算推迟到真正需要时。",
       sections: [
         {
           id: "pipeline",
-          heading: "源、中间操作与终止操作",
+          heading: "流的管道",
           html: `
-            <p>Stream 不存储数据，它从集合、数组或生成器读取数据。中间操作如 <code>filter</code>、<code>map</code>、<code>sorted</code> 返回新的 Stream，终止操作如 <code>collect</code>、<code>forEach</code>、<code>count</code> 才真正触发计算。</p>
-            <p>一条管道只消费一次。不要把同一个 Stream 保存起来反复使用。</p>
+            <p>Stream 不存储数据，也不能重复消费。<code>map</code>、<code>filter</code>、<code>sorted</code> 是中间操作；<code>collect</code>、<code>count</code>、<code>forEach</code> 是终止操作。没有终止操作，管道不会执行。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "从 List 到 Stream",
-              code: `List<String> names = Arrays.asList("rust", "java", "go", "python");
+              label: "过滤、映射与收集",
+              code: `List<String> titles = Arrays.asList("On Java 8", "Rust", "Go");
 
-List<String> result = names.stream()
-    .filter(name -> name.length() > 2)
+List<String> result = titles.stream()
+    .filter(title -> title.length() > 2)
     .map(String::toUpperCase)
     .sorted()
     .collect(Collectors.toList());
 
-System.out.println(result); // [GO, JAVA, PYTHON, RUST]`,
+System.out.println(result);`,
             },
           ],
         },
         {
-          id: "flat-map",
-          heading: "flatMap 与 reduce",
+          id: "optional-terminal",
+          heading: "Optional 与终止操作",
           html: `
-            <p><code>flatMap</code> 把每个元素映射成 Stream 后再合并，适合处理嵌套列表；<code>reduce</code> 把一串值折叠成一个值。对于整数求和，优先使用 <code>mapToInt(...).sum()</code>，避免不必要的装箱。</p>
+            <p>需要“可能没有结果”时，返回 <code>Optional</code>，而不是 null 或抛异常。Stream 的 <code>findFirst</code> 返回 Optional。<code>reduce</code> 折叠值，<code>collect</code> 交给 Collector。并行流只适合无状态、计算密集、数据量足够大的场景。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "展开与折叠",
-              code: `List<List<Integer>> nested = Arrays.asList(
-    Arrays.asList(1, 2),
-    Arrays.asList(3, 4)
-);
+              label: "Optional 与 reduce",
+              code: `Optional<String> first = titles.stream()
+    .filter(title -> title.startsWith("R"))
+    .findFirst();
 
-List<Integer> doubled = nested.stream()
-    .flatMap(List::stream)
-    .map(number -> number * 2)
-    .collect(Collectors.toList());
+System.out.println(first.orElse("none"));
 
-int sum = doubled.stream()
-    .mapToInt(Integer::intValue)
-    .sum();
-
-System.out.println(doubled); // [2, 4, 6, 8]
-System.out.println(sum);     // 20`,
-            },
-          ],
-        },
-        {
-          id: "lazy",
-          heading: "惰性、短路与副作用",
-          html: `
-            <p>中间操作是惰性的，所以 <code>anyMatch</code>、<code>findFirst</code> 可以在找到结果后停止处理剩余元素。不要在 <code>map</code> 或 <code>filter</code> 里打印、修改集合或做网络请求；Stream 应该描述“计算”，而不是隐藏控制流。</p>
-            <p>需要索引时，用 <code>IntStream.range</code> 或普通的 <code>for</code> 循环往往更清楚。Stream 不是替代所有循环的命令。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "短路操作",
-              code: `boolean hasLongName = names.stream()
-    .anyMatch(name -> name.length() > 5);
-
-Optional<String> first = names.stream()
-    .filter(name -> name.startsWith("j"))
-    .findFirst();`,
+int total = IntStream.rangeClosed(1, 10)
+    .reduce(0, Integer::sum);`,
             },
           ],
         },
       ],
       takeaways: [
-        "Stream 是惰性的，终止操作才触发计算。",
-        "flatMap 展开嵌套结构，mapToInt 避免装箱开销。",
-        "Stream 适合无副作用的变换，不要用它隐藏状态修改。",
+        "Stream 是一次性管道，终止操作才触发计算。",
+        "Optional 表达“可能没有”，不要直接 get()。",
+        "并行流不是性能开关，先测量再使用。",
       ],
     },
     {
-      slug: "collectors-and-parallel",
-      number: "05",
-      title: "Collector 与并行流",
-      partId: "functional",
-      minutes: 13,
-      lede: "用 Collector 把流收束成 Map、分组或字符串；并行流只有在对的场合才值得用。",
-      sections: [
-        {
-          id: "collectors",
-          heading: "分组、计数与连接",
-          html: `
-            <p><code>Collectors.groupingBy</code> 按分类函数把元素放进 Map，<code>counting</code> 统计数量，<code>joining</code> 把字符串连接起来。Collector 可以组合，但组合越多越要关注可读性。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "常用 Collector",
-              code: `List<String> names = Arrays.asList("rust", "java", "go", "ruby");
-
-Map<Integer, List<String>> byLength = names.stream()
-    .collect(Collectors.groupingBy(String::length));
-
-Map<Integer, Long> counts = names.stream()
-    .collect(Collectors.groupingBy(String::length, Collectors.counting()));
-
-String joined = names.stream()
-    .collect(Collectors.joining(", ", "[", "]"));
-
-System.out.println(byLength);
-System.out.println(counts);
-System.out.println(joined);`,
-            },
-          ],
-        },
-        {
-          id: "parallel",
-          heading: "并行流不是默认选项",
-          html: `
-            <p><code>parallelStream</code> 会把工作拆给 ForkJoinPool。它适合数据量较大、操作无共享状态、计算成本高于调度成本的场景。小列表、I/O、阻塞调用和共享可变状态，往往会更慢或更危险。</p>
-            <p>并行流不会自动让代码线程安全；它只是改变执行方式。先用测量结果决定，而不是看到 Stream 就加 <code>parallel</code>。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "无状态并行计算",
-              code: `long evenCount = IntStream.range(1, 1_000_000)
-    .parallel()
-    .filter(number -> number % 2 == 0)
-    .count();
-
-System.out.println(evenCount);`,
-            },
-          ],
-        },
-        {
-          id: "side-effects",
-          heading: "避免在流里修改外部集合",
-          html: `
-            <p>下面这种写法在并行时会丢失数据，在串行时也只是看起来能工作：多个元素同时向同一个 <code>ArrayList</code> 添加。正确做法是用 <code>collect</code>，让 Collector 管理结果容器。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "错误与正确的收集方式",
-              code: `List<String> result = new ArrayList<>();
-
-// 不推荐：有外部副作用，并行时不安全
-// names.parallelStream().forEach(name -> result.add(name));
-
-// 推荐：由 Collector 管理容器
-List<String> safe = names.parallelStream()
-    .filter(name -> name.length() > 2)
-    .collect(Collectors.toList());`,
-            },
-          ],
-        },
-      ],
-      takeaways: [
-        "groupingBy / counting / joining 覆盖大多数聚合需求。",
-        "并行流只适合无状态、计算密集、数据量足够的场景。",
-        "不要在流中使用共享可变容器，交给 collect。",
-      ],
-    },
-    {
-      slug: "optional-and-default-methods",
-      number: "06",
-      title: "Optional 与默认方法",
-      partId: "functional",
+      slug: "exceptions",
+      number: "15",
+      title: "异常",
+      partId: "types",
       minutes: 11,
-      lede: "Optional 让“可能没有”变成返回类型（而不只是 null），默认方法允许接口在不破坏实现者的情况下演化。",
+      lede: "异常把正常路径和失败路径分开；捕获、传播、自定义和资源清理都需要明确边界。",
       sections: [
         {
-          id: "optional",
-          heading: "把缺失写进类型",
+          id: "catching",
+          heading: "异常模型与捕获",
           html: `
-            <p><code>Optional</code> 用来表达一个方法可能返回空结果。它是返回值类型，不适合作为字段类型或方法参数，也不应该用 <code>get()</code> 直接取值。用 <code>map</code>、<code>flatMap</code>、<code>orElse</code> 和 <code>orElseThrow</code> 组合。</p>
+            <p>异常是对象，可以携带信息和 cause。<code>try/catch/finally</code> 中 finally 总会执行，适合清理资源。受检异常要求调用者显式处理；运行时异常通常表示编程错误。catch 应该从具体到宽泛。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "Optional 的常见用法",
-              code: `Optional<String> found = findName("rust");
-
-String label = found
-    .map(String::toUpperCase)
-    .orElse("UNKNOWN");
-
-String required = found.orElseThrow(
-    () -> new IllegalStateException("name is required")
-);
-
-// 不推荐：Optional.of(null) 会抛异常
-// Optional<String> bad = Optional.of(null);`,
-            },
-          ],
-        },
-        {
-          id: "default-methods",
-          heading: "默认方法：接口的向后兼容",
-          html: `
-            <p>Java 8 允许接口提供 <code>default</code> 方法，新增行为时不必让所有实现类立刻改写。这让 Stream 等新 API 可以持续扩展。代价是多个接口提供同名默认方法时，实现类必须显式解决冲突。</p>
-            <p>默认方法适合稳定的通用行为，不适合把接口变成状态复杂的基类。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "default 与 static",
-              code: `interface Repository {
-    List<String> all();
-
-    default boolean isEmpty() {
-        return all().isEmpty();
-    }
-
-    static Repository empty() {
-        return Collections::emptyList;
-    }
+              label: "捕获并保留 cause",
+              code: `try {
+    int value = Integer.parseInt("not-a-number");
+    System.out.println(value);
+} catch (NumberFormatException error) {
+    System.err.println("输入不是数字: " + error.getMessage());
+} finally {
+    System.out.println("done");
 }`,
             },
           ],
         },
         {
-          id: "diamond",
-          heading: "菱形冲突要显式解决",
+          id: "custom",
+          heading: "自定义异常与 try-with-resources",
           html: `
-            <p>如果两个接口都提供同签名的默认方法，实现类无法确定应该使用哪一个。编译器会要求覆盖该方法，并用 <code>Interface.super.method()</code> 指定选择。</p>
+            <p>自定义异常应该说明业务语义，并在构造函数里保留 cause。<code>try-with-resources</code> 自动关闭实现了 <code>AutoCloseable</code> 的资源，即使 try 块抛出异常也不会漏掉关闭。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "解决默认方法冲突",
-              code: `interface A {
-    default String name() { return "A"; }
-}
-
-interface B {
-    default String name() { return "B"; }
-}
-
-class C implements A, B {
-    @Override
-    public String name() {
-        return A.super.name() + "+" + B.super.name();
+              label: "自定义异常",
+              code: `class BookNotFoundException extends Exception {
+    BookNotFoundException(String title, Throwable cause) {
+        super("找不到书籍: " + title, cause);
     }
+}
+
+try (BufferedReader reader = Files.newBufferedReader(path)) {
+    return reader.readLine();
 }`,
             },
           ],
         },
       ],
       takeaways: [
-        "Optional 是返回值语义，不是 null 的万能替代品。",
-        "默认方法让接口能演化，但冲突必须显式处理。",
-        "不要用 Optional 作为字段或集合元素；真实缺失应被建模成业务状态。",
+        "异常让失败路径显式化；保留 cause 才能定位根因。",
+        "finally 和 try-with-resources 负责资源释放。",
+        "自定义异常用于业务语义，不要把所有异常都包成同一种。",
       ],
     },
     {
-      slug: "date-time",
-      number: "07",
-      title: "新的日期与时间 API",
-      partId: "modern",
+      slug: "validating-code",
+      number: "16",
+      title: "代码校验",
+      partId: "types",
       minutes: 10,
-      lede: "用不可变的 LocalDate、LocalDateTime、Instant 与 Duration 替代容易出错的 Date 和 Calendar。",
+      lede: "测试、断言、日志、基准与重构：让代码在变化中仍然可信。",
       sections: [
         {
-          id: "local",
-          heading: "LocalDate 与 LocalDateTime",
+          id: "tests",
+          heading: "测试与 TDD",
           html: `
-            <p>新的时间类型默认不可变，所有修改都会返回新对象。这消除了共享可变日期在并发中的大量问题。<code>LocalDate</code> 只有日期，<code>LocalTime</code> 只有时间，<code>LocalDateTime</code> 是两者的组合。</p>
+            <p>测试不是证明程序没错，而是锁定你已经理解的行为。JUnit 的 <code>@Test</code>、<code>assertEquals</code> 是最小工具；TDD 用失败测试驱动设计。先写一个会失败的用例，再写刚好让它通过的实现。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "构造与格式化",
-              code: `LocalDate date = LocalDate.of(2026, 11, 12);
-LocalDate nextWeek = date.plusWeeks(1);
-
-DateTimeFormatter formatter =
-    DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-
-System.out.println(nextWeek.format(formatter));
-
-LocalDateTime meeting = LocalDateTime.of(date, LocalTime.of(10, 0));
-System.out.println(meeting.plusMinutes(45));`,
+              label: "一个 JUnit 4 测试",
+              code: `public class PriceTest {
+    @Test
+    public void addsTax() {
+        Price price = new Price(100);
+        assertEquals(110, price.withTax(0.1), 0.001);
+    }
+}`,
             },
           ],
         },
         {
-          id: "duration",
-          heading: "Duration、Period 与 Instant",
+          id: "observability",
+          heading: "日志、调试与基准",
           html: `
-            <p><code>Duration</code> 表示精确的时间长度（秒和纳秒），适合计算两个时刻之间相差多久；<code>Period</code> 按年月日表示日期差；<code>Instant</code> 是 UTC 时间线上的一个点，适合记录事件时间。</p>
+            <p>日志记录上下文，不是把变量到处打印。基准测试要隔离 JIT、预热和测量误差，不能拿一次 <code>System.currentTimeMillis</code> 当结论。发现性能问题前先分析，不要凭直觉重构。</p>
           `,
           code: [
             {
-              lang: "java",
-              label: "时间长度与时刻",
-              code: `Instant start = Instant.now();
-Instant end = start.plusSeconds(90);
-
-Duration duration = Duration.between(start, end);
-System.out.println(duration.toMinutes()); // 1
-
-Period period = Period.ofMonths(2);
-LocalDate later = LocalDate.now().plus(period);
-System.out.println(later);`,
-            },
-          ],
-        },
-        {
-          id: "timezone",
-          heading: "时区不是装饰",
-          html: `
-            <p>面向用户的时刻通常需要时区信息，使用 <code>ZonedDateTime</code> 或 <code>OffsetDateTime</code>。服务器内部存储建议使用 UTC 的 <code>Instant</code>，只在展示层转换为用户时区，并明确夏令时规则。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "时区转换",
-              code: `ZonedDateTime tokyo = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
-ZonedDateTime shanghai = tokyo.withZoneSameInstant(ZoneId.of("Asia/Shanghai"));
-
-System.out.println(tokyo);
-System.out.println(shanghai);`,
+              lang: "shell",
+              label: "终端 · 工程检查",
+              code: `./gradlew test
+./gradlew check
+./gradlew jmh`,
             },
           ],
         },
       ],
       takeaways: [
-        "新时间 API 不可变，修改操作总是返回新对象。",
-        "Duration 表示精确时长，Period 表示年月日跨度。",
-        "存储用 UTC Instant，展示时再放到正确时区。",
+        "测试表达行为契约，失败测试是设计反馈。",
+        "日志记录上下文，调试器观察状态，基准工具量化性能。",
+        "重构应在测试保护下进行，先定位再优化。",
       ],
     },
     {
-      slug: "completable-future",
-      number: "08",
-      title: "CompletableFuture 与异步组合",
-      partId: "modern",
-      minutes: 15,
-      lede: "把异步任务像 Stream 一样组合起来，同时知道异常、线程池和阻塞边界在哪里。",
+      slug: "files",
+      number: "17",
+      title: "文件",
+      partId: "types",
+      minutes: 11,
+      lede: "用 Path 与 Files 处理路径、目录、读写和文件树，比起手写流更安全、更清晰。",
       sections: [
         {
-          id: "async",
-          heading: "从 Future 到可组合异步",
+          id: "paths",
+          heading: "Path 与目录",
           html: `
-            <p><code>CompletableFuture</code> 允许注册回调，而不必立刻阻塞等待。<code>supplyAsync</code> 产生值，<code>thenApply</code> 做同步映射，<code>thenCompose</code> 在结果上继续启动另一个异步任务。</p>
+            <p><code>Path</code> 表示路径，不保证文件存在；<code>Files</code> 提供创建、删除、复制、移动和查询属性的静态方法。相对路径要配合工作目录理解，部署时最好使用显式基准目录。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "异步管道",
-              code: `ExecutorService pool = Executors.newFixedThreadPool(2);
+              label: "目录与文件",
+              code: `Path dir = Paths.get("notes");
+Files.createDirectories(dir);
 
-CompletableFuture<String> user =
-    CompletableFuture.supplyAsync(() -> fetchUser(), pool);
+Path file = dir.resolve("java.md");
+Files.write(file, "# On Java 8\n".getBytes(StandardCharsets.UTF_8));
 
-CompletableFuture<Integer> length = user.thenApply(String::length);
+System.out.println(Files.exists(file));
+System.out.println(Files.size(file));`,
+            },
+          ],
+        },
+        {
+          id: "walk",
+          heading: "遍历、查找与读写",
+          html: `
+            <p><code>Files.walk</code> 返回文件树流，记得在 try-with-resources 中关闭。<code>Files.lines</code> 按行懒加载，适合大文件；一次性 <code>readAllLines</code> 只适合小文件。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "按扩展名查找",
+              code: `try (Stream<Path> paths = Files.walk(Paths.get("."))) {
+    paths.filter(path -> path.toString().endsWith(".java"))
+         .limit(10)
+         .forEach(System.out::println);
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "Path 是路径抽象，Files 提供实际操作。",
+        "文件树流需要关闭；大文件优先按行读取。",
+        "读写时明确字符集与工作目录。",
+      ],
+    },
+    {
+      slug: "strings",
+      number: "18",
+      title: "字符串",
+      partId: "types",
+      minutes: 10,
+      lede: "String 不可变，拼接会产生新对象；StringBuilder、格式化和正则让文本处理更可控。",
+      sections: [
+        {
+          id: "immutable",
+          heading: "不可变与 StringBuilder",
+          html: `
+            <p>String 对象不可变，所谓“修改”其实是创建新对象。循环中不断用 <code>+</code> 拼接会产生大量中间对象，此时用 <code>StringBuilder</code>。注意不要在 <code>toString</code> 里递归调用自己。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "StringBuilder",
+              code: `StringBuilder builder = new StringBuilder();
+for (String title : new String[]{"On", "Java", "8"}) {
+    builder.append(title).append(" ");
+}
+String text = builder.toString().trim();
+System.out.println(text);`,
+            },
+          ],
+        },
+        {
+          id: "format",
+          heading: "格式化、正则与扫描",
+          html: `
+            <p><code>String.format</code> 适合生成固定格式文本；<code>Pattern</code>/<code>Matcher</code> 处理重复使用的正则；<code>Scanner</code> 适合从文本或输入流读取结构化 token。正则字符串里的反斜杠需要写两次。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "格式化与正则",
+              code: `String row = String.format("%s | %d 章", "On Java 8", 24);
+System.out.println(row);
 
-length.thenAccept(size -> System.out.println("length = " + size));
+Pattern pattern = Pattern.compile("\\\\d+");
+Matcher matcher = pattern.matcher("第 24 章");
+if (matcher.find()) {
+    System.out.println(matcher.group());
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "String 不可变；频繁拼接用 StringBuilder。",
+        "正则编译一次可以复用，注意转义。",
+        "文本输入先确定编码与格式，再解析。",
+      ],
+    },
+    {
+      slug: "type-information",
+      number: "19",
+      title: "类型信息",
+      partId: "types",
+      minutes: 10,
+      lede: "Class 对象、instanceof、反射和动态代理让程序在运行时检查与操作类型，也带来额外的耦合。",
+      sections: [
+        {
+          id: "rtti",
+          heading: "Class 对象与类型检测",
+          html: `
+            <p>每个已加载类型都有 Class 对象，可以通过 <code>类名.class</code>、<code>getClass()</code> 或 <code>Class.forName</code> 获得。<code>instanceof</code> 在向下转型前检查类型；Java 16 之后还支持模式匹配，但本书基线是 Java 8。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "运行时类型",
+              code: `LibraryItem item = new Book();
 
+System.out.println(item.getClass().getName());
+System.out.println(item instanceof Book);
+
+if (item instanceof Book) {
+    Book book = (Book) item;
+    System.out.println(book.label());
+}`,
+            },
+          ],
+        },
+        {
+          id: "reflection",
+          heading: "反射与动态代理",
+          html: `
+            <p>反射允许在运行时查找方法并调用，适合框架和插件；代价是失去编译期检查、变慢，并且更难重构。动态代理在接口之上生成包装对象，适合横切逻辑，但不要用它代替清晰的接口设计。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "反射调用",
+              code: `Class<?> type = Book.class;
+Object instance = type.getDeclaredConstructor(String.class)
+    .newInstance("On Java 8");
+
+Method method = type.getMethod("label");
+System.out.println(method.invoke(instance));`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "Class 对象描述运行时类型，instanceof 保护向下转型。",
+        "反射适合框架，不适合业务代码的日常路径。",
+        "动态代理把包装逻辑集中到接口边界。",
+      ],
+    },
+    {
+      slug: "generics",
+      number: "20",
+      title: "泛型",
+      partId: "types",
+      minutes: 13,
+      lede: "泛型把类型参数化，在编译期保护集合与算法；擦除、边界和通配符决定了它的能力边界。",
+      sections: [
+        {
+          id: "generic-types",
+          heading: "泛型类、接口与方法",
+          html: `
+            <p>泛型让同一个结构服务多种类型，同时保留编译期检查。Java 的泛型通过擦除实现，运行时看不到类型参数；因此不能 <code>new T()</code>，也不能创建泛型数组。边界 <code>extends</code> 既限制类型，也让你调用边界方法。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "泛型方法与边界",
+              code: `class Box<T> {
+    private final T value;
+
+    Box(T value) {
+        this.value = value;
+    }
+
+    T get() {
+        return value;
+    }
+}
+
+static <T extends Comparable<T>> T max(T left, T right) {
+    return left.compareTo(right) >= 0 ? left : right;
+}
+
+System.out.println(max("Rust", "Java"));`,
+            },
+          ],
+        },
+        {
+          id: "wildcards",
+          heading: "通配符与 PECS",
+          html: `
+            <p><code>? extends T</code> 适合读取，<code>? super T</code> 适合写入。PECS 记忆法是 Producer Extends, Consumer Super。通配符不是为了让类型更复杂，而是让 API 接受更广的调用者。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "读写边界",
+              code: `static double sum(List<? extends Number> values) {
+    double total = 0;
+    for (Number value : values) {
+        total += value.doubleValue();
+    }
+    return total;
+}
+
+static void addNumbers(List<? super Integer> target) {
+    target.add(1);
+    target.add(2);
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "泛型在编译期提供类型安全，运行时会被擦除。",
+        "边界既是限制，也是可调用能力的来源。",
+        "读用 extends，写用 super；不要把通配符当装饰。",
+      ],
+    },
+    {
+      slug: "arrays",
+      number: "21",
+      title: "数组",
+      partId: "types",
+      minutes: 10,
+      lede: "数组长度固定、是对象、会做运行时类型检查；Arrays 工具类覆盖填充、排序、查找和流化。",
+      sections: [
+        {
+          id: "array-basics",
+          heading: "数组是对象",
+          html: `
+            <p>数组在创建时固定长度，元素有默认值。它可以作为对象传递、返回，也支持多维数组。数组知道自己的元素类型，错误类型写入会在运行时抛出 <code>ArrayStoreException</code>。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "数组与多维数组",
+              code: `int[] numbers = new int[3];
+numbers[0] = 7;
+
+String[][] rows = {
+    {"On Java 8", "Rust"},
+    {"Python", "Go"}
+};
+
+System.out.println(rows[1][0]);`,
+            },
+          ],
+        },
+        {
+          id: "arrays-utils",
+          heading: "Arrays 工具类",
+          html: `
+            <p><code>Arrays.fill</code> 填充，<code>Arrays.sort</code> 排序，<code>Arrays.copyOf</code> 复制，<code>binarySearch</code> 要求数组已排序。<code>Arrays.stream</code> 可以把数组接入 Stream 管道。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "排序、复制、流",
+              code: `int[] values = {5, 2, 8, 1};
+Arrays.sort(values);
+
+int[] copy = Arrays.copyOf(values, values.length + 2);
+Arrays.fill(copy, values.length, copy.length, 0);
+
+int sum = Arrays.stream(values).sum();
+System.out.println(Arrays.toString(copy) + " / " + sum);`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "数组长度固定，是带类型检查的对象。",
+        "多维数组本质是数组的数组。",
+        "Arrays 提供填充、排序、复制、查找和流式操作。",
+      ],
+    },
+    {
+      slug: "enumerations",
+      number: "22",
+      title: "枚举",
+      partId: "types",
+      minutes: 9,
+      lede: "枚举不是整数常量：它是完整的类，可以带字段、方法、接口，并用 EnumSet/EnumMap 获得类型安全集合。",
+      sections: [
+        {
+          id: "enum-basics",
+          heading: "枚举类型与方法",
+          html: `
+            <p>枚举值在类加载时创建，天然单例。可以给枚举添加构造器、字段和方法。<code>values()</code> 返回所有常量数组，<code>valueOf()</code> 按名字查找；<code>switch</code> 对枚举尤其清晰。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "带字段的枚举",
+              code: `enum Level {
+    BASIC(1),
+    ADVANCED(2);
+
+    private final int code;
+
+    Level(int code) {
+        this.code = code;
+    }
+
+    int code() {
+        return code;
+    }
+}
+
+System.out.println(Level.ADVANCED.code()); // 2`,
+            },
+          ],
+        },
+        {
+          id: "enum-collections",
+          heading: "EnumSet、EnumMap 与常量特定方法",
+          html: `
+            <p><code>EnumSet</code> 和 <code>EnumMap</code> 针对枚举优化，既省内存又表达清晰。枚举常量可以覆盖抽象方法，实现每个常量不同的行为，这比在 switch 里堆逻辑更容易扩展。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "EnumSet 与常量行为",
+              code: `EnumSet<Level> plan = EnumSet.of(Level.BASIC, Level.ADVANCED);
+
+for (Level level : plan) {
+    System.out.println(level + ":" + level.code());
+}
+
+enum Operation {
+    ADD {
+        int apply(int a, int b) { return a + b; }
+    },
+    MULTIPLY {
+        int apply(int a, int b) { return a * b; }
+    };
+
+    abstract int apply(int a, int b);
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "枚举是类型安全的类，不是 int 的别名。",
+        "EnumSet / EnumMap 针对枚举提供高效集合。",
+        "常量特定方法把行为放在常量旁边，避免巨型 switch。",
+      ],
+    },
+    {
+      slug: "annotations",
+      number: "23",
+      title: "注解",
+      partId: "types",
+      minutes: 9,
+      lede: "注解把元数据写进源码，由编译器、框架或注解处理器读取；它本身不会执行任何逻辑。",
+      sections: [
+        {
+          id: "syntax",
+          heading: "定义与元注解",
+          html: `
+            <p>注解用 <code>@interface</code> 定义，可以带基本类型、String、Class、枚举、注解和数组元素。<code>@Retention</code> 决定保留到源码、字节码还是运行时，<code>@Target</code> 决定可以标注在哪里，<code>@Documented</code> 和 <code>@Inherited</code> 控制文档与继承。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "定义一个运行时注解",
+              code: `@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.TYPE})
+public @interface Note {
+    String value();
+    int priority() default 0;
+}`,
+            },
+          ],
+        },
+        {
+          id: "processing",
+          heading: "从反射到注解处理器",
+          html: `
+            <p>运行时可用的注解可以通过反射读取，适合小型测试框架或配置；编译期注解处理器可以生成代码或校验约束，适合框架作者。使用方不要依赖注解的副作用，注解只是元数据，执行逻辑在读取方。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "运行时读取注解",
+              code: `@Note(value = "explain ownership", priority = 2)
+public class Book {
+}
+
+Note note = Book.class.getAnnotation(Note.class);
+if (note != null) {
+    System.out.println(note.value() + " / " + note.priority());
+}`,
+            },
+          ],
+        },
+      ],
+      takeaways: [
+        "注解是元数据，必须有人读取才会产生行为。",
+        "Retention 与 Target 决定注解能被用在何处、活到何时。",
+        "反射适合小型运行时读取，编译期处理器适合框架级生成。",
+      ],
+    },
+    {
+      slug: "concurrency",
+      number: "24",
+      title: "并发编程",
+      partId: "concurrency",
+      minutes: 15,
+      lede: "并发不是“多开线程”：任务是边界，共享状态是风险，线程池、锁和 CompletableFuture 是用来组织边界的工具。",
+      sections: [
+        {
+          id: "tasks",
+          heading: "任务、线程与线程池",
+          html: `
+            <p>把工作写成独立任务，交给线程池执行，而不是为每个请求创建一个线程。共享可变状态必须被保护；不可变对象和无共享设计通常更容易扩展。启动线程后要关心异常、取消和关闭。</p>
+          `,
+          code: [
+            {
+              lang: "java",
+              label: "线程池执行任务",
+              code: `ExecutorService pool = Executors.newFixedThreadPool(4);
+
+Future<Integer> result = pool.submit(() -> {
+    int total = 0;
+    for (int i = 1; i <= 10; i++) {
+        total += i;
+    }
+    return total;
+});
+
+System.out.println(result.get());
 pool.shutdown();`,
             },
           ],
         },
         {
-          id: "combine",
-          heading: "组合两个结果",
+          id: "shared-state",
+          heading: "共享状态与 CompletableFuture",
           html: `
-            <p><code>thenCombine</code> 等两个独立任务都完成后合并结果；<code>allOf</code> 适合等待一组任务。不要在异步回调里调用 <code>get()</code>，那会把流水线重新变成阻塞调用。</p>
+            <p><code>synchronized</code> 或 <code>Lock</code> 保护临界区；锁的范围越短越好，且不要在持锁时做 I/O。死锁通常来自多把锁的获取顺序不一致。<code>CompletableFuture</code> 用组合代替阻塞等待，但异常处理与线程池边界仍然要明确。</p>
           `,
           code: [
             {
               lang: "java",
-              label: "组合与等待",
-              code: `CompletableFuture<String> name =
-    CompletableFuture.supplyAsync(() -> "study-room");
+              label: "组合异步结果",
+              code: `ExecutorService pool = Executors.newFixedThreadPool(2);
 
-CompletableFuture<Integer> score =
-    CompletableFuture.supplyAsync(() -> 42);
+CompletableFuture<String> user =
+    CompletableFuture.supplyAsync(() -> "study-room", pool);
 
-CompletableFuture<String> summary =
-    name.thenCombine(score, (n, s) -> n + ":" + s);
+CompletableFuture<Integer> length =
+    user.thenApply(String::length);
 
-CompletableFuture<Void> all = CompletableFuture.allOf(name, score);
-all.thenRun(() -> System.out.println("both ready"));
-
-summary.thenAccept(System.out::println);`,
-            },
-          ],
-        },
-        {
-          id: "errors",
-          heading: "异常也属于返回值",
-          html: `
-            <p><code>exceptionally</code> 在失败时提供替代值，<code>handle</code> 同时接收结果和异常。异常不会自动“冒泡”到调用栈，它会被包装进 CompletionException，所以异步管道必须在边界处明确处理。</p>
-          `,
-          code: [
-            {
-              lang: "java",
-              label: "失败处理",
-              code: `CompletableFuture<Integer> safe = CompletableFuture
-    .supplyAsync(() -> Integer.parseInt("not-a-number"))
-    .handle((value, error) -> error == null ? value : -1);
-
-System.out.println(safe.join()); // -1`,
+length.thenAccept(System.out::println);
+pool.shutdown();`,
             },
           ],
         },
       ],
       takeaways: [
-        "thenApply 做映射，thenCompose 连接另一个异步任务。",
-        "不要在回调里 get 阻塞；在最终边界再等待。",
-        "异常会被包进 Future，用 exceptionally / handle 明确处理。",
+        "用任务和线程池组织并发，不要为每个请求裸建线程。",
+        "共享可变状态需要锁或消息传递；尽量缩小临界区。",
+        "CompletableFuture 适合组合异步步骤，异常与线程池仍要显式管理。",
       ],
     },
   ],

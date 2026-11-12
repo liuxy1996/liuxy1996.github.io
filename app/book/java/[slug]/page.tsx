@@ -26,7 +26,7 @@ export async function generateMetadata({
   if (!chapter) return {};
   const title = `第 ${chapter.number} 章 · ${chapter.title}`;
   return {
-    title: `${title}｜Java 8 手册`,
+    title: `${title}｜On Java 8`,
     description: chapter.lede,
     alternates: { canonical: `/book/java/${chapter.slug}/` },
     openGraph: {
@@ -53,7 +53,7 @@ export default async function JavaChapterPage({ params }: PageProps) {
     inLanguage: "zh-CN",
     isPartOf: {
       "@type": "Book",
-      name: "Java 8 手册",
+      name: "On Java 8",
       url: `${site.url}/book/java/`,
     },
     author: {

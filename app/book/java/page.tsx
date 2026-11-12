@@ -4,13 +4,13 @@ import { javaBook } from "@/content/java";
 import { site } from "@/lib/chapters";
 
 export const metadata: Metadata = {
-  title: "Java 8 手册",
+  title: "On Java 8",
   description:
-    "从 JDK、对象与泛型出发，学习 Lambda、Stream、Collector、Optional、Date/Time 与 CompletableFuture。",
+    "按 Bruce Eckel《On Java 8》目录整理的中文导读：对象、封装、复用、多态、集合、函数式、泛型、类型信息与并发。",
   alternates: { canonical: "/book/java/" },
   openGraph: {
-    title: `Java 8 手册｜${site.name}`,
-    description: "Lambda、Stream 与异步。基于 Java SE 8 公开文档独立整理。",
+    title: `On Java 8｜${site.name}`,
+    description: "Bruce Eckel 的 Java 8 阅读手册：从对象模型到并发。",
     url: "/book/java/",
   },
 };
