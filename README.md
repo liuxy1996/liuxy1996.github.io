@@ -7,9 +7,11 @@
 自习室把正在学习的内容整理成可以阅读、可以运行、也可以长期维护的书目：
 
 - **书库**：Python 完全学习手册、Rust 精简手册、On Java 8 导读已经上架；AI Agent、工程手记正在整理。
+- **实验室**：AI 后端工程实验页，记录从 FastAPI 到可观测 Agent 服务的路线。
 - **文章**：关于 AI、编程基本功、语言选择与学习方法的长期写作。
+- **实验室**：AI 后端工程实验，按 FastAPI、LLM Gateway、RAG、Agent、生产化与 Capstone 推进；视觉/边缘与物理世界 Agent 排队中。
 - **播客**：自习室电台，第一季策划中，前导文字稿已上线。
-- **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python。
+- **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python；Rust / Java 可连接远程编译器运行。
 
 Rust 手册按 Rust 官方书的核心路线整理，代码块可以在线编辑并运行。On Java 8 导读按 Bruce Eckel 原书目录整理成 24 章，覆盖对象、封装、复用、多态、集合、函数式、文件、泛型与并发；它是独立导读，不是原书全文转载。Java 8 已结束公开更新，新项目建议使用更新的 LTS 版本。
 
@@ -73,6 +75,9 @@ GitHub Actions 只做构建检查，不执行部署，避免与分支发布竞�
 - `content/podcast.ts`：播客节目与发刊词。
 - `lib/library.ts`：书库书目与封面配置。
 - `lib/language-books.ts`：Rust / On Java 8 书目类型与路由辅助。
+- `lib/labs.ts`：实验室与六个 AI 后端实验的定义。
+- `app/lab/page.tsx`：实验室入口。
+- `app/lab/ai-backend/page.tsx`：AI 后端工程实验路线与启动示例。
 - `scripts/generate-brand-assets.py`：生成分享图、图标和 sitemap；`LANGUAGE_BOOK_ROUTES` 需要与新书章节同步。
 - `app/page.tsx`：书店式首页。
 - `app/notes/page.tsx`：书库目录。

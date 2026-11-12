@@ -24,17 +24,20 @@ export function CodeBlock({
   language,
   label,
   context,
+  runEnabled = true,
 }: {
   code: string;
   highlightedHtml: string;
   language: CodeLanguage;
   label: string;
   context: string;
+  runEnabled?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
   const [runnerOpen, setRunnerOpen] = useState(false);
   const canRun =
-    language === "python" || language === "rust" || language === "java";
+    runEnabled &&
+    (language === "python" || language === "rust" || language === "java");
 
   async function copyCode() {
     try {

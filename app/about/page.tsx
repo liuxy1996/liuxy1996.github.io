@@ -18,7 +18,11 @@ export const metadata: Metadata = {
 const facts = [
   {
     label: "内容",
-    text: "Python、Rust 与 On Java 8 导读已经上架；AI Agent 与工程手记正在整理。",
+    text: "三本手册已经上架；AI 后端工程实验室同步记录 FastAPI、RAG 与 Agent 服务。",
+  },
+  {
+    label: "实验",
+    text: "从流式接口、模型网关、RAG 到可观测 Agent，每个阶段都要求可运行、可评测。",
   },
   {
     label: "技术",

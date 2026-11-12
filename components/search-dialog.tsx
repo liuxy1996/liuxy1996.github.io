@@ -16,6 +16,7 @@ import {
   languageChapterPath,
   languageChapterSearchText,
 } from "@/lib/language-books";
+import { aiBackendLab, plannedLabs } from "@/lib/labs";
 import { libraryBooks } from "@/lib/library";
 import { posts, postToPlainText } from "@/lib/posts";
 import { ArrowRight, Search, X } from "@/components/icons";
@@ -85,6 +86,35 @@ const languageChapterEntries: SearchEntry[] = languageBooks.flatMap((book) =>
   })),
 );
 
+const labEntries: SearchEntry[] = [
+  {
+    id: "lab-ai-backend",
+    kind: "page",
+    href: aiBackendLab.href,
+    title: `AI 后端工程实验室`,
+    context: `实验室 · ${aiBackendLab.status}`,
+    text: [
+      aiBackendLab.description,
+      aiBackendLab.subtitle,
+      ...aiBackendLab.stack,
+      ...aiBackendLab.modules.flatMap((module) => [
+        module.title,
+        module.goal,
+        module.output,
+        ...module.topics,
+      ]),
+    ].join(" "),
+  },
+  ...plannedLabs.map((lab) => ({
+    id: `lab-${lab.id}`,
+    kind: "page" as const,
+    href: "/lab/",
+    title: `${lab.title}实验室`,
+    context: `实验室 · ${lab.status}`,
+    text: [lab.description, lab.subtitle, ...lab.stack].join(" "),
+  })),
+];
+
 const podcastEntry: SearchEntry = {
   id: "page-podcast",
   kind: "page",
@@ -99,6 +129,7 @@ const entries = [
   ...languageChapterEntries,
   ...postEntries,
   ...bookEntries,
+  ...labEntries,
   podcastEntry,
 ];
 

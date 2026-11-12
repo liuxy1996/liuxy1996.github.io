@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "Java 编程思想",
     "Stream API",
     "个人学习书库",
+    "FastAPI",
+    "RAG",
+    "LLM Agent",
     "编程入门",
     "Pyodide",
   ],
@@ -70,8 +73,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f1ede4" },
-    { media: "(prefers-color-scheme: dark)", color: "#12110e" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 

@@ -14,11 +14,11 @@ PUBLIC = ROOT / "public"
 DATA = json.loads((ROOT / "content" / "chapters.json").read_text(encoding="utf-8"))
 POSTS = json.loads((ROOT / "content" / "posts.json").read_text(encoding="utf-8"))
 
-DARK = "#12110e"
-INK = "#1b1915"
-BRASS = "#c8a974"
-CREAM = "#f1ede4"
-MUTED = "#a99e8d"
+DARK = "#000000"
+INK = "#1d1d1f"
+BRASS = "#0071e3"
+CREAM = "#f5f5f7"
+MUTED = "#86868b"
 
 FONT_SERIF = "C:/Windows/Fonts/georgia.ttf"
 FONT_BOLD = "C:/Windows/Fonts/msyhbd.ttc"
@@ -33,6 +33,7 @@ def font(path: str, size: int) -> ImageFont.FreeTypeFont:
 def make_og() -> None:
     image = Image.open(PUBLIC / "images" / "library-hero.webp").convert("RGB")
     image = ImageOps.fit(image, (1200, 630), method=Image.Resampling.LANCZOS)
+    image = ImageOps.grayscale(image).convert("RGB")
     image = image.filter(ImageFilter.GaussianBlur(0.25))
     shade = Image.new("RGBA", image.size, (0, 0, 0, 0))
     sdraw = ImageDraw.Draw(shade)
@@ -44,7 +45,7 @@ def make_og() -> None:
     draw = ImageDraw.Draw(image)
 
     # quiet colophon
-    draw.rectangle((76, 66, 106, 101), fill=CREAM)
+    draw.rectangle((76, 66, 106, 101), fill="#ffffff")
     draw.text((83, 72), "自", font=font(FONT_SONG, 23), fill=INK)
     draw.text((121, 71), "自习室", font=font(FONT_BOLD, 23), fill=CREAM)
     draw.text(
@@ -57,6 +58,7 @@ def make_og() -> None:
     draw.text((76, 240), "STUDY", font=font(FONT_SERIF, 96), fill=CREAM)
     draw.text((76, 343), "ROOM", font=font(FONT_SERIF, 96), fill=CREAM)
     draw.line((78, 477, 334, 477), fill=BRASS, width=2)
+    draw.ellipse((1088, 532, 1108, 552), fill=BRASS)
     draw.text(
         (76, 500),
         "A PERSONAL LIBRARY",
@@ -65,7 +67,7 @@ def make_og() -> None:
     )
     draw.text(
         (76, 559),
-        "BOOKS  /  NOTES  /  PODCAST",
+        "BOOKS  /  LAB  /  PODCAST",
         font=font(FONT_REGULAR, 13),
         fill=MUTED,
     )
@@ -147,6 +149,8 @@ def make_sitemap() -> None:
         "/notes/",
         "/blog/",
         "/book/",
+        "/lab/",
+        "/lab/ai-backend/",
         "/podcast/",
         "/playground/",
         "/about/",

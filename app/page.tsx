@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Headphones } from "@/components/icons";
 import { ScrollExperience } from "@/components/scroll-experience";
 import { episodes, podcastShow } from "@/content/podcast";
 import { stats } from "@/lib/chapters";
+import { aiBackendLab } from "@/lib/labs";
 import { languageBooks } from "@/lib/language-books";
 import { libraryBooks } from "@/lib/library";
 import { formatPostDate, posts } from "@/lib/posts";
@@ -247,6 +248,27 @@ export default function HomePage() {
               关于语言、AI 与学习方法的长期写作。
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="container lab-teaser" data-reveal>
+        <div className="lab-teaser-copy">
+          <span className="library-kicker library-kicker-light">
+            LAB / {aiBackendLab.number} / APPLIED AI
+          </span>
+          <h2>{aiBackendLab.title}</h2>
+          <p>{aiBackendLab.subtitle}</p>
+        </div>
+        <p className="lab-teaser-description">{aiBackendLab.description}</p>
+        <div className="lab-teaser-side">
+          <span className="lab-status">
+            <span className="status-dot" />
+            {aiBackendLab.status}
+          </span>
+          <Link className="library-btn library-btn-light" href={aiBackendLab.href}>
+            进入实验室
+            <ArrowRight />
+          </Link>
         </div>
       </section>
     </main>
