@@ -14,9 +14,9 @@ export default function NotFound() {
             <ArrowLeft />
             回到首页
           </Link>
-          <Link className="button button-ghost" href="/book/">
+          <Link className="button button-ghost" href="/notes/">
             <BookOpen />
-            翻翻课程目录
+            打开书库
           </Link>
         </div>
       </div>

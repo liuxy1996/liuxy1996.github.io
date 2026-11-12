@@ -9,8 +9,7 @@ export function SiteFooter() {
         <div className="footer-brand-block">
           <div className="footer-brand">
             <span className="brand-mark" aria-hidden="true">
-              <span>sr</span>
-              <i />
+              自
             </span>
             <div>
               <strong>{site.name}</strong>
@@ -18,19 +17,19 @@ export function SiteFooter() {
             </div>
           </div>
           <p>
-            一个关于代码、智能与长期成长的个人学习博客。
+            语言、智能与工程。
             <br />
-            读、写、运行，然后回到真实的问题里。
+            一个持续生长的个人学习书库。
           </p>
         </div>
 
         <div className="footer-links">
           <div>
-            <span className="footer-label">EXPLORE</span>
-            <Link href="/notes/">笔记</Link>
-            <Link href="/blog/">博客</Link>
+            <span className="footer-label">LIBRARY</span>
+            <Link href="/notes/">书库</Link>
             <Link href="/podcast/">播客</Link>
-            <Link href="/playground/">练习场</Link>
+            <Link href="/blog/">文章</Link>
+            <Link href="/playground/">练习室</Link>
             <Link href="/about/">关于</Link>
           </div>
           <div>
@@ -39,14 +38,14 @@ export function SiteFooter() {
               GitHub <ArrowUpRight />
             </a>
             <a href={site.docs} target="_blank" rel="noopener noreferrer">
-              Python 官方教程 <ArrowUpRight />
+              Python Docs <ArrowUpRight />
             </a>
             <a
-              href="https://pyodide.org/"
+              href="https://unsplash.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Pyodide <ArrowUpRight />
+              Photography <ArrowUpRight />
             </a>
           </div>
         </div>
@@ -57,9 +56,7 @@ export function SiteFooter() {
           © {new Date().getFullYear()} {site.name} · 由 {site.author} 维护
         </p>
         <p>
-          学习进度只保存在你的浏览器中
-          <span>·</span>
-          内容参考 Python 官方教程，经独立精简重排
+          静态站点 · 无账户 · 学习进度保存在本机
         </p>
         <a
           href={site.github}

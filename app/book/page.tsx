@@ -8,7 +8,6 @@ import {
   Terminal,
 } from "@/components/icons";
 import { BookProgressSummary } from "@/components/book-progress";
-import { SectionHeading } from "@/components/section-heading";
 import {
   chapters,
   parts,
@@ -37,16 +36,15 @@ export default function BookIndexPage() {
       <header className="book-index-hero">
         <div className="container book-index-hero-grid">
           <div>
-            <span className="eyebrow">PYTHON / THE FIRST BOOK</span>
+            <span className="eyebrow">BOOK 01 / PYTHON</span>
             <h1>
-              不追进度，
+              Python
               <br />
-              追<em>理解。</em>
+              <em>完全学习手册</em>
             </h1>
             <p className="book-index-lede">
-              这不是官方文档的搬家，而是一条重新排过序的学习路线。
-              每一章保留真正重要的概念，每一段代码都可以打开、修改、运行。
-              它也是整间自习室里的第一本手册。
+              16 章，从解释器、数据结构到异常、类与标准库。
+              每一段示例都可以在浏览器里打开、修改和运行。
             </p>
             <div className="book-index-meta">
               <span>
@@ -133,51 +131,6 @@ export default function BookIndexPage() {
             </section>
           );
         })}
-      </section>
-
-      <section className="container book-index-guide">
-        <SectionHeading
-          eyebrow="A SIMPLE WAY THROUGH"
-          title="不知道今天学什么？"
-          description="不需要每天读很多。把一次阅读控制在一个小问题里，更容易坚持。"
-        />
-        <div className="reading-methods">
-          <article>
-            <span>01</span>
-            <h3>先读完前三章</h3>
-            <p>
-              认识解释器和三种最常用的对象。读不懂的细节先跳过，保持节奏。
-            </p>
-            <Link href={`/book/${chapters[0].slug}/`}>
-              开始第一章 <ArrowRight />
-            </Link>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>每天跑一段代码</h3>
-            <p>
-              每章至少打开一次代码运行器，改一个数字或字符串，观察输出。
-            </p>
-            <Link href="/playground/">
-              去练习场 <ArrowRight />
-            </Link>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>用项目收尾</h3>
-            <p>
-              读完后用文件整理器、数据报表或 API 工具，把语法变成真正能用的东西。
-            </p>
-            <Link
-              href={`/book/${
-                chapters.find((chapter) => chapter.slug === "what-next")?.slug ??
-                chapters[chapters.length - 1].slug
-              }/`}
-            >
-              看下一步建议 <ArrowRight />
-            </Link>
-          </article>
-        </div>
       </section>
     </main>
   );

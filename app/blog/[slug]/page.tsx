@@ -38,6 +38,7 @@ export async function generateMetadata({
       description: post.subtitle,
       url: `/blog/${post.slug}/`,
       publishedTime: post.date,
+      images: [{ url: post.cover }],
     },
   };
 }
@@ -75,6 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     headline: post.title,
     description: post.subtitle,
     datePublished: post.date,
+    image: `${site.url}${post.cover}`,
     inLanguage: "zh-CN",
     author: {
       "@type": "Person",
@@ -103,7 +105,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="post-head">
           <Link href="/blog/" className="post-back">
             <ArrowLeft />
-            返回博客
+            返回文章
           </Link>
           <div className="post-meta">
             <span>{post.category}</span>
@@ -113,13 +115,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <h1>{post.title}</h1>
           <p className="post-subtitle">{post.subtitle}</p>
           <div className="post-byline">
-            <span className="post-byline-mark">sr</span>
+            <span className="post-byline-mark">自</span>
             <span>
               {site.name}
-              <small>写于自习室</small>
+              <small>STUDY ROOM JOURNAL</small>
             </span>
           </div>
         </header>
+
+        <figure className="post-cover">
+          <img
+            src={post.cover}
+            alt={post.coverAlt}
+            width="1600"
+            height="1000"
+            fetchPriority="high"
+          />
+        </figure>
 
         <div className="post-body">
           <PostBody post={post} />

@@ -13,6 +13,8 @@ export type Post = {
   category: string;
   date: string;
   readMinutes: number;
+  cover: string;
+  coverAlt: string;
   excerpt: string;
   sections: PostSection[];
   takeaways: string[];

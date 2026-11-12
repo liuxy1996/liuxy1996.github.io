@@ -36,10 +36,10 @@ export function BookProgressSummary({ compact = false }: { compact?: boolean }) 
         {!compact && (
           <p>
             {completedCount === 0
-              ? "从第一行代码开始，慢慢来。"
+              ? `尚未开始，共 ${chapters.length} 章。`
               : completedCount === chapters.length
-                ? "整本书读完啦。现在去写点自己的东西。"
-                : "每完成一章就点亮一个标记，进度只保存在本机。"}
+                ? "全部章节已读完。"
+                : "进度只保存在本机浏览器。"}
           </p>
         )}
       </div>

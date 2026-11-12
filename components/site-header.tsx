@@ -6,14 +6,13 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Menu, Search, X } from "@/components/icons";
 import { SearchDialog } from "@/components/search-dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { chapters, site, stats, totalReadingTime } from "@/lib/chapters";
+import { site } from "@/lib/chapters";
 
 const navigation = [
-  { href: "/notes", label: "笔记", matches: ["/notes", "/book"] },
-  { href: "/blog", label: "博客", matches: ["/blog"] },
+  { href: "/notes", label: "书库", matches: ["/notes", "/book"] },
   { href: "/podcast", label: "播客", matches: ["/podcast"] },
-  { href: "/playground", label: "练习场", matches: ["/playground"] },
-  { href: "/about", label: "关于", matches: ["/about"] },
+  { href: "/blog", label: "文章", matches: ["/blog"] },
+  { href: "/playground", label: "练习室", matches: ["/playground"] },
 ];
 
 function isActive(pathname: string, matches: string[]): boolean {
@@ -64,8 +63,7 @@ export function SiteHeader() {
         <div className="container header-inner">
           <Link href="/" className="brand" aria-label={`${site.name}首页`}>
             <span className="brand-mark" aria-hidden="true">
-              <span>sr</span>
-              <i />
+              自
             </span>
             <span className="brand-wordmark">
               <strong>{site.name}</strong>
@@ -93,17 +91,13 @@ export function SiteHeader() {
                 setMenuOpen(false);
                 setSearchOpen(true);
               }}
-              aria-label="搜索笔记与文章"
+              aria-label="搜索书库与文章"
             >
               <Search />
               <span>搜索</span>
               <kbd>Ctrl K</kbd>
             </button>
             <ThemeToggle compact />
-            <Link className="header-start" href={`/book/${chapters[0].slug}/`}>
-              开始阅读
-              <ArrowRight />
-            </Link>
             <button
               type="button"
               className="mobile-menu-toggle"
@@ -134,17 +128,10 @@ export function SiteHeader() {
             </nav>
             <div className="mobile-navigation-foot">
               <div>
-                <span>学习与写作</span>
-                <strong>
-                  {stats.chapters} 章笔记 · {totalReadingTime(stats.minutes)}
-                </strong>
+                <span>自习室</span>
+                <strong>个人学习书库</strong>
               </div>
-              <Link
-                className="button button-accent button-small"
-                href={`/book/${chapters[0].slug}/`}
-              >
-                从第 1 章开始
-              </Link>
+              <Link href="/about/">关于这间自习室</Link>
             </div>
           </div>
         )}

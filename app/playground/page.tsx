@@ -11,18 +11,18 @@ import { PythonWorkbench } from "@/components/python-workbench";
 import { chapters } from "@/lib/chapters";
 
 export const metadata: Metadata = {
-  title: "Python 练习场",
+  title: "Python 练习室",
   description:
-    "在浏览器里直接写 Python：无需安装，代码只在本机执行。适合配合课程做实验、验证语法和练习小项目。",
+    "在浏览器里直接写 Python：无需安装，代码只在本机执行。适合配合书库做实验、验证语法和练习小项目。",
   alternates: { canonical: "/playground/" },
   openGraph: {
-    title: "Python 练习场｜自习室",
+    title: "Python 练习室｜自习室",
     description: "在浏览器里写 Python，改一行，跑一下。",
     url: "/playground/",
   },
 };
 
-const starterCode = `# 欢迎来到自习室练习场
+const starterCode = `# 欢迎来到自习室练习室
 from collections import Counter
 
 sentence = "the quick brown fox jumps over the lazy dog"
@@ -41,15 +41,14 @@ export default function PlaygroundPage() {
     <main id="main-content" className="playground-page">
       <header className="container playground-hero">
         <div>
-          <span className="eyebrow">PLAYGROUND / RUN PYTHON HERE</span>
+          <span className="eyebrow">PRACTICE ROOM / PYTHON</span>
           <h1>
-            把想法
+            Python
             <br />
-            跑<em>出来。</em>
+            <em>练习室</em>
           </h1>
           <p className="playground-lede">
-            不需要安装 Python，不需要开终端。写几行代码、运行、看输出。
-            所有执行都在你的浏览器里发生，不会上传到服务器。
+            在浏览器里写 Python。无需安装，代码只在本机执行。
           </p>
           <div className="playground-meta">
             <span>
@@ -109,15 +108,15 @@ export default function PlaygroundPage() {
           </li>
         </ol>
         <Link className="text-link" href="/book/">
-          从课程里找灵感
+          打开 Python 手册
           <ArrowRight />
         </Link>
       </section>
 
       <section className="container playground-related">
         <div className="playground-related-head">
-          <span className="eyebrow">NEED A REFRESHER?</span>
-          <h2>边读边试。</h2>
+          <span className="eyebrow">RELATED CHAPTERS</span>
+          <h2>相关章节</h2>
         </div>
         <div className="playground-related-grid">
           {[chapters[2], chapters[4], chapters[6]].map((chapter) => (
@@ -131,8 +130,8 @@ export default function PlaygroundPage() {
         <div className="playground-disclaimer">
           <Play />
           <p>
-            这是一个轻量学习执行器，适合练习标准库和纯 Python 代码。
-            暂不支持 <code>input()</code>、系统命令和所有第三方 C 扩展。
+            适合练习标准库和纯 Python 代码。暂不支持 <code>input()</code>、
+            系统命令和第三方 C 扩展。
           </p>
         </div>
       </section>

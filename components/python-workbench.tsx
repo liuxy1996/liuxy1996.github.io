@@ -384,7 +384,7 @@ export function PythonWorkbench({
           </span>
           {!standalone && (
             <a href="/playground/" target="_blank" rel="noreferrer">
-              在新页面打开练习场
+              在新页面打开练习室
               <ArrowUpRight />
             </a>
           )}

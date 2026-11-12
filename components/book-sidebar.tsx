@@ -14,11 +14,11 @@ export function BookSidebar({
   const completion = Math.round((completedCount / chapters.length) * 100);
 
   return (
-    <aside className="book-sidebar" aria-label="课程目录">
+    <aside className="book-sidebar" aria-label="Python 手册目录">
       <div className="book-sidebar-top">
         <Link href="/notes/" className="sidebar-back">
           <ChevronLeft />
-          笔记库
+          书库
         </Link>
 
         <div className="sidebar-progress-card">
@@ -36,7 +36,7 @@ export function BookSidebar({
           >
             <span style={{ width: `${completion}%` }} />
           </div>
-          <p>{completion === 100 ? "全部完成，去做个项目吧。" : "完成一章，点亮一个标记。"}</p>
+          <p>{completion === 100 ? "全部章节已读完。" : "进度保存在本机。"}</p>
         </div>
       </div>
 
@@ -81,9 +81,9 @@ export function BookSidebar({
       </nav>
 
       <div className="book-sidebar-foot">
-        <span>不想只读？</span>
+        <span>练习</span>
         <Link href="/playground/">
-          打开练习场
+          打开练习室
           <span aria-hidden="true">↗</span>
         </Link>
       </div>

@@ -6,6 +6,8 @@
     "category": "AI 与学习",
     "date": "2026-11-11",
     "readMinutes": 6,
+    "cover": "/images/books.webp",
+    "coverAlt": "一双手托着几本书",
     "excerpt": "模型可以替我们写出看起来正确的代码，但它不能替我们决定什么值得做，也不能替我们承担错误的后果。",
     "sections": [
       {
@@ -54,6 +56,8 @@
     "category": "语言与系统",
     "date": "2026-11-09",
     "readMinutes": 5,
+    "cover": "/images/library-hero.webp",
+    "coverAlt": "灯光下的旧书店长廊",
     "excerpt": "Python 让想法先跑起来，Rust 逼你把「谁拥有它、谁能修改它、失败时怎么办」写清楚。",
     "sections": [
       {
@@ -101,6 +105,8 @@
     "category": "方法与成长",
     "date": "2026-11-06",
     "readMinutes": 5,
+    "cover": "/images/journal.webp",
+    "coverAlt": "钢笔在纸上写字的近景",
     "excerpt": "真正长期有效的学习，不是每天都很燃，而是即使普通的一天，也能完成一个可重复的小循环。",
     "sections": [
       {

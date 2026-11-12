@@ -7,99 +7,73 @@ import json
 from datetime import date
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DATA = json.loads((ROOT / "content" / "chapters.json").read_text(encoding="utf-8"))
 POSTS = json.loads((ROOT / "content" / "posts.json").read_text(encoding="utf-8"))
 
-DARK = "#0b221a"
-FOREST = "#123a2e"
-LIME = "#d8ef74"
-ORANGE = "#e76c3e"
-CREAM = "#f7f5eb"
-MUTED = "#9fb2a5"
+DARK = "#12110e"
+INK = "#1b1915"
+BRASS = "#c8a974"
+CREAM = "#f1ede4"
+MUTED = "#a99e8d"
 
+FONT_SERIF = "C:/Windows/Fonts/georgia.ttf"
 FONT_BOLD = "C:/Windows/Fonts/msyhbd.ttc"
 FONT_REGULAR = "C:/Windows/Fonts/msyh.ttc"
-FONT_MONO = "C:/Windows/Fonts/consola.ttf"
+FONT_SONG = "C:/Windows/Fonts/simsun.ttc"
 
 
 def font(path: str, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(path, size=size)
 
 
-def draw_brand_mark(draw: ImageDraw.ImageDraw, x: int, y: int, size: int) -> None:
-    draw.rounded_rectangle(
-        (x, y, x + size, y + size), radius=int(size * 0.23), fill=FOREST
-    )
-    logo_font = font(FONT_MONO, int(size * 0.4))
-    draw.text((x + size * 0.19, y + size * 0.24), "sr", font=logo_font, fill=LIME)
-    draw.ellipse(
-        (
-            x + size * 0.63,
-            y + size * 0.63,
-            x + size * 0.9,
-            y + size * 0.9,
-        ),
-        fill=ORANGE,
-    )
-
-
 def make_og() -> None:
-    image = Image.new("RGB", (1200, 630), DARK)
+    image = Image.open(PUBLIC / "images" / "library-hero.webp").convert("RGB")
+    image = ImageOps.fit(image, (1200, 630), method=Image.Resampling.LANCZOS)
+    image = image.filter(ImageFilter.GaussianBlur(0.25))
+    shade = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    sdraw = ImageDraw.Draw(shade)
+    for x in range(1200):
+        alpha = int(218 - 155 * (x / 1200) ** 0.85)
+        sdraw.line((x, 0, x, 630), fill=(11, 10, 8, max(alpha, 70)))
+    sdraw.rectangle((0, 410, 1200, 630), fill=(11, 10, 8, 105))
+    image = Image.alpha_composite(image.convert("RGBA"), shade).convert("RGB")
     draw = ImageDraw.Draw(image)
 
-    # Subtle background grid
-    for x in range(0, 1200, 54):
-        draw.line((x, 0, x, 630), fill="#123027", width=1)
-    for y in range(0, 630, 54):
-        draw.line((0, y, 1200, y), fill="#123027", width=1)
-
-    draw.ellipse((860, 40, 1230, 410), outline="#244b3c", width=1)
-    draw.ellipse((940, 120, 1150, 330), outline="#244b3c", width=1)
-    draw.ellipse((1045, 235, 1180, 370), fill=ORANGE)
-
-    draw_brand_mark(draw, 76, 68, 58)
+    # quiet colophon
+    draw.rectangle((76, 66, 106, 101), fill=CREAM)
+    draw.text((83, 72), "自", font=font(FONT_SONG, 23), fill=INK)
+    draw.text((121, 71), "自习室", font=font(FONT_BOLD, 23), fill=CREAM)
     draw.text(
-        (150, 77),
-        "自习室",
-        font=font(FONT_BOLD, 28),
-        fill=CREAM,
-    )
-    draw.text(
-        (150, 113),
+        (121, 100),
         "THE STUDY ROOM",
-        font=font(FONT_MONO, 13),
+        font=font(FONT_REGULAR, 11),
         fill=MUTED,
     )
 
+    draw.text((76, 240), "STUDY", font=font(FONT_SERIF, 96), fill=CREAM)
+    draw.text((76, 343), "ROOM", font=font(FONT_SERIF, 96), fill=CREAM)
+    draw.line((78, 477, 334, 477), fill=BRASS, width=2)
     draw.text(
-        (76, 218),
-        "为复杂的世界，",
-        font=font(FONT_BOLD, 92),
-        fill=CREAM,
-    )
-    draw.text(
-        (76, 330),
-        "留一间自习室。",
-        font=font(FONT_BOLD, 92),
-        fill=LIME,
-    )
-
-    draw.line((78, 502, 1122, 502), fill="#315043", width=1)
-    draw.text(
-        (78, 535),
-        "技术 · 思想 · 长期成长  /  NOTES · ESSAYS · PODCAST",
-        font=font(FONT_REGULAR, 20),
+        (76, 500),
+        "A PERSONAL LIBRARY",
+        font=font(FONT_REGULAR, 18),
         fill=MUTED,
     )
     draw.text(
-        (980, 532),
-        "STAY CURIOUS.",
-        font=font(FONT_MONO, 22),
-        fill=LIME,
+        (76, 559),
+        "BOOKS  /  NOTES  /  PODCAST",
+        font=font(FONT_REGULAR, 13),
+        fill=MUTED,
+    )
+    draw.text(
+        (1030, 567),
+        "2026",
+        font=font(FONT_REGULAR, 13),
+        fill=MUTED,
     )
 
     image.save(PUBLIC / "og.png", optimize=True)
@@ -108,21 +82,18 @@ def make_og() -> None:
 def make_icon(size: int, filename: str) -> None:
     image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     draw = ImageDraw.Draw(image)
-    pad = int(size * 0.03)
-    draw.rounded_rectangle(
-        (pad, pad, size - pad, size - pad),
-        radius=int(size * 0.23),
-        fill=FOREST,
+    pad = int(size * 0.04)
+    draw.rectangle((pad, pad, size - pad, size - pad), fill=INK)
+    draw.rectangle(
+        (int(size * 0.17), int(size * 0.17), int(size * 0.2), int(size * 0.83)),
+        fill=BRASS,
     )
     draw.text(
-        (size * 0.17, size * 0.24),
-        "py",
-        font=font(FONT_MONO, int(size * 0.4)),
-        fill=LIME,
+        (size * 0.3, size * 0.23),
+        "自",
+        font=font(FONT_SONG, int(size * 0.39)),
+        fill=CREAM,
     )
-    r = int(size * 0.135)
-    cx, cy = int(size * 0.75), int(size * 0.74)
-    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=ORANGE)
     image.save(PUBLIC / filename)
 
 

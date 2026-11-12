@@ -76,8 +76,9 @@ export const site = {
   name: "自习室",
   englishName: "The Study Room",
   shortName: "自习室",
+  summary: "语言、智能与系统。一个持续生长的个人学习书库。",
   description:
-    "一个关于代码、智能与长期成长的个人学习博客：可以运行的 Python 手册，正在生长的 AI Agent 与 Rust 笔记，真实案例，以及一档认真聊天的播客。",
+    "自习室是一间静态的个人学习书库：可以边读边跑的 Python 手册，整理中的 AI Agent、Rust 与工程手记，以及一档关于技术与长期成长的声音栏目。",
   url: "https://liuxy1996.github.io",
   author: "liuxy1996",
   github: "https://github.com/liuxy1996/liuxy1996.github.io",

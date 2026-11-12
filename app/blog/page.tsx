@@ -1,117 +1,107 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Spark } from "@/components/icons";
+import { ArrowRight, ArrowUpRight } from "@/components/icons";
 import { formatPostDate, posts } from "@/lib/posts";
 
 export const metadata: Metadata = {
-  title: "博客",
+  title: "文章",
   description:
-    "自习室的写作栏目：关于 AI、编程基本功、语言选择、学习方法与长期成长的思考。",
+    "自习室的长文栏目：关于 AI 与基本功、语言选择、学习方法与长期成长。",
   alternates: { canonical: "/blog/" },
   openGraph: {
-    title: "博客｜自习室",
-    description: "关于技术、选择与长期成长的写作。",
+    title: "文章｜自习室",
+    description: "关于技术、选择与长期成长的长文。",
     url: "/blog/",
   },
 };
 
 export default function BlogPage() {
+  const [featured, ...rest] = posts;
+
   return (
-    <main id="main-content" className="blog-page">
-      <header className="container blog-hero">
-        <div className="blog-hero-copy">
-          <span className="eyebrow">ESSAYS / FROM THE STUDY ROOM</span>
-          <h1>
-            <span>把想法，</span>
-            <span>
-              写到可以<em>回看</em>的地方。
-            </span>
-          </h1>
+    <main id="main-content" className="journal-page">
+      <header className="container journal-masthead">
+        <span className="library-kicker">JOURNAL</span>
+        <div className="journal-masthead-row">
+          <h1>文章</h1>
           <p>
-            记录技术背后的判断，也记录学习本身的形状。
-            这里不追热点，更关心那些过一阵子还能拿出来重读的问题。
+            关于语言、AI 与学习方法的长期写作。
+            <span>{posts.length} 篇</span>
           </p>
         </div>
-        <aside className="blog-hero-note">
-          <Spark />
-          <p>写作不是输出的终点，而是把模糊的理解逼到清晰的一种方式。</p>
-          <span>目前共 {posts.length} 篇 · 持续更新</span>
-        </aside>
       </header>
 
-      <section className="container blog-index" aria-label="文章列表">
-        <div className="blog-index-head">
-          <span className="eyebrow">RECENT WRITING</span>
-          <span>按写作时间排序</span>
-        </div>
-        <div className="blog-grid">
-          {posts.map((post, index) => (
-            <Link
-              className={`blog-card${index === 0 ? " is-featured" : ""}`}
-              href={`/blog/${post.slug}/`}
-              key={post.slug}
-            >
-              <div className="blog-card-top">
-                <span>{post.category}</span>
-                <span>
-                  {formatPostDate(post.date)} · {post.readMinutes} 分钟
-                </span>
-              </div>
-              <div className="blog-card-body">
-                <span className="blog-card-index">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h2>{post.title}</h2>
-                  <p>{post.excerpt}</p>
-                </div>
-              </div>
-              <span className="blog-card-read">
-                阅读全文
+      <section className="container journal-feature" aria-label="精选文章">
+        <Link
+          className="journal-feature-link"
+          href={`/blog/${featured.slug}/`}
+        >
+          <div className="journal-feature-media">
+            <img
+              src={featured.cover}
+              alt={featured.coverAlt}
+              width="1600"
+              height="1000"
+              fetchPriority="high"
+            />
+            <span>{featured.category}</span>
+          </div>
+          <div className="journal-feature-copy">
+            <span className="journal-meta">
+              {formatPostDate(featured.date)} · {featured.readMinutes} 分钟
+            </span>
+            <h2>{featured.title}</h2>
+            <p>{featured.excerpt}</p>
+            <span className="journal-read">
+              阅读全文
+              <ArrowUpRight />
+            </span>
+          </div>
+        </Link>
+      </section>
+
+      <section className="container journal-grid">
+        {rest.map((post, index) => (
+          <Link
+            className="journal-card"
+            href={`/blog/${post.slug}/`}
+            key={post.slug}
+          >
+            <div className="journal-card-media">
+              <img
+                src={post.cover}
+                alt={post.coverAlt}
+                width="1600"
+                height="1000"
+                loading="lazy"
+              />
+              <span>{post.category}</span>
+            </div>
+            <div className="journal-card-copy">
+              <span className="journal-meta">
+                {formatPostDate(post.date)} · {post.readMinutes} 分钟
+              </span>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <span className="journal-read">
+                阅读
                 <ArrowUpRight />
               </span>
-            </Link>
-          ))}
-        </div>
+            </div>
+            <span className="journal-card-index">
+              {String(index + 2).padStart(2, "0")}
+            </span>
+          </Link>
+        ))}
       </section>
 
-      <section className="container blog-manifesto">
-        <div>
-          <span className="eyebrow">EDITORIAL NOTE</span>
-          <h2>写作的三条小原则</h2>
-        </div>
-        <div className="blog-principles">
-          <div>
-            <span>01</span>
-            <p>先写清楚自己的判断，再引用别人。</p>
-          </div>
-          <div>
-            <span>02</span>
-            <p>能落到代码、项目或具体经验的，就不停在口号。</p>
-          </div>
-          <div>
-            <span>03</span>
-            <p>宁可少写一篇，也不为了更新而重复自己。</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="container blog-next">
-        <div>
-          <span className="eyebrow">KEEP EXPLORING</span>
-          <h2>读笔记，或者听一段。</h2>
-        </div>
-        <div className="blog-next-actions">
-          <Link className="button button-dark" href="/notes/">
-            去知识库
-            <ArrowRight />
-          </Link>
-          <Link className="text-link" href="/podcast/">
-            自习室电台
-            <ArrowRight />
-          </Link>
-        </div>
-      </section>
+      <div className="container journal-foot">
+        <Link href="/notes/">
+          回到书库
+          <ArrowRight />
+        </Link>
+        <span>{posts.length} 篇 · 持续更新</span>
+      </div>
     </main>
   );
 }

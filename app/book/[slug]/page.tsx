@@ -98,7 +98,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
           <article className="reader" id="chapter-top">
             <header className="reader-head">
               <div className="reader-breadcrumb">
-                <Link href="/notes/">笔记</Link>
+                <Link href="/notes/">书库</Link>
                 <span>/</span>
                 <Link href="/book/">Python 手册</Link>
                 <span>/</span>

@@ -11,6 +11,7 @@ import {
 } from "react";
 import searchIndex from "@/content/search-index.json";
 import { chapters } from "@/lib/chapters";
+import { libraryBooks } from "@/lib/library";
 import { posts, postToPlainText } from "@/lib/posts";
 import { ArrowRight, Search, X } from "@/components/icons";
 
@@ -58,42 +59,26 @@ const postEntries: SearchEntry[] = posts.map((post) => ({
   text: postToPlainText(post),
 }));
 
-const pageEntries: SearchEntry[] = [
-  {
-    id: "page-agent",
-    kind: "page",
-    href: "/notes/",
-    title: "AI Agent 应用笔记",
-    context: "笔记专题 · 筹备中",
-    text: "AI Agent 应用笔记：上下文工程、工具调用、Agent 评测、记忆与状态、可靠性边界。从会调用模型，到做一个可靠的应用。",
-  },
-  {
-    id: "page-rust",
-    kind: "page",
-    href: "/notes/",
-    title: "Rust 系统编程笔记",
-    context: "笔记专题 · 筹备中",
-    text: "Rust 系统编程笔记：所有权、类型系统、错误处理、异步、命令行项目。从系统边界重新理解编程。",
-  },
-  {
-    id: "page-work",
-    kind: "page",
-    href: "/notes/",
-    title: "工程案例与在线简历",
-    context: "专题 · 筹备中",
-    text: "工程案例、项目复盘、架构取舍与在线简历。真实项目的设计过程与个人经历。",
-  },
-  {
-    id: "page-podcast",
-    kind: "page",
-    href: "/podcast/",
-    title: "自习室电台",
-    context: "播客 · 筹备中",
-    text: "关于技术、选择与长期成长的声音杂志。AI 与基本功、Python 到 Rust、Agent 与责任、工程师的审美、学习复利。",
-  },
-];
+const bookEntries: SearchEntry[] = libraryBooks.map((book) => ({
+  id: `book-${book.id}`,
+  kind: "page",
+  href: book.href ?? "/notes/",
+  title: `${book.title} ${book.subtitle}`,
+  context:
+    book.status === "已上架" ? "书库 · 已上架" : "书库 · 筹备中",
+  text: [book.description, ...book.topics, book.meta].join(" "),
+}));
 
-const entries = [...chapterEntries, ...postEntries, ...pageEntries];
+const podcastEntry: SearchEntry = {
+  id: "page-podcast",
+  kind: "page",
+  href: "/podcast/",
+  title: "自习室电台",
+  context: "播客 · 第一季筹备中",
+  text: "关于技术、选择与长期成长的声音栏目。AI 与基本功、Python 到 Rust、Agent 与责任、工程师的审美、学习复利。",
+};
+
+const entries = [...chapterEntries, ...postEntries, ...bookEntries, podcastEntry];
 
 function normalize(value: string): string {
   return value.toLocaleLowerCase("zh-CN").replace(/\s+/g, " ").trim();
@@ -111,8 +96,8 @@ function buildExcerpt(text: string, query: string): string {
 const suggestions = [
   {
     href: "/notes/",
-    label: "学习笔记",
-    meta: "笔记",
+    label: "学习书库",
+    meta: "书库",
   },
   {
     href: `/book/${chapters[0].slug}/`,
@@ -227,8 +212,8 @@ export function SearchDialog({
       <div className="search-panel">
         <div className="search-panel-head">
           <div>
-            <span className="eyebrow">Command palette</span>
-            <h2 id="search-title">搜索笔记与文章</h2>
+            <span className="eyebrow">Search the library</span>
+            <h2 id="search-title">搜索书库与文章</h2>
           </div>
           <button
             type="button"
@@ -246,8 +231,8 @@ export function SearchDialog({
             ref={inputRef}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="搜索概念、文章或代码…"
-            aria-label="搜索笔记、文章或概念"
+            placeholder="搜索书目、文章或概念…"
+            aria-label="搜索书目、文章或概念"
             autoComplete="off"
             spellCheck={false}
           />
@@ -275,7 +260,7 @@ export function SearchDialog({
               <span className="search-empty-mark">?</span>
               <p>没有找到「{query.trim()}」</p>
               <span>
-                试试更短的关键词，例如“函数”“AI”或“学习”。
+                试试更短的关键词，例如“函数”“Agent”或“Rust”。
               </span>
             </div>
           )}
