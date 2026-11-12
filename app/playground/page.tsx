@@ -8,16 +8,17 @@ import {
   Terminal,
 } from "@/components/icons";
 import { PythonWorkbench } from "@/components/python-workbench";
+import { RemotePlayground } from "@/components/remote-playground";
 import { chapters } from "@/lib/chapters";
 
 export const metadata: Metadata = {
-  title: "Python 练习室",
+  title: "练习室",
   description:
-    "在浏览器里直接写 Python：无需安装，代码只在本机执行。适合配合书库做实验、验证语法和练习小项目。",
+    "在浏览器里写代码：Python 完全在本地运行，Rust 与 Java 可通过可编辑的远程运行器编译执行。",
   alternates: { canonical: "/playground/" },
   openGraph: {
-    title: "Python 练习室｜自习室",
-    description: "在浏览器里写 Python，改一行，跑一下。",
+    title: "练习室｜自习室",
+    description: "Python 本地运行，Rust 与 Java 连接远程编译器。",
     url: "/playground/",
   },
 };
@@ -41,27 +42,23 @@ export default function PlaygroundPage() {
     <main id="main-content" className="playground-page">
       <header className="container playground-hero">
         <div>
-          <span className="eyebrow">PRACTICE ROOM / PYTHON</span>
-          <h1>
-            Python
-            <br />
-            <em>练习室</em>
-          </h1>
+          <span className="eyebrow">PRACTICE ROOM / 03 LANGUAGES</span>
+          <h1>练习室</h1>
           <p className="playground-lede">
-            在浏览器里写 Python。无需安装，代码只在本机执行。
+            Python 完全在浏览器本地运行；Rust 与 Java 通过可编辑的远程运行器执行。
           </p>
           <div className="playground-meta">
             <span>
               <Terminal />
-              Python in WebAssembly
+              Python / WebAssembly
             </span>
             <span>
               <Spark />
-              本地运行
+              Rust / Java / Remote
             </span>
             <span>
               <Info />
-              限时 6 秒
+              Python 限时 6 秒
             </span>
           </div>
         </div>
@@ -89,6 +86,18 @@ export default function PlaygroundPage() {
           <span>代码不会离开你的浏览器</span>
         </div>
         <PythonWorkbench initialCode={starterCode} standalone />
+      </section>
+
+      <section className="container remote-playground">
+        <div className="remote-playground-copy">
+          <span className="eyebrow">RUST / JAVA / REMOTE</span>
+          <h2>另外两种语言</h2>
+          <p>
+            打开一个可编辑的远程运行器。Rust 由 Rust Playground 编译，Java 由 Judge0
+            的 JDK 17 编译；只有点击运行时代码才会发送出去。
+          </p>
+        </div>
+        <RemotePlayground />
       </section>
 
       <section className="container playground-notes">

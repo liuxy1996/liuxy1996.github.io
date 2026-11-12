@@ -11,7 +11,7 @@
 - **播客**：自习室电台，第一季策划中，前导文字稿已上线。
 - **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python。
 
-Rust 手册按 Rust 官方书的核心路线整理，可复制代码但没有浏览器内 Rust 执行器。On Java 8 导读按 Bruce Eckel 原书目录整理成 24 章，覆盖对象、封装、复用、多态、集合、函数式、文件、泛型与并发；它是独立导读，不是原书全文转载。Java 8 已结束公开更新，新项目建议使用更新的 LTS 版本。
+Rust 手册按 Rust 官方书的核心路线整理，代码块可以在线编辑并运行。On Java 8 导读按 Bruce Eckel 原书目录整理成 24 章，覆盖对象、封装、复用、多态、集合、函数式、文件、泛型与并发；它是独立导读，不是原书全文转载。Java 8 已结束公开更新，新项目建议使用更新的 LTS 版本。
 
 站点是纯静态的，没有登录与评论系统。阅读进度只保存在浏览器 `localStorage` 中。
 
@@ -23,7 +23,9 @@ Rust 手册按 Rust 官方书的核心路线整理，可复制代码但没有浏
 | UI | React 19 + TypeScript + 手写 CSS |
 | 字体 | Noto Serif SC Variable / Inter Variable，自托管 |
 | 代码编辑器 | CodeMirror 6 |
-| Python | Pyodide（CPython → WebAssembly） |
+| Python | Pyodide（CPython → WebAssembly），本地执行 |
+| Rust | Rust Playground API，用户点击运行时发送代码 |
+| Java | Judge0 CE（JDK 17），用户点击运行时发送代码 |
 | 部署 | GitHub Pages（`main` 分支根目录） |
 
 ## 本地运行
@@ -128,5 +130,6 @@ python scripts/generate-brand-assets.py
 ## 说明
 
 - Python 内容参考 [Python 官方中文教程](https://docs.python.org/zh-cn/3/tutorial/) 第 1–16 章，经过精简、重排与补充示例。原教程版权归 Python Software Foundation 所有（PSF License 2.0）。
-- 站点没有后端。Python 在浏览器中执行，因此不支持 `input()`、系统命令以及依赖原生扩展的第三方包。
+- 站点没有自己的后端。Python 在浏览器中执行，因此不支持 `input()`、系统命令以及依赖原生扩展的第三方包。
+- Rust / Java 的在线运行使用的是公开远程服务：Rust Playground 与 Judge0 CE。只有用户点击“在线运行”时，代码才会离开浏览器；不要向公开服务发送密钥、隐私或生产代码。服务可能限流或暂时不可用，页面会显示请求错误。
 - Pyodide 资源在构建时从 `node_modules/pyodide` 复制到 `public/pyodide/`。

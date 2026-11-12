@@ -22,7 +22,7 @@ const facts = [
   },
   {
     label: "技术",
-    text: "Next.js 静态导出，Pyodide 在浏览器本地运行 Python，没有后端服务。",
+    text: "Next.js 静态导出；Python 在浏览器本地运行。Rust / Java 只有点击在线运行时才发送到外部编译器。",
   },
   {
     label: "账户",

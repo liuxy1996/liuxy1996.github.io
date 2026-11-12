@@ -84,6 +84,15 @@ const themeScript = `
       : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
+    document.documentElement.classList.add("js");
+    window.setTimeout(function () {
+      if (
+        location.pathname === "/" &&
+        !document.documentElement.classList.contains("scroll-ready")
+      ) {
+        document.documentElement.classList.add("reveal-fallback");
+      }
+    }, 2500);
   } catch (_) {}
 })();
 `;

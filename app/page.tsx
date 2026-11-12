@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { BookVolume } from "@/components/book-volume";
+import type { CSSProperties } from "react";
+import { BookCover, BookVolume } from "@/components/book-volume";
 import { ArrowRight, ArrowUpRight, Headphones } from "@/components/icons";
+import { ScrollExperience } from "@/components/scroll-experience";
 import { episodes, podcastShow } from "@/content/podcast";
 import { stats } from "@/lib/chapters";
 import { languageBooks } from "@/lib/language-books";
@@ -9,14 +11,20 @@ import { formatPostDate, posts } from "@/lib/posts";
 
 export default function HomePage() {
   const pythonBook = libraryBooks[0];
-  const liveBooks = libraryBooks.filter((book) => book.href).length;
+  const liveBookData = libraryBooks.filter((book) => book.href);
+  const liveBooks = liveBookData.length;
   const totalChapters =
     stats.chapters +
     languageBooks.reduce((total, book) => total + book.chapters.length, 0);
 
   return (
     <main id="main-content" className="library-home">
-      <section className="library-hero" aria-labelledby="library-title">
+      <ScrollExperience />
+      <section
+        className="library-hero"
+        aria-labelledby="library-title"
+        data-scroll-hero
+      >
         <div className="library-hero-media" aria-hidden="true">
           <img
             src="/images/library-hero.webp"
@@ -83,12 +91,13 @@ export default function HomePage() {
             {" · "}
             {episodes.length} EPISODES
           </span>
+          <span className="library-hero-scroll">SCROLL TO EXPLORE ↓</span>
           <span>LIBRARY / 001</span>
         </div>
       </section>
 
       <section className="container library-section library-shelves">
-        <div className="library-section-head">
+        <div className="library-section-head" data-reveal>
           <div>
             <span className="library-kicker">THE COLLECTION</span>
             <h2>书架</h2>
@@ -100,15 +109,77 @@ export default function HomePage() {
         </div>
 
         <div className="library-book-grid">
-          {libraryBooks.map((book) => (
-            <BookVolume book={book} key={book.id} />
+          {libraryBooks.map((book, index) => (
+            <div
+              className="book-reveal"
+              data-reveal
+              key={book.id}
+              style={
+                { "--reveal-delay": `${index * 65}ms` } as CSSProperties
+              }
+            >
+              <BookVolume book={book} />
+            </div>
           ))}
         </div>
-        <p className="library-shelf-note">更多语言与系统书目正在整理。</p>
+        <p className="library-shelf-note" data-reveal>
+          更多语言与系统书目正在整理。
+        </p>
+      </section>
+
+      <section
+        className="scroll-stage"
+        data-scroll-scene
+        aria-labelledby="scroll-stage-title"
+      >
+        <div className="scroll-stage-sticky">
+          <div className="scroll-stage-ambient" aria-hidden="true" />
+          <div className="container scroll-stage-grid">
+            <div className="scroll-stage-visual" aria-hidden="true">
+              <span className="scroll-stage-ring" />
+              {liveBookData.map((book, index) => (
+                <div
+                  className={`scroll-stage-cover scroll-stage-cover-${index}`}
+                  key={book.id}
+                >
+                  <BookCover book={book} />
+                </div>
+              ))}
+            </div>
+
+            <div className="scroll-stage-copy" data-reveal>
+              <span className="library-kicker library-kicker-light">
+                THE COLLECTION / {String(liveBooks).padStart(2, "0")} BOOKS
+              </span>
+              <h2 id="scroll-stage-title">三本在架</h2>
+              <div className="scroll-stage-list">
+                {liveBookData.map((book) => (
+                  <Link
+                    className="scroll-stage-book"
+                    href={book.href ?? "/notes/"}
+                    key={book.id}
+                  >
+                    <span>{book.number}</span>
+                    <strong>{book.title}</strong>
+                    <em>{book.subtitle}</em>
+                    <ArrowRight />
+                  </Link>
+                ))}
+              </div>
+              <Link className="scroll-stage-all" href="/notes/">
+                全部书目
+                <ArrowUpRight />
+              </Link>
+              <div className="scroll-stage-progress" aria-hidden="true">
+                <span />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="container library-section library-new">
-        <div className="library-section-head">
+        <div className="library-section-head" data-reveal>
           <div>
             <span className="library-kicker">NEW &amp; NOTED</span>
             <h2>新上架</h2>
@@ -120,7 +191,7 @@ export default function HomePage() {
         </div>
 
         <div className="library-new-grid">
-          <Link className="podcast-plate" href="/podcast/">
+          <Link className="podcast-plate" href="/podcast/" data-reveal>
             <div className="podcast-plate-media">
               <img
                 src="/images/podcast.webp"
@@ -144,7 +215,7 @@ export default function HomePage() {
             </div>
           </Link>
 
-          <div className="journal-list">
+          <div className="journal-list" data-reveal>
             <div className="journal-list-head">
               <span className="library-kicker">JOURNAL</span>
               <Link href="/blog/">

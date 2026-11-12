@@ -10,6 +10,14 @@ const PythonDialog = dynamic(
   { ssr: false },
 );
 
+const RemoteCodeDialog = dynamic(
+  () =>
+    import("@/components/remote-code-dialog").then(
+      (module) => module.RemoteCodeDialog,
+    ),
+  { ssr: false },
+);
+
 export function CodeBlock({
   code,
   highlightedHtml,
@@ -25,7 +33,8 @@ export function CodeBlock({
 }) {
   const [copied, setCopied] = useState(false);
   const [runnerOpen, setRunnerOpen] = useState(false);
-  const canRun = language === "python";
+  const canRun =
+    language === "python" || language === "rust" || language === "java";
 
   async function copyCode() {
     try {
@@ -73,7 +82,7 @@ export function CodeBlock({
               aria-label="运行并编辑这段代码"
             >
               <Play />
-              <span>动手运行</span>
+              <span>{language === "python" ? "动手运行" : "在线运行"}</span>
             </button>
           )}
         </span>
@@ -86,10 +95,20 @@ export function CodeBlock({
         <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
       </pre>
 
-      {runnerOpen && (
+      {runnerOpen && language === "python" && (
         <PythonDialog
           initialCode={code}
           title="动手改一改"
+          subtitle={context}
+          onClose={() => setRunnerOpen(false)}
+        />
+      )}
+
+      {runnerOpen && (language === "rust" || language === "java") && (
+        <RemoteCodeDialog
+          initialCode={code}
+          language={language}
+          title="在线运行这段代码"
           subtitle={context}
           onClose={() => setRunnerOpen(false)}
         />

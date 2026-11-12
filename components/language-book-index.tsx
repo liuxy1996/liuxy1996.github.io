@@ -52,6 +52,9 @@ export function LanguageBookIndex({ book }: { book: LanguageBook }) {
                 <ArrowUpRight />
               </a>
             </div>
+            <p className="lang-book-runtime-note">
+              代码块支持在线编辑与远程运行。
+            </p>
           </div>
 
           <div className="lang-book-art">
