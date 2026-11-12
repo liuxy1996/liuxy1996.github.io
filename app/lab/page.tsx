@@ -7,11 +7,11 @@ import { site } from "@/lib/chapters";
 export const metadata: Metadata = {
   title: "实验室",
   description:
-    "自习室实验室：AI 后端工程、视觉与边缘、物理世界 Agent。把模型、工具和真实系统放进同一条可以运行的链路。",
+    "自习室实验室：AI 后端工程、视觉与边缘、物理世界 Agent。",
   alternates: { canonical: "/lab/" },
   openGraph: {
     title: `实验室｜${site.name}`,
-    description: "把模型、工具和真实系统放进同一条可以运行的链路。",
+    description: "FastAPI、RAG、Agent 与生产化实验。",
     url: "/lab/",
   },
 };
@@ -23,7 +23,7 @@ export default function LabPage() {
         <span className="library-kicker">APPLIED AI / EXPERIMENTS</span>
         <div className="lab-index-title">
           <h1>实验室</h1>
-          <p>把模型、工具和真实系统放进同一条可以运行、可以评测的链路。</p>
+          <p>FastAPI、RAG、Agent 与生产化的实验记录。</p>
         </div>
       </header>
 
@@ -103,7 +103,7 @@ export default function LabPage() {
             <span className="library-kicker">NEXT EXPERIMENTS</span>
             <h2>后面的实验</h2>
           </div>
-          <span className="lab-planned-note">按真实项目排队，不追热点</span>
+          <span className="lab-planned-note">按依赖顺序推进</span>
         </div>
 
         <div className="lab-planned-grid">

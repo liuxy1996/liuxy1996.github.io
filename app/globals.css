@@ -14012,6 +14012,520 @@ html.reveal-fallback.js [data-reveal] {
   }
 }
 
+/* =========================================================
+   CONTENT-FIRST SCALE
+   Reduce display type, shorten page intros, and let records
+   and reading material lead the layout.
+   ========================================================= */
+
+.library-hero {
+  height: min(500px, calc(100svh - var(--header-height)));
+  min-height: 460px;
+}
+
+.library-hero-grid {
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: clamp(28px, 6vw, 100px);
+  padding-top: 54px;
+  padding-bottom: 24px;
+}
+
+.library-hero h1 {
+  margin: 14px 0 12px;
+  font-size: clamp(50px, 5.6vw, 72px);
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+}
+
+.library-hero h1 > span {
+  margin-top: 12px;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+}
+
+.library-hero-sub {
+  max-width: 440px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.library-hero-actions {
+  margin-top: 22px;
+}
+
+.library-hero-foot {
+  padding-top: 18px;
+  padding-bottom: 13px;
+  font-size: 7px;
+}
+
+.library-featured {
+  padding: 19px 20px 18px;
+}
+
+.library-featured h2 {
+  margin-top: 26px;
+  font-size: 31px;
+}
+
+.library-featured-link {
+  margin-top: 20px;
+}
+
+.library-section {
+  padding-top: clamp(44px, 4.8vw, 60px);
+}
+
+.library-section-head {
+  padding-bottom: 16px;
+}
+
+.library-section-head h2 {
+  margin-top: 7px;
+  font-size: clamp(27px, 3vw, 36px);
+  line-height: 1.15;
+}
+
+.library-book-grid {
+  padding-top: 22px;
+}
+
+.library-shelf-note {
+  margin-top: 17px;
+}
+
+/* pinned shelf: keep the scroll transition, spend less page on it */
+
+.scroll-stage {
+  height: 135vh;
+  min-height: 760px;
+  margin-top: 48px;
+}
+
+.scroll-stage-sticky {
+  min-height: 520px;
+}
+
+.scroll-stage-grid {
+  gap: clamp(28px, 5vw, 70px);
+}
+
+.scroll-stage-visual {
+  height: min(440px, 60vh);
+  min-height: 340px;
+}
+
+.scroll-stage-cover {
+  width: clamp(150px, 14vw, 195px);
+}
+
+.scroll-stage-ring {
+  width: min(44vw, 430px);
+}
+
+.scroll-stage-copy h2 {
+  margin: 12px 0 15px;
+  font-size: clamp(32px, 3.4vw, 42px);
+}
+
+.scroll-stage-book {
+  padding: 9px 0;
+}
+
+.scroll-stage-book strong {
+  font-size: 17px;
+}
+
+.scroll-stage-book > span {
+  font-size: 11px;
+}
+
+.scroll-stage-all {
+  margin-top: 15px;
+}
+
+.lab-teaser {
+  margin-top: clamp(48px, 5.5vw, 70px);
+  padding: 20px 24px;
+}
+
+.lab-teaser-copy h2 {
+  font-size: clamp(25px, 2.6vw, 31px);
+}
+
+.lab-teaser-description {
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* page titles: content first */
+
+.catalog-masthead-copy h1,
+.journal-masthead h1,
+.podcast-masthead-copy h1,
+.about-room-head h1,
+.lang-book-copy h1,
+.book-index-hero h1,
+.notes-hero h1,
+.blog-hero h1,
+.podcast-hero h1,
+.about-hero h1,
+.playground-hero h1,
+.lab-index-title h1,
+.lab-detail-title h1 {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 4.4vw, 56px);
+  font-weight: 450;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.post-head h1,
+.reader-head h1,
+.lang-reader-head h1 {
+  margin-top: 12px;
+  margin-bottom: 11px;
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3.8vw, 44px);
+  font-weight: 450;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+}
+
+.notes-hero,
+.blog-hero,
+.playground-hero {
+  padding-top: clamp(36px, 4.5vw, 58px);
+  padding-bottom: 30px;
+}
+
+.book-index-hero {
+  padding-top: clamp(36px, 4.5vw, 58px);
+  padding-bottom: 30px;
+}
+
+.catalog-masthead {
+  padding-top: clamp(30px, 4vw, 48px);
+}
+
+.journal-masthead {
+  padding-top: clamp(32px, 4vw, 50px);
+  padding-bottom: 18px;
+}
+
+.podcast-masthead {
+  padding-top: clamp(30px, 4vw, 48px);
+}
+
+.about-hero {
+  padding-top: clamp(44px, 5vw, 60px);
+  padding-bottom: 32px;
+}
+
+.about-room-head {
+  padding-top: clamp(38px, 4.5vw, 56px);
+  padding-bottom: 28px;
+}
+
+.lang-book-hero {
+  padding-top: clamp(32px, 4vw, 50px);
+}
+
+.lab-index-head {
+  padding-top: clamp(30px, 4vw, 45px);
+  padding-bottom: 18px;
+}
+
+.lab-index-title {
+  padding-bottom: 17px;
+}
+
+.lab-index-title p {
+  max-width: 330px;
+  font-size: 13px;
+}
+
+.lab-feature-card {
+  margin-top: 18px;
+  padding: 24px;
+  gap: 28px;
+}
+
+.lab-feature-copy h2 {
+  margin: 22px 0 6px;
+  font-size: clamp(32px, 4vw, 44px);
+}
+
+.lab-feature-sub {
+  font-size: 17px;
+}
+
+.lab-feature-description {
+  margin-top: 12px;
+  font-size: 11.5px;
+  line-height: 1.8;
+}
+
+.lab-stack {
+  margin-top: 16px;
+}
+
+.lab-feature-foot {
+  padding-top: 19px;
+}
+
+.lab-feature-visual {
+  min-height: 240px;
+}
+
+.lab-planned {
+  padding-top: 48px;
+}
+
+.lab-planned-card {
+  min-height: 200px;
+  padding: 17px;
+}
+
+.lab-planned-card h3 {
+  margin: 22px 0 3px;
+  font-size: 22px;
+}
+
+.lab-planned-card > p:not(.lab-planned-sub) {
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.lab-detail-head {
+  padding-top: clamp(24px, 3vw, 36px);
+}
+
+.lab-detail-title {
+  margin-top: 20px;
+}
+
+.lab-detail-sub {
+  font-size: 18px;
+}
+
+.lab-detail-description {
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
+.lab-detail-actions {
+  padding-bottom: 20px;
+}
+
+.lab-architecture-section,
+.lab-modules,
+.lab-principles {
+  padding-top: 46px;
+}
+
+.lab-module-grid {
+  margin-top: 18px;
+}
+
+.lab-module {
+  min-height: 0;
+  padding: 18px;
+}
+
+.lab-module h3 {
+  margin-top: 18px;
+  font-size: 21px;
+}
+
+.lab-module-goal {
+  font-size: 11px;
+}
+
+.lab-kickoff {
+  margin-top: 46px;
+}
+
+.lab-kickoff-head h2 {
+  font-size: clamp(26px, 3vw, 34px);
+}
+
+.lab-principles-grid h3 {
+  margin-top: 18px;
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .library-hero {
+    height: auto;
+    min-height: 460px;
+    padding-top: 56px;
+  }
+
+  .library-hero-grid {
+    padding-bottom: 8px;
+  }
+
+  .library-hero h1 {
+    font-size: clamp(48px, 11vw, 58px);
+  }
+
+  .library-hero-sub {
+    font-size: 13px;
+  }
+
+  .scroll-stage {
+    height: auto;
+    min-height: 0;
+    margin-top: 42px;
+    padding: 45px 0 50px;
+  }
+
+  .scroll-stage-sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .scroll-stage-visual {
+    height: 220px;
+    min-height: 0;
+  }
+
+  .scroll-stage-cover {
+    flex-basis: 140px;
+    width: 140px;
+  }
+
+  .scroll-stage-copy h2 {
+    font-size: 30px;
+  }
+
+  .scroll-stage-grid {
+    gap: 28px;
+  }
+
+  .library-section-head h2 {
+    font-size: 30px;
+  }
+
+  .lab-feature-card {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-feature-copy h2 {
+    margin-top: 20px;
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 760px) {
+  .library-hero {
+    min-height: 430px;
+    padding-top: 50px;
+  }
+
+  .library-hero h1 {
+    font-size: clamp(46px, 12vw, 54px);
+  }
+
+  .library-hero-sub {
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .library-section {
+    padding-top: 46px;
+  }
+
+  .library-section-head h2 {
+    font-size: 26px;
+  }
+
+  .library-hero-foot {
+    padding-top: 14px;
+  }
+
+  .catalog-masthead-copy h1,
+  .journal-masthead h1,
+  .podcast-masthead-copy h1,
+  .about-room-head h1,
+  .lang-book-copy h1,
+  .book-index-hero h1,
+  .notes-hero h1,
+  .blog-hero h1,
+  .podcast-hero h1,
+  .about-hero h1,
+  .playground-hero h1,
+  .lab-index-title h1,
+  .lab-detail-title h1 {
+    font-size: clamp(32px, 8.5vw, 42px);
+  }
+
+  .post-head h1,
+  .reader-head h1,
+  .lang-reader-head h1 {
+    font-size: clamp(27px, 7vw, 34px);
+  }
+
+  .lab-index-title h1 {
+    font-size: 46px;
+  }
+
+  .lab-detail-title h1 {
+    font-size: 40px;
+  }
+
+  .lab-feature-copy h2 {
+    font-size: 36px;
+  }
+
+  .lab-kickoff-head h2 {
+    font-size: 28px;
+  }
+
+  .lab-index-head {
+    padding-top: 30px;
+  }
+
+  .lab-detail-head {
+    padding-top: 25px;
+  }
+
+  .lab-architecture-section,
+  .lab-modules,
+  .lab-principles {
+    padding-top: 38px;
+  }
+
+  .lab-planned {
+    padding-top: 38px;
+  }
+
+  .scroll-stage {
+    padding-top: 38px;
+    padding-bottom: 42px;
+  }
+
+  .scroll-stage-visual {
+    height: 200px;
+  }
+
+  .scroll-stage-copy h2 {
+    font-size: 28px;
+    margin-top: 9px;
+  }
+
+  .lab-teaser {
+    margin-top: 45px;
+    padding: 18px 20px;
+  }
+}
+
 @media print {
   :root {
     --bg: #fff;

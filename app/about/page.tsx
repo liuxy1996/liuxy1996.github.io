@@ -45,8 +45,7 @@ export default function AboutPage() {
         <span className="library-kicker">ABOUT / THE STUDY ROOM</span>
         <h1>关于自习室</h1>
         <p>
-          一个静态的个人学习书库。把正在学的语言、智能与工程整理成可以阅读、可以运行、
-          也可以长期维护的页面。
+          三本可运行的手册，加上 FastAPI、RAG 与 Agent 的实验记录。
         </p>
       </header>
 

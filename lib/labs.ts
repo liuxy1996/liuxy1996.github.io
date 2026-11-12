@@ -27,7 +27,7 @@ export const aiBackendLab: Lab = {
   title: "AI 后端工程",
   subtitle: "FastAPI · RAG · Agent · 生产化",
   description:
-    "把 Python、FastAPI、模型调用、RAG 和 Agent 组合成一个可以部署、可以评测、可以观察的 AI 服务。不是为了跑一个 demo，而是为了交付一个能维护的产品。",
+    "用 FastAPI 组织模型调用、RAG、Agent 与生产化，把 AI 能力做成可运行、可评测、可观察的服务。",
   status: "搭建中",
   href: "/lab/ai-backend/",
   stack: [

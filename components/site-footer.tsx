@@ -17,9 +17,9 @@ export function SiteFooter() {
             </div>
           </div>
           <p>
-            语言、智能与工程。
+            Python、Rust、On Java 8。
             <br />
-            一个持续生长的个人学习书库。
+            以及 AI 后端工程实验。
           </p>
         </div>
 

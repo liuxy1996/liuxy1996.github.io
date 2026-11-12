@@ -40,16 +40,16 @@ export default function HomePage() {
         <div className="container library-hero-grid">
           <div className="library-hero-copy">
             <span className="library-kicker library-kicker-light">
-              A PERSONAL LIBRARY · EST. 2026
+              PYTHON · RUST · ON JAVA 8 · AI 后端
             </span>
             <h1 id="library-title">
               自习室
               <span>THE STUDY ROOM</span>
             </h1>
             <p className="library-hero-sub">
-              语言、智能与系统。
+              Python、Rust、On Java 8。
               <br />
-              一个持续生长的个人学习书库。
+              外加一个 AI 后端工程实验室。
             </p>
             <div className="library-hero-actions">
               <Link className="library-btn library-btn-light" href="/notes/">
@@ -92,8 +92,6 @@ export default function HomePage() {
             {" · "}
             {episodes.length} EPISODES
           </span>
-          <span className="library-hero-scroll">SCROLL TO EXPLORE ↓</span>
-          <span>LIBRARY / 001</span>
         </div>
       </section>
 

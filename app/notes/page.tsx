@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/notes/" },
   openGraph: {
     title: "书库｜自习室",
-    description: "一个持续生长的个人学习书库。",
+    description: "Python、Rust、On Java 8 三本手册。",
     url: "/notes/",
   },
 };
@@ -28,9 +28,9 @@ export default function LibraryPage() {
             <span className="library-kicker">THE LIBRARY</span>
             <h1>书库</h1>
             <p>
-              语言、智能与系统。
+              Python、Rust、On Java 8 三本手册。
               <br />
-              这里放正在读的书，也放准备写的书。
+              AI 后端实验与工程手记在准备中。
             </p>
             <div className="catalog-meta">
               <span>{available} 本在架</span>

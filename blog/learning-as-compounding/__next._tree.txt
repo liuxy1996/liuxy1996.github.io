@@ -1,8 +1,8 @@
 :HL["/_next/static/chunks/2qryqjn4tzyzw.css","style"]
-:HL["/_next/static/chunks/43dame1wk4a6c.css","style"]
+:HL["/_next/static/chunks/0l06uw2-hhmul.css","style"]
 :HC["/",""]
 :HL["/images/journal.webp","image",{"fetchPriority":"high"}]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"learning-as-compounding","s":[]},"h":65632,"c":"$Q3"}]]
 1:[["children",{"s":"blog","h":131136,"c":"$Q2"}]]
-0:{"b":"fydzHWJIT3rkbiI7j9rTr","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
+0:{"b":"I1dF4HN-vULepUFgY5alc","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
