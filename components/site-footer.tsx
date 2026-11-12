@@ -26,6 +26,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <div>
             <span className="footer-label">LIBRARY</span>
+            <Link href="/roadmap/">路线</Link>
             <Link href="/notes/">书库</Link>
             <Link href="/lab/">实验室</Link>
             <Link href="/podcast/">播客</Link>

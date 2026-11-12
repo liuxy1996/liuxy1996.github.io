@@ -78,7 +78,7 @@ export const site = {
   shortName: "自习室",
   summary: "Python、Rust、On Java 8，以及 AI 后端工程实验。",
   description:
-    "自习室是一间静态的个人学习书库：可以边读边跑的 Python 手册，Rust 学习手册，按 Bruce Eckel《On Java 8》目录整理的中文导读，以及从 FastAPI 到 Agent 的 AI 后端实验室。",
+    "自习室是一间个人学习空间：从 Python 基础到 FastAPI、RAG、Agent 的学习路线，三本可运行手册与 AI 后端实验记录。",
   url: "https://liuxy1996.github.io",
   author: "liuxy1996",
   github: "https://github.com/liuxy1996/liuxy1996.github.io",

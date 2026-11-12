@@ -9,9 +9,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/lib/chapters";
 
 const navigation = [
-  { href: "/notes", label: "书库", matches: ["/notes", "/book"] },
+  { href: "/roadmap", label: "路线", matches: ["/roadmap"] },
   { href: "/lab", label: "实验室", matches: ["/lab"] },
-  { href: "/podcast", label: "播客", matches: ["/podcast"] },
+  { href: "/notes", label: "书库", matches: ["/notes", "/book"] },
   { href: "/blog", label: "文章", matches: ["/blog"] },
   { href: "/playground", label: "练习室", matches: ["/playground"] },
 ];

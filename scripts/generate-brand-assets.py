@@ -149,6 +149,7 @@ def make_sitemap() -> None:
         "/notes/",
         "/blog/",
         "/book/",
+        "/roadmap/",
         "/lab/",
         "/lab/ai-backend/",
         "/podcast/",

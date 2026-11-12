@@ -19,6 +19,11 @@ import {
 import { aiBackendLab, plannedLabs } from "@/lib/labs";
 import { libraryBooks } from "@/lib/library";
 import { posts, postToPlainText } from "@/lib/posts";
+import {
+  currentRoadmapStage,
+  roadmapStages,
+  roadmapStatusLabel,
+} from "@/lib/roadmap";
 import { ArrowRight, Search, X } from "@/components/icons";
 
 type ChapterRecord = {
@@ -86,6 +91,24 @@ const languageChapterEntries: SearchEntry[] = languageBooks.flatMap((book) =>
   })),
 );
 
+const roadmapEntry: SearchEntry = {
+  id: "roadmap",
+  kind: "page",
+  href: "/roadmap/",
+  title: "学习路线",
+  context: `路线 · 当前：${currentRoadmapStage.title}`,
+  text: roadmapStages
+    .flatMap((stage) => [
+      stage.title,
+      stage.subtitle,
+      stage.summary,
+      stage.deliverable,
+      roadmapStatusLabel[stage.status],
+      ...stage.topics,
+    ])
+    .join(" "),
+};
+
 const labEntries: SearchEntry[] = [
   {
     id: "lab-ai-backend",
@@ -129,6 +152,7 @@ const entries = [
   ...languageChapterEntries,
   ...postEntries,
   ...bookEntries,
+  roadmapEntry,
   ...labEntries,
   podcastEntry,
 ];

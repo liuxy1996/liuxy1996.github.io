@@ -1,19 +1,22 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { BookCover, BookVolume } from "@/components/book-volume";
+import { BookVolume } from "@/components/book-volume";
 import { ArrowRight, ArrowUpRight, Headphones } from "@/components/icons";
 import { ScrollExperience } from "@/components/scroll-experience";
 import { episodes, podcastShow } from "@/content/podcast";
 import { stats } from "@/lib/chapters";
-import { aiBackendLab } from "@/lib/labs";
 import { languageBooks } from "@/lib/language-books";
 import { libraryBooks } from "@/lib/library";
 import { formatPostDate, posts } from "@/lib/posts";
+import {
+  currentRoadmapStage,
+  currentStageTasks,
+  roadmapStages,
+  roadmapStatusLabel,
+} from "@/lib/roadmap";
 
 export default function HomePage() {
-  const pythonBook = libraryBooks[0];
-  const liveBookData = libraryBooks.filter((book) => book.href);
-  const liveBooks = liveBookData.length;
+  const liveBooks = libraryBooks.filter((book) => book.href).length;
   const totalChapters =
     stats.chapters +
     languageBooks.reduce((total, book) => total + book.chapters.length, 0);
@@ -40,24 +43,24 @@ export default function HomePage() {
         <div className="container library-hero-grid">
           <div className="library-hero-copy">
             <span className="library-kicker library-kicker-light">
-              PYTHON · RUST · ON JAVA 8 · AI 后端
+              LEARNING ROADMAP · PYTHON AI SERVICE
             </span>
             <h1 id="library-title">
               自习室
               <span>THE STUDY ROOM</span>
             </h1>
             <p className="library-hero-sub">
-              Python、Rust、On Java 8。
+              Python 基础已完成。
               <br />
-              外加一个 AI 后端工程实验室。
+              下一步：FastAPI 服务与流式模型调用。
             </p>
             <div className="library-hero-actions">
-              <Link className="library-btn library-btn-light" href="/notes/">
-                浏览书架
+              <Link className="library-btn library-btn-light" href="/roadmap/">
+                查看学习路线
                 <ArrowRight />
               </Link>
-              <Link className="library-hero-link" href="/podcast/">
-                声音栏目
+              <Link className="library-hero-link" href="/notes/">
+                书库资源
                 <ArrowUpRight />
               </Link>
             </div>
@@ -65,23 +68,25 @@ export default function HomePage() {
 
           <aside className="library-featured">
             <div className="library-featured-top">
-              <span>NOW IN FOCUS</span>
-              <span>VOL. {pythonBook.number}</span>
+              <span>CURRENT STAGE</span>
+              <span>
+                {currentRoadmapStage.number} / {roadmapStages.length}
+              </span>
             </div>
             <h2>
-              Python
-              <span>{pythonBook.subtitle}</span>
+              {currentRoadmapStage.title}
+              <span>{currentRoadmapStage.subtitle}</span>
             </h2>
-            <p>{pythonBook.meta}</p>
+            <p>先跑通 /chat/stream，再进入 LLM Gateway。</p>
             <Link
               className="library-featured-link"
-              href={pythonBook.href ?? "/notes/"}
+              href="/lab/ai-backend/#experiment-00"
             >
-              开始阅读
+              打开实验 00
               <ArrowRight />
             </Link>
             <span className="library-featured-mark" aria-hidden="true">
-              01
+              {currentRoadmapStage.number}
             </span>
           </aside>
         </div>
@@ -95,11 +100,70 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section
+        className="container library-section home-roadmap"
+        aria-labelledby="home-roadmap-title"
+      >
+        <div className="library-section-head" data-reveal>
+          <div>
+            <span className="library-kicker">LEARNING ROUTE</span>
+            <h2 id="home-roadmap-title">学习路线</h2>
+          </div>
+          <Link className="library-index-link" href="/roadmap/">
+            完整路线
+            <ArrowRight />
+          </Link>
+        </div>
+
+        <div className="home-roadmap-grid">
+          <div className="home-roadmap-current" data-reveal>
+            <div className="home-roadmap-current-top">
+              <span>当前阶段 / {currentRoadmapStage.number}</span>
+              <span>{currentRoadmapStage.duration}</span>
+            </div>
+            <h3>{currentRoadmapStage.title}</h3>
+            <p className="home-roadmap-sub">{currentRoadmapStage.subtitle}</p>
+            <ol className="home-roadmap-tasks">
+              {currentStageTasks.map((task, index) => (
+                <li key={task}>
+                  <span>0{index + 1}</span>
+                  <p>{task}</p>
+                </li>
+              ))}
+            </ol>
+            <Link
+              className="library-btn library-btn-light"
+              href="/lab/ai-backend/#experiment-00"
+            >
+              从实验 00 开始
+              <ArrowRight />
+            </Link>
+          </div>
+
+          <ol className="home-roadmap-list" data-reveal>
+            {roadmapStages.map((stage) => (
+              <li className={`is-${stage.status}`} key={stage.id}>
+                <Link href={`/roadmap/#${stage.id}`}>
+                  <span className="home-roadmap-number">{stage.number}</span>
+                  <span className="home-roadmap-copy">
+                    <strong>{stage.title}</strong>
+                    <em>
+                      {roadmapStatusLabel[stage.status]} · {stage.subtitle}
+                    </em>
+                  </span>
+                  <ArrowRight />
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section className="container library-section library-shelves">
         <div className="library-section-head" data-reveal>
           <div>
-            <span className="library-kicker">THE COLLECTION</span>
-            <h2>书架</h2>
+            <span className="library-kicker">REFERENCE LIBRARY</span>
+            <h2>参考书目</h2>
           </div>
           <Link className="library-index-link" href="/notes/">
             全部书目
@@ -122,66 +186,15 @@ export default function HomePage() {
           ))}
         </div>
         <p className="library-shelf-note" data-reveal>
-          更多语言与系统书目正在整理。
+          手册作为参考，不要求按顺序读完；当前重点是实验 00。
         </p>
-      </section>
-
-      <section
-        className="scroll-stage"
-        data-scroll-scene
-        aria-labelledby="scroll-stage-title"
-      >
-        <div className="scroll-stage-sticky">
-          <div className="scroll-stage-ambient" aria-hidden="true" />
-          <div className="container scroll-stage-grid">
-            <div className="scroll-stage-visual" aria-hidden="true">
-              <span className="scroll-stage-ring" />
-              {liveBookData.map((book, index) => (
-                <div
-                  className={`scroll-stage-cover scroll-stage-cover-${index}`}
-                  key={book.id}
-                >
-                  <BookCover book={book} />
-                </div>
-              ))}
-            </div>
-
-            <div className="scroll-stage-copy" data-reveal>
-              <span className="library-kicker library-kicker-light">
-                THE COLLECTION / {String(liveBooks).padStart(2, "0")} BOOKS
-              </span>
-              <h2 id="scroll-stage-title">三本在架</h2>
-              <div className="scroll-stage-list">
-                {liveBookData.map((book) => (
-                  <Link
-                    className="scroll-stage-book"
-                    href={book.href ?? "/notes/"}
-                    key={book.id}
-                  >
-                    <span>{book.number}</span>
-                    <strong>{book.title}</strong>
-                    <em>{book.subtitle}</em>
-                    <ArrowRight />
-                  </Link>
-                ))}
-              </div>
-              <Link className="scroll-stage-all" href="/notes/">
-                全部书目
-                <ArrowUpRight />
-              </Link>
-              <div className="scroll-stage-progress" aria-hidden="true">
-                <span />
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="container library-section library-new">
         <div className="library-section-head" data-reveal>
           <div>
-            <span className="library-kicker">NEW &amp; NOTED</span>
-            <h2>新上架</h2>
+            <span className="library-kicker">NOTES &amp; PODCAST</span>
+            <h2>文章与播客</h2>
           </div>
           <Link className="library-index-link" href="/blog/">
             全部文章
@@ -246,27 +259,6 @@ export default function HomePage() {
               关于语言、AI 与学习方法的长期写作。
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="container lab-teaser" data-reveal>
-        <div className="lab-teaser-copy">
-          <span className="library-kicker library-kicker-light">
-            LAB / {aiBackendLab.number} / APPLIED AI
-          </span>
-          <h2>{aiBackendLab.title}</h2>
-          <p>{aiBackendLab.subtitle}</p>
-        </div>
-        <p className="lab-teaser-description">{aiBackendLab.description}</p>
-        <div className="lab-teaser-side">
-          <span className="lab-status">
-            <span className="status-dot" />
-            {aiBackendLab.status}
-          </span>
-          <Link className="library-btn library-btn-light" href={aiBackendLab.href}>
-            进入实验室
-            <ArrowRight />
-          </Link>
         </div>
       </section>
     </main>

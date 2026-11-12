@@ -6,9 +6,11 @@
 
 自习室把正在学习的内容整理成可以阅读、可以运行、也可以长期维护的书目：
 
+- **学习路线**：当前主线为 Python → FastAPI → LLM Gateway → RAG → Agent → 生产化；首页以路线和当前阶段为主，书库降为参考资源。
 - **书库**：Python 完全学习手册、Rust 精简手册、On Java 8 导读已经上架；AI Agent、工程手记正在整理。
 - **实验室**：AI 后端工程实验页，记录从 FastAPI 到可观测 Agent 服务的路线。
 - **文章**：关于 AI、编程基本功、语言选择与学习方法的长期写作。
+- **学习路线**：从 Python 基础到 FastAPI、LLM Gateway、RAG、Agent 与生产化；当前阶段为 Python AI 服务。
 - **实验室**：AI 后端工程实验，按 FastAPI、LLM Gateway、RAG、Agent、生产化与 Capstone 推进；视觉/边缘与物理世界 Agent 排队中。
 - **播客**：自习室电台，第一季策划中，前导文字稿已上线。
 - **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python；Rust / Java 可连接远程编译器运行。
@@ -75,6 +77,8 @@ GitHub Actions 只做构建检查，不执行部署，避免与分支发布竞�
 - `content/podcast.ts`：播客节目与发刊词。
 - `lib/library.ts`：书库书目与封面配置。
 - `lib/language-books.ts`：Rust / On Java 8 书目类型与路由辅助。
+- `lib/roadmap.ts`：从语言基础到 AI 后端的阶段定义。
+- `app/roadmap/page.tsx`：学习路线页面，首页首屏和导航入口都指向这里。
 - `lib/labs.ts`：实验室与六个 AI 后端实验的定义。
 - `app/lab/page.tsx`：实验室入口。
 - `app/lab/ai-backend/page.tsx`：AI 后端工程实验路线与启动示例。
