@@ -9224,6 +9224,7 @@ main {
   line-height: 1.5;
   letter-spacing: 0.015em;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 .book-volume-info {
@@ -12686,7 +12687,7 @@ html.reveal-fallback.js [data-reveal] {
 
 .scroll-stage-cover-0 {
   z-index: 1;
-  transform: translate(calc(-50% - var(--scene-progress, 0) * 175px), calc(-50% + var(--scene-progress, 0) * 24px)) rotate(calc(var(--scene-progress, 0) * -11deg)) scale(calc(0.88 + var(--scene-progress, 0) * 0.12));
+  transform: translate(calc(-50% - 24px - var(--scene-progress, 0) * 151px), calc(-50% + 22px + var(--scene-progress, 0) * 2px)) rotate(calc(-8deg - var(--scene-progress, 0) * 3deg)) scale(calc(0.88 + var(--scene-progress, 0) * 0.12));
 }
 
 .scroll-stage-cover-1 {
@@ -12696,7 +12697,7 @@ html.reveal-fallback.js [data-reveal] {
 
 .scroll-stage-cover-2 {
   z-index: 1;
-  transform: translate(calc(-50% + var(--scene-progress, 0) * 175px), calc(-50% + var(--scene-progress, 0) * 24px)) rotate(calc(var(--scene-progress, 0) * 11deg)) scale(calc(0.88 + var(--scene-progress, 0) * 0.12));
+  transform: translate(calc(-50% + 24px + var(--scene-progress, 0) * 151px), calc(-50% + 22px + var(--scene-progress, 0) * 2px)) rotate(calc(8deg + var(--scene-progress, 0) * 3deg)) scale(calc(0.88 + var(--scene-progress, 0) * 0.12));
 }
 
 .scroll-stage-copy {
