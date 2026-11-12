@@ -31,9 +31,9 @@ export const libraryBooks: LibraryBook[] = [
     description:
       "从解释器、数据结构到异常、类与标准库，一套可以边读边跑的 Python 心智模型。",
     topics: ["语言基础", "数据结构", "异常与类", "标准库"],
-    cover: "#1d1d1f",
-    coverInk: "#f5f5f7",
-    coverAccent: "#2997ff",
+    cover: "#1f2b21",
+    coverInk: "#f0f5eb",
+    coverAccent: "#b9d6a8",
   },
   {
     id: "rust",
@@ -48,9 +48,9 @@ export const libraryBooks: LibraryBook[] = [
     description:
       "从 Cargo、类型与所有权出发，走到结构体、trait、错误处理、并发与一个命令行项目。",
     topics: ["所有权", "trait", "错误处理", "并发"],
-    cover: "#3a3a3c",
-    coverInk: "#f5f5f7",
-    coverAccent: "#d2d2d7",
+    cover: "#3f4f36",
+    coverInk: "#f3f7ef",
+    coverAccent: "#cfe0c1",
   },
   {
     id: "java",
@@ -65,9 +65,9 @@ export const libraryBooks: LibraryBook[] = [
     description:
       "按 Bruce Eckel《On Java 8》的目录整理：从对象、封装、复用与多态，到集合、函数式、泛型、类型信息与并发。",
     topics: ["对象模型", "泛型", "Stream", "并发"],
-    cover: "#0a2540",
-    coverInk: "#f5f5f7",
-    coverAccent: "#2997ff",
+    cover: "#1d3a2d",
+    coverInk: "#f1f6ec",
+    coverAccent: "#a9c79a",
   },
   {
     id: "agent",
@@ -82,9 +82,9 @@ export const libraryBooks: LibraryBook[] = [
     description:
       "从一次模型调用，到一个能够被信任、被观测、被维护的 Agent 应用。",
     topics: ["上下文工程", "工具调用", "记忆与状态", "Agent 评测"],
-    cover: "#2c2c2e",
-    coverInk: "#f5f5f7",
-    coverAccent: "#64d2ff",
+    cover: "#33443a",
+    coverInk: "#f1f6ec",
+    coverAccent: "#c0d8b1",
   },
   {
     id: "engineering",
@@ -99,9 +99,9 @@ export const libraryBooks: LibraryBook[] = [
     description:
       "记录真实项目里那些不被写进语法书的设计判断与工程取舍。",
     topics: ["系统设计", "架构取舍", "性能", "项目复盘"],
-    cover: "#5a5a5e",
-    coverInk: "#f5f5f7",
-    coverAccent: "#d2d2d7",
+    cover: "#63735e",
+    coverInk: "#f3f7ef",
+    coverAccent: "#e0ead8",
   },
 ];
 

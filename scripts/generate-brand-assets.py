@@ -14,11 +14,11 @@ PUBLIC = ROOT / "public"
 DATA = json.loads((ROOT / "content" / "chapters.json").read_text(encoding="utf-8"))
 POSTS = json.loads((ROOT / "content" / "posts.json").read_text(encoding="utf-8"))
 
-DARK = "#000000"
-INK = "#1d1d1f"
-BRASS = "#0071e3"
-CREAM = "#f5f5f7"
-MUTED = "#86868b"
+DARK = "#0c150f"
+INK = "#1d2a20"
+BRASS = "#b9d6a8"
+CREAM = "#eef3e8"
+MUTED = "#879688"
 
 FONT_SERIF = "C:/Windows/Fonts/georgia.ttf"
 FONT_BOLD = "C:/Windows/Fonts/msyhbd.ttc"
