@@ -11,6 +11,11 @@ import {
 } from "react";
 import searchIndex from "@/content/search-index.json";
 import { chapters } from "@/lib/chapters";
+import {
+  languageBooks,
+  languageChapterPath,
+  languageChapterSearchText,
+} from "@/lib/language-books";
 import { libraryBooks } from "@/lib/library";
 import { posts, postToPlainText } from "@/lib/posts";
 import { ArrowRight, Search, X } from "@/components/icons";
@@ -69,6 +74,17 @@ const bookEntries: SearchEntry[] = libraryBooks.map((book) => ({
   text: [book.description, ...book.topics, book.meta].join(" "),
 }));
 
+const languageChapterEntries: SearchEntry[] = languageBooks.flatMap((book) =>
+  book.chapters.map((chapter) => ({
+    id: `language-${book.id}-${chapter.slug}`,
+    kind: "page",
+    href: languageChapterPath(book, chapter),
+    title: chapter.title,
+    context: `${book.title} 手册 · 第 ${chapter.number} 章`,
+    text: languageChapterSearchText(chapter),
+  })),
+);
+
 const podcastEntry: SearchEntry = {
   id: "page-podcast",
   kind: "page",
@@ -78,7 +94,13 @@ const podcastEntry: SearchEntry = {
   text: "关于技术、选择与长期成长的声音栏目。AI 与基本功、Python 到 Rust、Agent 与责任、工程师的审美、学习复利。",
 };
 
-const entries = [...chapterEntries, ...postEntries, ...bookEntries, podcastEntry];
+const entries = [
+  ...chapterEntries,
+  ...languageChapterEntries,
+  ...postEntries,
+  ...bookEntries,
+  podcastEntry,
+];
 
 function normalize(value: string): string {
   return value.toLocaleLowerCase("zh-CN").replace(/\s+/g, " ").trim();

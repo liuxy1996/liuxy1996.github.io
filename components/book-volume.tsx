@@ -2,6 +2,26 @@ import Link from "next/link";
 import { ArrowUpRight } from "@/components/icons";
 import { bookCoverStyle, type LibraryBook } from "@/lib/library";
 
+export function BookCover({ book }: { book: LibraryBook }) {
+  return (
+    <div className="book-volume-cover" style={bookCoverStyle(book)}>
+      <span className="book-volume-rule" aria-hidden="true" />
+      <div className="book-volume-cover-top">
+        <span>THE STUDY ROOM</span>
+        <span>VOL. {book.number}</span>
+      </div>
+      <div className="book-volume-cover-title">
+        <span>{book.english}</span>
+        <strong>{book.coverSubtitle}</strong>
+      </div>
+      <div className="book-volume-cover-foot">
+        <span>自习室文库</span>
+        <span>{book.status === "已上架" ? "AVAILABLE" : "IN PRESS"}</span>
+      </div>
+    </div>
+  );
+}
+
 function BookVolumeContent({
   book,
   detail,
@@ -11,21 +31,7 @@ function BookVolumeContent({
 }) {
   return (
     <>
-      <div className="book-volume-cover" style={bookCoverStyle(book)}>
-        <span className="book-volume-rule" aria-hidden="true" />
-        <div className="book-volume-cover-top">
-          <span>THE STUDY ROOM</span>
-          <span>VOL. {book.number}</span>
-        </div>
-        <div className="book-volume-cover-title">
-          <span>{book.english}</span>
-          <strong>{book.coverSubtitle}</strong>
-        </div>
-        <div className="book-volume-cover-foot">
-          <span>自习室文库</span>
-          <span>{book.status === "已上架" ? "AVAILABLE" : "IN PRESS"}</span>
-        </div>
-      </div>
+      <BookCover book={book} />
 
       <div className="book-volume-info">
         <div className="book-volume-title">

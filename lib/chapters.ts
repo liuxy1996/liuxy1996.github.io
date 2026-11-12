@@ -1,6 +1,6 @@
 import catalogData from "@/content/chapters.json";
 
-export type CodeLanguage = "python" | "shell" | "text";
+export type CodeLanguage = "python" | "rust" | "java" | "shell" | "text";
 
 export type TextBlock = {
   type: "html";
@@ -78,7 +78,7 @@ export const site = {
   shortName: "自习室",
   summary: "语言、智能与系统。一个持续生长的个人学习书库。",
   description:
-    "自习室是一间静态的个人学习书库：可以边读边跑的 Python 手册，整理中的 AI Agent、Rust 与工程手记，以及一档关于技术与长期成长的声音栏目。",
+    "自习室是一间静态的个人学习书库：可以边读边跑的 Python、Rust 与 Java 8 手册，正在整理的 AI Agent、工程手记，以及一档关于技术与长期成长的声音栏目。",
   url: "https://liuxy1996.github.io",
   author: "liuxy1996",
   github: "https://github.com/liuxy1996/liuxy1996.github.io",

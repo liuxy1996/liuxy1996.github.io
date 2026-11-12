@@ -3,11 +3,16 @@ import { BookVolume } from "@/components/book-volume";
 import { ArrowRight, ArrowUpRight, Headphones } from "@/components/icons";
 import { episodes, podcastShow } from "@/content/podcast";
 import { stats } from "@/lib/chapters";
+import { languageBooks } from "@/lib/language-books";
 import { libraryBooks } from "@/lib/library";
 import { formatPostDate, posts } from "@/lib/posts";
 
 export default function HomePage() {
   const pythonBook = libraryBooks[0];
+  const liveBooks = libraryBooks.filter((book) => book.href).length;
+  const totalChapters =
+    stats.chapters +
+    languageBooks.reduce((total, book) => total + book.chapters.length, 0);
 
   return (
     <main id="main-content" className="library-home">
@@ -74,7 +79,8 @@ export default function HomePage() {
 
         <div className="container library-hero-foot">
           <span>
-            {stats.chapters} CHAPTERS · {posts.length} ESSAYS ·{" "}
+            {liveBooks} BOOKS · {totalChapters} CHAPTERS · {posts.length} ESSAYS
+            {" · "}
             {episodes.length} EPISODES
           </span>
           <span>LIBRARY / 001</span>

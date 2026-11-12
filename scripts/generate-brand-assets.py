@@ -97,6 +97,32 @@ def make_icon(size: int, filename: str) -> None:
     image.save(PUBLIC / filename)
 
 
+LANGUAGE_BOOK_ROUTES = {
+    "rust": [
+        "getting-started",
+        "variables-and-control-flow",
+        "ownership-and-borrowing",
+        "structs-and-enums",
+        "modules-and-errors",
+        "collections-and-iterators",
+        "generics-traits-lifetimes",
+        "smart-pointers-and-threads",
+        "testing-and-tooling",
+        "cli-project",
+    ],
+    "java": [
+        "getting-started",
+        "objects-and-generics",
+        "lambdas",
+        "streams",
+        "collectors-and-parallel",
+        "optional-and-default-methods",
+        "date-time",
+        "completable-future",
+    ],
+}
+
+
 def make_sitemap() -> None:
     base = "https://liuxy1996.github.io"
     today = date.today().isoformat()
@@ -111,6 +137,9 @@ def make_sitemap() -> None:
     ]
     for chapter in DATA["chapters"]:
         urls.append(f"/book/{chapter['slug']}/")
+    for book_id, chapter_slugs in LANGUAGE_BOOK_ROUTES.items():
+        urls.append(f"/book/{book_id}/")
+        urls.extend(f"/book/{book_id}/{slug}/" for slug in chapter_slugs)
     for post in POSTS:
         urls.append(f"/blog/{post['slug']}/")
     entries = "\n".join(

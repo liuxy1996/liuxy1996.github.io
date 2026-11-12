@@ -6,7 +6,7 @@ import { site } from "@/lib/chapters";
 export const metadata: Metadata = {
   title: "关于",
   description:
-    "关于自习室：一个静态的个人学习书库，包含 Python 手册、AI Agent、Rust、工程手记与声音栏目。",
+    "关于自习室：一个静态的个人学习书库，包含 Python、Rust、Java 8 手册，以及 AI Agent、工程手记与声音栏目。",
   alternates: { canonical: "/about/" },
   openGraph: {
     title: "关于｜自习室",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const facts = [
   {
     label: "内容",
-    text: "Python 完全学习手册已经上架；AI Agent、Rust 与工程手记正在整理。",
+    text: "Python、Rust 与 Java 8 手册已经上架；AI Agent 与工程手记正在整理。",
   },
   {
     label: "技术",
@@ -49,12 +49,13 @@ export default function AboutPage() {
       <section className="container about-room-body">
         <div className="about-room-text">
           <p>
-            自习室从 Python 开始。第一本上架的书，是把官方教程重新整理成 16
-            章、59 个知识点和 50 段可运行代码的学习手册。
+            自习室从 Python 开始。现在书库里有三册可以读的手册：Python 16 章，
+            Rust 10 章，以及聚焦 Lambda、Stream 与异步的 Java 8 手册。
           </p>
           <p>
-            之后会继续加入 AI Agent、Rust 和工程手记。每本书都从一个正在做的问题出发，
-            写清楚它为什么成立、有哪些代价，以及下次怎样继续往前走。
+            接下来是 AI Agent 和工程手记。每本书都围绕真实问题整理，写清楚它为什么成立、
+            有哪些代价，以及下次怎样继续往前走。Java 8 是历史版本，这一册用来理解函数式
+            接口与 Stream，而不是建议新项目继续从 Java 8 起步。
           </p>
           <p>
             声音栏目是另一条线索：不追工具新闻，也不做成功学，只留下那些过一阵子仍然值得重听的问题。

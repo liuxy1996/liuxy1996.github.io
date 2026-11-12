@@ -6,10 +6,12 @@
 
 自习室把正在学习的内容整理成可以阅读、可以运行、也可以长期维护的书目：
 
-- **书库**：Python 完全学习手册已上架；AI Agent、Rust、工程手记正在整理。
+- **书库**：Python 完全学习手册、Rust 精简手册、Java 8 手册已经上架；AI Agent、工程手记正在整理。
 - **文章**：关于 AI、编程基本功、语言选择与学习方法的长期写作。
 - **播客**：自习室电台，第一季策划中，前导文字稿已上线。
 - **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python。
+
+Rust 手册按 Rust 官方书的核心路线整理，可复制代码但没有浏览器内 Rust 执行器。Java 8 手册参考 Java SE 8 公开文档整理，重点覆盖 Lambda、Stream、Optional、Date/Time 与 CompletableFuture；Java 8 已结束公开更新，新项目建议使用更新的 LTS 版本。
 
 站点是纯静态的，没有登录与评论系统。阅读进度只保存在浏览器 `localStorage` 中。
 
@@ -61,16 +63,23 @@ GitHub Actions 只做构建检查，不执行部署，避免与分支发布竞�
 
 ## 内容结构
 
-- `content/chapters.json`：书库中 Python 手册的结构化章节内容。
-- `content/search-index.json`：章节搜索索引。
+- `content/chapters.json`：Python 手册的结构化章节内容。
+- `content/rust.ts`：Rust 手册内容（10 章）。
+- `content/java.ts`：Java 8 手册内容（8 章）。
+- `content/search-index.json`：Python 章节搜索索引。
 - `content/posts.json`：文章，包含封面图与摘要。
 - `content/podcast.ts`：播客节目与发刊词。
 - `lib/library.ts`：书库书目与封面配置。
+- `lib/language-books.ts`：Rust / Java 书目类型与路由辅助。
+- `scripts/generate-brand-assets.py`：生成分享图、图标和 sitemap；`LANGUAGE_BOOK_ROUTES` 需要与新书章节同步。
 - `app/page.tsx`：书店式首页。
 - `app/notes/page.tsx`：书库目录。
 - `app/blog/`：文章列表与详情。
-- `app/book/[slug]/page.tsx`：章节阅读页。
+- `app/book/[slug]/page.tsx`：Python 章节阅读页。
+- `app/book/rust/`：Rust 手册目录与章节页。
+- `app/book/java/`：Java 8 手册目录与章节页。
 - `components/book-volume.tsx`：书目封面组件。
+- `components/language-book-chapter.tsx`：Rust / Java 通用章节阅读器。
 - `components/python-workbench.tsx`：CodeMirror + Pyodide 执行工作台。
 - `public/pyodide-worker.js`：加载 Pyodide、执行 Python 的 Web Worker。
 
