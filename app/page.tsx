@@ -8,12 +8,7 @@ import { stats } from "@/lib/chapters";
 import { languageBooks } from "@/lib/language-books";
 import { libraryBooks } from "@/lib/library";
 import { formatPostDate, posts } from "@/lib/posts";
-import {
-  currentRoadmapStage,
-  currentStageTasks,
-  roadmapStages,
-  roadmapStatusLabel,
-} from "@/lib/roadmap";
+import { currentRoadmapNode, roadmapNodes } from "@/lib/roadmap";
 
 export default function HomePage() {
   const liveBooks = libraryBooks.filter((book) => book.href).length;
@@ -43,7 +38,7 @@ export default function HomePage() {
         <div className="container library-hero-grid">
           <div className="library-hero-copy">
             <span className="library-kicker library-kicker-light">
-              LEARNING ROADMAP · PYTHON AI SERVICE
+              LEARNING MAP · PYTHON PRACTICE
             </span>
             <h1 id="library-title">
               自习室
@@ -52,7 +47,7 @@ export default function HomePage() {
             <p className="library-hero-sub">
               Python 基础已完成。
               <br />
-              下一步：FastAPI 服务与流式模型调用。
+              下一步：用 PyCharm 做一个实战项目。
             </p>
             <div className="library-hero-actions">
               <Link className="library-btn library-btn-light" href="/roadmap/">
@@ -68,25 +63,25 @@ export default function HomePage() {
 
           <aside className="library-featured">
             <div className="library-featured-top">
-              <span>CURRENT STAGE</span>
+              <span>CURRENT NODE</span>
               <span>
-                {currentRoadmapStage.number} / {roadmapStages.length}
+                {currentRoadmapNode.number} / {roadmapNodes.length}
               </span>
             </div>
             <h2>
-              {currentRoadmapStage.title}
-              <span>{currentRoadmapStage.subtitle}</span>
+              {currentRoadmapNode.title}
+              <span>{currentRoadmapNode.subtitle}</span>
             </h2>
-            <p>先跑通 /chat/stream，再进入 LLM Gateway。</p>
+            <p>先完成命令行学习记录工具，再进入 FastAPI。</p>
             <Link
               className="library-featured-link"
-              href="/lab/ai-backend/#experiment-00"
+              href={`/roadmap/${currentRoadmapNode.id}/`}
             >
-              打开实验 00
+              打开节点
               <ArrowRight />
             </Link>
             <span className="library-featured-mark" aria-hidden="true">
-              {currentRoadmapStage.number}
+              {currentRoadmapNode.number}
             </span>
           </aside>
         </div>
@@ -97,65 +92,6 @@ export default function HomePage() {
             {" · "}
             {episodes.length} EPISODES
           </span>
-        </div>
-      </section>
-
-      <section
-        className="container library-section home-roadmap"
-        aria-labelledby="home-roadmap-title"
-      >
-        <div className="library-section-head" data-reveal>
-          <div>
-            <span className="library-kicker">LEARNING ROUTE</span>
-            <h2 id="home-roadmap-title">学习路线</h2>
-          </div>
-          <Link className="library-index-link" href="/roadmap/">
-            完整路线
-            <ArrowRight />
-          </Link>
-        </div>
-
-        <div className="home-roadmap-grid">
-          <div className="home-roadmap-current" data-reveal>
-            <div className="home-roadmap-current-top">
-              <span>当前阶段 / {currentRoadmapStage.number}</span>
-              <span>{currentRoadmapStage.duration}</span>
-            </div>
-            <h3>{currentRoadmapStage.title}</h3>
-            <p className="home-roadmap-sub">{currentRoadmapStage.subtitle}</p>
-            <ol className="home-roadmap-tasks">
-              {currentStageTasks.map((task, index) => (
-                <li key={task}>
-                  <span>0{index + 1}</span>
-                  <p>{task}</p>
-                </li>
-              ))}
-            </ol>
-            <Link
-              className="library-btn library-btn-light"
-              href="/lab/ai-backend/#experiment-00"
-            >
-              从实验 00 开始
-              <ArrowRight />
-            </Link>
-          </div>
-
-          <ol className="home-roadmap-list" data-reveal>
-            {roadmapStages.map((stage) => (
-              <li className={`is-${stage.status}`} key={stage.id}>
-                <Link href={`/roadmap/#${stage.id}`}>
-                  <span className="home-roadmap-number">{stage.number}</span>
-                  <span className="home-roadmap-copy">
-                    <strong>{stage.title}</strong>
-                    <em>
-                      {roadmapStatusLabel[stage.status]} · {stage.subtitle}
-                    </em>
-                  </span>
-                  <ArrowRight />
-                </Link>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 

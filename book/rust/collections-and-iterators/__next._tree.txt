@@ -1,8 +1,8 @@
 :HL["/_next/static/chunks/2qryqjn4tzyzw.css","style"]
-:HL["/_next/static/chunks/0zhca1hljugsy.css","style"]
+:HL["/_next/static/chunks/26uuqs4zq4yr0.css","style"]
 :HC["/",""]
 4:[["children",{"s":"__PAGE__","h":160}]]
 3:[["children",{"s":{"n":"slug","t":"d","k":"collections-and-iterators","s":[]},"h":65632,"c":"$Q4"}]]
 2:[["children",{"s":"rust","h":131168,"c":"$Q3"}]]
 1:[["children",{"s":"book","h":131136,"c":"$Q2"}]]
-0:{"b":"kVAonyZQFSPnny2X9xVJw","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
+0:{"b":"Kql8I5hoIqqcoCRkXSRSL","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}

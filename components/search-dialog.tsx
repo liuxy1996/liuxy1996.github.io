@@ -20,8 +20,8 @@ import { aiBackendLab, plannedLabs } from "@/lib/labs";
 import { libraryBooks } from "@/lib/library";
 import { posts, postToPlainText } from "@/lib/posts";
 import {
-  currentRoadmapStage,
-  roadmapStages,
+  currentRoadmapNode,
+  roadmapNodes,
   roadmapStatusLabel,
 } from "@/lib/roadmap";
 import { ArrowRight, Search, X } from "@/components/icons";
@@ -96,15 +96,15 @@ const roadmapEntry: SearchEntry = {
   kind: "page",
   href: "/roadmap/",
   title: "学习路线",
-  context: `路线 · 当前：${currentRoadmapStage.title}`,
-  text: roadmapStages
-    .flatMap((stage) => [
-      stage.title,
-      stage.subtitle,
-      stage.summary,
-      stage.deliverable,
-      roadmapStatusLabel[stage.status],
-      ...stage.topics,
+  context: `路线 · 当前：${currentRoadmapNode.title}`,
+  text: roadmapNodes
+    .flatMap((node) => [
+      node.title,
+      node.subtitle,
+      node.goal,
+      roadmapStatusLabel[node.status],
+      ...node.steps.map((step) => step.title),
+      ...node.acceptance,
     ])
     .join(" "),
 };
