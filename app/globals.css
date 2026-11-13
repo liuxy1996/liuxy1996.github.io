@@ -15568,7 +15568,7 @@ html.reveal-fallback.js [data-reveal] {
   height: 11px;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1180px) {
   .route-map-page {
     padding-bottom: 22px;
   }
@@ -15594,7 +15594,7 @@ html.reveal-fallback.js [data-reveal] {
   }
 
   .route-map-board {
-    height: 560px;
+    height: 760px;
     border-radius: 13px;
   }
 
@@ -15706,6 +15706,125 @@ html.reveal-fallback.js [data-reveal] {
 @media (prefers-reduced-motion: reduce) {
   .route-node.is-current .route-node-pin {
     animation: none;
+  }
+}
+
+.route-questions {
+  margin-top: 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.route-questions h2 {
+  margin: 7px 0 12px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 450;
+}
+
+.route-questions ol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px 25px;
+  padding: 0;
+  list-style: none;
+  counter-reset: question;
+}
+
+.route-questions li {
+  position: relative;
+  padding-left: 24px;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.65;
+  counter-increment: question;
+}
+
+.route-questions li::before {
+  content: counter(question, decimal-leading-zero);
+  position: absolute;
+  top: 1px;
+  left: 0;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 7px;
+}
+
+.route-sources {
+  margin-top: 22px;
+  padding-top: 19px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.route-sources h2 {
+  margin: 7px 0 12px;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 450;
+}
+
+.route-sources-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.route-sources-list a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.18s ease;
+}
+
+.route-sources-list a:hover {
+  border-color: var(--accent);
+}
+
+.route-sources-list strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 550;
+}
+
+.route-sources-list strong svg {
+  width: 10px;
+  height: 10px;
+}
+
+.route-sources-list span {
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.route-sources > p {
+  margin-top: 9px;
+  color: var(--faint);
+  font-size: 7.5px;
+}
+
+@media (max-width: 900px) {
+  .route-questions ol,
+  .route-sources-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .route-questions h2,
+  .route-sources h2 {
+    font-size: 18px;
+  }
+
+  .route-questions li {
+    font-size: 10px;
   }
 }
 

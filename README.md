@@ -10,7 +10,7 @@
 - **书库**：Python 完全学习手册、Rust 精简手册、On Java 8 导读已经上架；AI Agent、工程手记正在整理。
 - **实验室**：AI 后端工程实验页，记录从 FastAPI 到可观测 Agent 服务的路线。
 - **文章**：关于 AI、编程基本功、语言选择与学习方法的长期写作。
-- **学习路线**：2.5D 节点地图，6 个节点：Python 基础、Python 实战、FastAPI、大模型接入、RAG、Agent；当前节点为 Python 实战（PyCharm 项目）。
+- **学习路线**：2.5D 节点地图，8 个节点：Python 基础、Python 实战、FastAPI、大模型应用、RAG、Agent、上线、面试与作品集；当前节点为 Python 实战（PyCharm 项目）。
 - **实验室**：AI 后端工程实验，按 FastAPI、LLM Gateway、RAG、Agent、生产化与 Capstone 推进；视觉/边缘与物理世界 Agent 排队中。
 - **播客**：自习室电台，第一季策划中，前导文字稿已上线。
 - **练习室**：Pyodide + Web Worker 在浏览器本地运行 Python；Rust / Java 可连接远程编译器运行。
@@ -77,7 +77,7 @@ GitHub Actions 只做构建检查，不执行部署，避免与分支发布竞�
 - `content/podcast.ts`：播客节目与发刊词。
 - `lib/library.ts`：书库书目与封面配置。
 - `lib/language-books.ts`：Rust / On Java 8 书目类型与路由辅助。
-- `lib/roadmap.ts`：6 个路线节点、PyCharm 步骤、代码与验收标准。
+- `lib/roadmap.ts`：8 个路线节点、PyCharm 步骤、代码、验收标准与官方参考来源。
 - `components/roadmap-map.tsx`：2.5D 学习地图。
 - `app/roadmap/page.tsx`：地图入口。
 - `app/roadmap/[id]/page.tsx`：单个节点的专注学习页，只有步骤、代码和下一节点。

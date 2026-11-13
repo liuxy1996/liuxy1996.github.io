@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { RoadmapMap } from "@/components/roadmap-map";
-import { currentRoadmapNode } from "@/lib/roadmap";
+import { currentRoadmapNode, roadmapNodes } from "@/lib/roadmap";
 import { site } from "@/lib/chapters";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/roadmap/" },
   openGraph: {
     title: `学习路线｜${site.name}`,
-    description: `6 个节点，当前：${currentRoadmapNode.title}。`,
+    description: `${roadmapNodes.length} 个节点，当前：${currentRoadmapNode.title}。`,
     url: "/roadmap/",
   },
 };

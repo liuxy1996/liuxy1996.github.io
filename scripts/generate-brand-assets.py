@@ -156,6 +156,8 @@ def make_sitemap() -> None:
         "/roadmap/llm/",
         "/roadmap/rag/",
         "/roadmap/agent/",
+        "/roadmap/production/",
+        "/roadmap/interview/",
         "/lab/",
         "/lab/ai-backend/",
         "/podcast/",

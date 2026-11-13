@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "@/components/icons";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@/components/icons";
 import { CodeBlock } from "@/components/code-block";
 import { highlightCode } from "@/lib/highlight";
 import {
@@ -92,6 +92,18 @@ export default async function RoadmapNodePage({
           </section>
         ))}
 
+        {node.questions && (
+          <section className="route-questions">
+            <span className="library-kicker">SELF CHECK</span>
+            <h2>面试前先回答这些问题</h2>
+            <ol>
+              {node.questions.map((question) => (
+                <li key={question}>{question}</li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         <section className="route-acceptance">
           <span className="library-kicker">完成标准</span>
           <h2>做到这些再进入下一节点</h2>
@@ -100,6 +112,28 @@ export default async function RoadmapNodePage({
               <li key={item}>{item}</li>
             ))}
           </ul>
+        </section>
+
+        <section className="route-sources">
+          <span className="library-kicker">REFERENCES</span>
+          <h2>参考资料</h2>
+          <div className="route-sources-list">
+            {node.sources.map((source) => (
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={source.url}
+              >
+                <strong>
+                  {source.label}
+                  <ArrowUpRight />
+                </strong>
+                <span>{source.note}</span>
+              </a>
+            ))}
+          </div>
+          <p>以上为官方文档与原始资料的摘要，不替代原文。</p>
         </section>
 
         <nav className="route-next" aria-label="路线导航">

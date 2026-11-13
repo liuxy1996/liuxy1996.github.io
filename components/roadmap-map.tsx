@@ -7,9 +7,9 @@ import {
 } from "@/lib/roadmap";
 
 const desktopPath =
-  "M 120 511 C 180 485 215 412 288 392 C 365 373 405 443 480 455 C 553 467 603 327 672 301 C 741 275 785 365 864 364 C 944 363 987 219 1056 189";
+  "M 108 532 C 175 490 210 438 264 420 C 330 400 370 466 420 476 C 490 486 520 370 576 336 C 640 298 685 380 732 392 C 805 412 830 280 888 252 C 945 224 1000 360 1044 329 C 1040 300 930 170 840 119";
 const mobilePath =
-  "M 72 88 C 140 116 222 166 268 200 S 235 290 112 328 S 226 410 288 440 S 235 522 120 560 S 214 650 280 688";
+  "M 72 56 C 140 80 220 112 268 136 S 200 200 112 224 S 220 276 280 304 S 205 360 120 392 S 220 444 280 472 S 205 528 120 560 S 220 620 272 656";
 
 export function RoadmapMap() {
   return (
@@ -37,8 +37,8 @@ export function RoadmapMap() {
         >
           <path className="route-path-shadow" d={desktopPath} />
           <path className="route-path-line" d={desktopPath} />
-          <circle className="route-path-dot" cx="96" cy="511" r="4" />
-          <circle className="route-path-dot" cx="1056" cy="189" r="4" />
+          <circle className="route-path-dot" cx="108" cy="532" r="4" />
+          <circle className="route-path-dot" cx="840" cy="119" r="4" />
         </svg>
 
         <svg
@@ -49,8 +49,8 @@ export function RoadmapMap() {
         >
           <path className="route-path-shadow" d={mobilePath} />
           <path className="route-path-line" d={mobilePath} />
-          <circle className="route-path-dot" cx="72" cy="88" r="4" />
-          <circle className="route-path-dot" cx="280" cy="688" r="4" />
+          <circle className="route-path-dot" cx="72" cy="56" r="4" />
+          <circle className="route-path-dot" cx="272" cy="656" r="4" />
         </svg>
 
         {roadmapNodes.map((node) => (

@@ -1,8 +1,8 @@
 :HL["/_next/static/chunks/2qryqjn4tzyzw.css","style"]
-:HL["/_next/static/chunks/26uuqs4zq4yr0.css","style"]
+:HL["/_next/static/chunks/2uofx8w0ehafb.css","style"]
 :HC["/",""]
 :HL["/images/books.webp","image",{"fetchPriority":"high"}]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"ai-makes-fundamentals-more-valuable","s":[]},"h":65632,"c":"$Q3"}]]
 1:[["children",{"s":"blog","h":131136,"c":"$Q2"}]]
-0:{"b":"Kql8I5hoIqqcoCRkXSRSL","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
+0:{"b":"buIBkQN3-uHwjQnMB0QS1","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
